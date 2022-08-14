@@ -1,0 +1,34 @@
+version: 1
+script:
+  - rm -rf AppDir/
+  - mkdir AppDir/
+  - cargo build --release
+  - install -Dm 755 target/release/celeste AppDir/usr/bin/celeste
+  - install -Dm 644 assets/com.hunterwittenborn.Celeste.desktop AppDir/usr/share/applications/com.hunterwittenborn.Celeste.desktop
+  - install -Dm 644 assets/com.hunterwittenborn.Celeste-regular.svg AppDir/usr/share/icons/hicolor/64x64/apps/com.hunterwittenborn.Celeste.svg
+  - install -Dm 755 appimage/wrapper.sh AppDir/usr/bin/celeste-wrapper
+AppDir:
+  path: ./AppDir
+  app_info:
+    id: com.hunterwittenborn.Celeste
+    name: Celeste
+    icon: com.hunterwittenborn.Celeste
+    version: 0.1.0
+    exec: bin/bash
+    exec_args: '-c "${APPDIR}/usr/bin/celeste-wrapper ${@}"'
+  apt:
+    arch: amd64
+    sources:
+      - sourceline: 'deb http://us.archive.ubuntu.com/ubuntu/ kinetic main universe'
+        key_url: 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xf6ecb3762474eda9d21b7022871920d1991bc93c'
+    include:
+      - bash
+      - libadwaita-1-0
+      - rclone
+  after_bundle: |
+    chmod -x AppDir/usr/bin/{celeste,rclone} # See https://github.com/AppImageCrafters/appimage-builder/issues/284.
+AppImage:
+  update-information: None
+  sign-key: None
+  arch: x86_64
+  file_name: celeste.AppImage

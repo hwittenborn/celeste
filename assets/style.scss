@@ -1,0 +1,24 @@
+// Global padding on windows.
+window > *:not(contents), window > contents {
+    & > box, & > leaflet > box {
+        & > *:not(headerbar):not(stacksidebar) {
+            margin-left: 1em;
+            margin-right: 1em;
+
+            &:nth-child(2) {
+                margin-top: 1em;
+            }
+
+            &:last-child {
+                margin-bottom: 1em;
+            }
+        }
+    }
+}
+
+// Formatting for code blocks.
+.scrollable-codeblock {
+    border-style: solid;
+    border-width: 1px;
+    border-color: unquote("@borders");
+}
