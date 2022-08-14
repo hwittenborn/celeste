@@ -21,7 +21,7 @@ pub fn read_config() -> File {
         .into_os_string()
         .into_string()
         .unwrap()
-        + "/cluff";
+        + "/cliff";
     let config_file_path = config_dir_path.clone() + "/config.toml";
 
     let file_result = match File::open(&config_file_path) {

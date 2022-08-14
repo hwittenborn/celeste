@@ -3,7 +3,7 @@ use gtk::{Application, ApplicationWindow, Label, prelude::*};
 // Create a new application instance.
 pub fn application() -> Application {
     Application::builder()                                                                                
-        .application_id("com.hunterwittenborn.cluff")                                                               
+        .application_id("com.hunterwittenborn.cliff")
         .build()
 }
 
