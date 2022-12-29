@@ -22,9 +22,6 @@ Celeste can currently connect to the following cloud providers:
 ## Installation
 Celeste can be installed via the methods listed below:
 
-### AppImage
-AppImages are published on every release on the [Releases page](https://github.com/hwittenborn/celeste/releases/latest). Note that if you use this installation method you won't receive automatic updates - if you'd prefer to have such use on of the below methods.
-
 ### MPR Source Package (Debian/Ubuntu)
 If you're on Ubuntu 22.10 or later, you can install Celeste from source on the [MPR](https://mpr.makedeb.org/packages/celeste). You'll need to have [makedeb](https://docs.makedeb.org/installing/apt-repository/) and [Mist](https://docs.makedeb.org/using-the-mpr/mist-the-mpr-cli/) installed before you do so.
 

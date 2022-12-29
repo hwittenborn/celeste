@@ -1,9 +1,3 @@
-create-appimage:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    cd "$(git rev-parse --show-toplevel)"
-    appimage-builder --recipe appimage/AppImageBuilder.yml
-
 get-version:
     #!/usr/bin/env bash
     set -euo pipefail
@@ -13,5 +7,4 @@ update-versions:
     #!/usr/bin/env bash
     set -euo pipefail
     version="$(just get-version)"
-    sed -i "s| version: .*| version: ${version}|" appimage/AppImageBuilder.yml
     sed -i "s|pkgver=.*|pkgver=${version}|" makedeb/PKGBUILD
