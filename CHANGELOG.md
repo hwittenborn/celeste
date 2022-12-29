@@ -6,5 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.1.0] - 2022-12-28
+## [0.1.1] - 2022-12-29
+### Changed
+- Fixed MPR packaging.
+
+## [0.1.0] - 2022-12-29
 First release! 🥳

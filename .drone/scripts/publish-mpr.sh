@@ -19,7 +19,7 @@ cd makedeb/
 source PKGBUILD
 
 git clone "ssh://mpr@${mpr_url}/${pkgname}"
-cp PKGBUILD mist.postinst "${pkgname}/"
+cp PKGBUILD "${pkgname}/"
 cd "${pkgname}/"
 
 git config --global user.name 'Kavplex Bot'
