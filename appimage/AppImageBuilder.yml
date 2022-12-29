@@ -13,7 +13,7 @@ AppDir:
     id: com.hunterwittenborn.Celeste
     name: Celeste
     icon: com.hunterwittenborn.Celeste
-    version: 0.1.1
+    version: 0.1.2
     exec: bin/bash
     exec_args: '-c "${APPDIR}/usr/bin/celeste-wrapper ${@}"'
   apt:
@@ -24,6 +24,11 @@ AppDir:
     include:
       - bash
       - libadwaita-1-0
+      - liblzo2-2
+      - libxcb-render0
+      - libxcb-shm0
+      - libwayland-client0
+      - libwayland-egl1
       - rclone
   after_bundle: |
     chmod -x AppDir/usr/bin/{celeste,rclone} # See https://github.com/AppImageCrafters/appimage-builder/issues/284.

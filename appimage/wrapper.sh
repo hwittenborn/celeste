@@ -7,6 +7,6 @@ cp "${APPDIR}"/* "${tmpdir}" -r
 cd "${tmpdir}"
 
 chmod +x usr/bin/{celeste,rclone}
-usr/bin/celeste "${@}" || true
+LD_LIBRARY_PATH="${PWD}/usr/lib" usr/bin/celeste "${@}" || true
 
 rm "${tmpdir}" -r
