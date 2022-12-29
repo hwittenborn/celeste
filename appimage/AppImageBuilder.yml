@@ -13,7 +13,7 @@ AppDir:
     id: com.hunterwittenborn.Celeste
     name: Celeste
     icon: com.hunterwittenborn.Celeste
-    version: 0.1.3
+    version: 0.1.4
     exec: bin/bash
     exec_args: '-c "${APPDIR}/usr/bin/celeste-wrapper ${@}"'
   apt:
