@@ -30,8 +30,11 @@ sudo apt install celeste
 ```
 
 ### MPR Source Package (Debian/Ubuntu)
-If you're on Ubuntu 22.10 or later, you can build and install Celeste from source on the [MPR](https://mpr.makedeb.org/packages/celeste). You'll need to have [makedeb](https://docs.makedeb.org/installing/apt-repository/) and [Mist](https://docs.makedeb.org/using-the-mpr/mist-the-mpr-cli/) installed before you do so.
+If you're on Ubuntu 22.10 or later, you can build and install Celeste from source on the [MPR](https://mpr.makedeb.org/packages/celeste). You'll need to have [makedeb](https://docs.makedeb.org/installing/apt-repository/) installed before you do so.
 
 ```sh
-mist install celeste
+# You'll probably want to have rustup installed from the MPR (https://mpr.makedeb.org/packages/rustup) as well.
+git clone 'https://mpr.makedeb.org/celeste'
+cd celeste/
+makedeb -si
 ```
