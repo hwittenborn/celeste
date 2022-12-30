@@ -22,8 +22,15 @@ Celeste can currently connect to the following cloud providers:
 ## Installation
 Celeste can be installed via the methods listed below:
 
+### Prebuilt-MPR
+If you're on Ubuntu 22.10 or later, you can install Celeste from the Prebuilt-MPR. You'll first need to [set up the Prebuilt-MPR on your system](https://docs.makedeb.org/prebuilt-mpr/getting-started/), and then run the following:
+
+```sh
+sudo apt install celeste
+```
+
 ### MPR Source Package (Debian/Ubuntu)
-If you're on Ubuntu 22.10 or later, you can install Celeste from source on the [MPR](https://mpr.makedeb.org/packages/celeste). You'll need to have [makedeb](https://docs.makedeb.org/installing/apt-repository/) and [Mist](https://docs.makedeb.org/using-the-mpr/mist-the-mpr-cli/) installed before you do so.
+If you're on Ubuntu 22.10 or later, you can build and install Celeste from source on the [MPR](https://mpr.makedeb.org/packages/celeste). You'll need to have [makedeb](https://docs.makedeb.org/installing/apt-repository/) and [Mist](https://docs.makedeb.org/using-the-mpr/mist-the-mpr-cli/) installed before you do so.
 
 ```sh
 mist install celeste
