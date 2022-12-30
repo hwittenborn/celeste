@@ -6,7 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.1.5] - 2002-12-30
+## [0.1.6] - 2022-12-30
+### Changed
+- Fixed missing icon on about page.
+- Updated progress text to show individual file checks.
+- Fixed missing popover button on main screen.
+- Fixed main screen window not closing after being reopened.
+
+## [0.1.5] - 2022-12-30
 ### Changed
 - Fixed panic on launch from missing directory.
 

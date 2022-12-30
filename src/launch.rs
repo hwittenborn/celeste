@@ -926,6 +926,7 @@ pub fn launch(app: &Application) {
     }));
     let sidebar_nav_right_button = Button::from_icon_name("go-next-symbolic");
     sidebar_header.pack_start(&sidebar_add_server_button);
+    sidebar_header.pack_end(&sidebar_menu_button);
     sidebar_box.append(&sidebar_header);
     sidebar_box.append(&stack_sidebar);
 
@@ -964,7 +965,7 @@ pub fn launch(app: &Application) {
             sidebar_header.pack_end(&sidebar_menu_button);
             stack_header.pack_start(&stack_nav_left_button);
         } else {
-            sidebar_header.remove(&sidebar_menu_button);
+            sidebar_header.remove(&sidebar_nav_right_button);
             stack_header.remove(&stack_nav_left_button);
         }
     });
@@ -976,6 +977,11 @@ pub fn launch(app: &Application) {
     sections.set_visible_child(&sidebar_box);
     window.set_content(Some(&sections));
 
+    // We have to manually close the window when the close button is clicked for some reason. See https://matrix.to/#/!CxdTjqASmMdXwTeLsR:matrix.org/$16724077630uSZSF:hunterwittenborn.com?via=gnome.org&via=matrix.org&via=tchncs.de.
+    window.connect_close_request(|window| {
+        window.hide();
+        Inhibit(false)
+    });
     // Show the window and start syncing.
     window.show();
 
@@ -983,7 +989,7 @@ pub fn launch(app: &Application) {
         // If the user requested to open the window, then open it.
         let notify_file = util::notify_open_file();
         if notify_file.exists() {
-            window.present();
+            window.show();
             fs::remove_file(&notify_file).unwrap();
         }
 
@@ -1110,7 +1116,11 @@ pub fn launch(app: &Application) {
                             let new_num_errors = error_text.chars().next().unwrap().to_digit(10).unwrap() - 1;
                             if new_num_errors == 0 {
                                 item.error_status_text.set_label("");
-                                item.status_text.set_label(item.status_text.text().as_str().strip_suffix(PLEASE_RESOLVE_MSG).unwrap());
+                                let label_text = match item.status_text.text().as_str().strip_suffix(PLEASE_RESOLVE_MSG) {
+                                    Some(text) => text.to_string(),
+                                    None => item.status_text.text().to_string()
+                                };
+                                item.status_text.set_label(&label_text);
                             } else {
                                 let error_string = format!("{new_num_errors} errors found. ");
                                 item.error_status_text.set_label(&error_string);
@@ -1381,7 +1391,7 @@ pub fn launch(app: &Application) {
                     process_deletion_requests();
 
                     let dir_string = local_dir.to_str().unwrap().to_owned();
-                    let update_ui_progress = || {
+                    let update_ui_progress = |dir: &str| {
                         // If this directory no longer exists in the database (i.e. from being
                         // deleted from the `sync_dir_deletion_queue`, do nothing).
                         if !sync_dir.exists(db) {
@@ -1392,14 +1402,14 @@ pub fn launch(app: &Application) {
                         let dir_pair = (sync_dir.local_path.clone(), sync_dir.remote_path.clone());
                         let item = ptr.get(&remote.name).unwrap().get(&dir_pair).unwrap();
                         let status_string =
-                            format!("Checking '{}' for changes...", util::fmt_home(&dir_string));
+                            format!("Checking '{}' for changes...", util::fmt_home(dir));
                         item.status_text.set_label(&status_string);
                     };
-                    update_ui_progress();
+                    update_ui_progress(&dir_string);
                     let directory = match fs::read_dir(local_dir) {
                         Ok(ok_dir) => ok_dir,
                         Err(err) => {
-                            add_error(SyncError::General(dir_string.clone(), err.to_string()));
+                            add_error(SyncError::General(dir_string, err.to_string()));
                             return;
                         }
                     };
@@ -1465,6 +1475,7 @@ pub fn launch(app: &Application) {
                             .unwrap()
                             .to_owned();
 
+                        update_ui_progress(&local_path);
                         // If this item matches the ignore list, don't sync it.
                         if ignore_globs
                             .iter()
@@ -1546,7 +1557,7 @@ pub fn launch(app: &Application) {
                                     add_error.clone(),
                                     process_deletion_requests.clone(),
                                 );
-                                update_ui_progress();
+                                update_ui_progress(&local_path);
                             } else if let Err(err) = rclone::sync::copy_to_remote(
                                 &local_path,
                                 &remote.name,
@@ -1588,7 +1599,7 @@ pub fn launch(app: &Application) {
                                     add_error.clone(),
                                     process_deletion_requests.clone(),
                                 );
-                                update_ui_progress();
+                                update_ui_progress(&local_path);
                             } else if let Err(err) =
                                 rclone::sync::copy_to_local(&local_path, &remote.name, &remote_path)
                             {
@@ -1779,7 +1790,7 @@ pub fn launch(app: &Application) {
                     } else {
                         vec![]
                     };
-                    let update_ui_progress = || {
+                    let update_ui_progress = |dir: &str| {
                         // If this directory no longer exists in the database (i.e. from being
                         // deleted from the `sync_dir_deletion_queue`, do nothing).
                         if !sync_dir.exists(db) {
@@ -1789,11 +1800,10 @@ pub fn launch(app: &Application) {
                         let ptr = directory_map.get_ref();
                         let dir_pair = (sync_dir.local_path.clone(), sync_dir.remote_path.clone());
                         let item = ptr.get(&remote.name).unwrap().get(&dir_pair).unwrap();
-                        let status_string =
-                            format!("Checking '{remote_dir}' on remote for changes...");
+                        let status_string = format!("Checking '{dir}' on remote for changes...");
                         item.status_text.set_label(&status_string);
                     };
-                    update_ui_progress();
+                    update_ui_progress(remote_dir);
                     let items = match rclone::sync::list(
                         &remote.name,
                         remote_dir,
@@ -1836,6 +1846,7 @@ pub fn launch(app: &Application) {
                             sync_dir.local_path,
                             item.path.strip_prefix(&sync_dir.remote_path).unwrap()
                         );
+                        update_ui_progress(&remote_path_string);
                         // If we've already synced this directory from `fn sync_local_directory`
                         // above, don't sync it again.
                         if synced_items
@@ -1906,7 +1917,7 @@ pub fn launch(app: &Application) {
                                     add_error.clone(),
                                     process_deletion_requests.clone(),
                                 );
-                                update_ui_progress();
+                                update_ui_progress(&remote_path_string);
                             } else {
                                 if item.is_dir {
                                     if let Err(err) =
@@ -1986,7 +1997,7 @@ pub fn launch(app: &Application) {
                                     add_error.clone(),
                                     process_deletion_requests.clone(),
                                 );
-                                update_ui_progress();
+                                update_ui_progress(&remote_path_string);
                             } else if let Err(err) = rclone::sync::copy_to_local(
                                 &local_path_string,
                                 &remote.name,

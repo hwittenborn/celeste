@@ -5,6 +5,8 @@ Celeste is a GUI file synchronization client that can connect to virtually any c
 - Written with GTK4 and Libadwaita, giving Celeste a native look and feel on your desktop
 - Written in Rust, making Celeste ***blazingly fast*** to use
 
+![](/assets/main-window.png)
+
 > **NOTE:**
 > Celeste is currently alpha software, and you should likewise ensure you have a backup of your data before you decide on trying it. *Any file loss incurred is at your own risk*.
 

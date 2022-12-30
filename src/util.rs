@@ -41,7 +41,7 @@ pub fn is_running_file() -> PathBuf {
             .unwrap()
             .into_string()
             .unwrap()
-            + "running-lock",
+            + "-celeste-running-lock",
     );
     dir
 }
@@ -55,7 +55,7 @@ pub fn notify_open_file() -> PathBuf {
             .unwrap()
             .into_string()
             .unwrap()
-            + "notify-lock",
+            + "-celeste-notify-lock",
     );
     dir
 }
