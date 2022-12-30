@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.5] - 2002-12-30
+### Changed
+- Fixed panic on launch from missing directory.
+
 ## [0.1.4] - 2022-12-29
 ### Changed
 - Added very hacky workaround to finally fix linker usage in AppImage.

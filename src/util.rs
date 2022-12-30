@@ -34,17 +34,29 @@ pub fn get_config_dir() -> PathBuf {
 
 /// Get the lockfile that's used to check if a Celeste instance is running.
 pub fn is_running_file() -> PathBuf {
-    let mut dir = glib::user_config_dir();
-    dir.push("celeste");
-    dir.push("running.lock");
+    let mut dir = PathBuf::new();
+    dir.push("/tmp");
+    dir.push(
+        users::get_current_username()
+            .unwrap()
+            .into_string()
+            .unwrap()
+            + "running-lock",
+    );
     dir
 }
 
 /// Get the file that's used to open a running Celeste instance.
 pub fn notify_open_file() -> PathBuf {
-    let mut dir = glib::user_config_dir();
-    dir.push("celeste");
-    dir.push("notify.lock");
+    let mut dir = PathBuf::new();
+    dir.push("/tmp");
+    dir.push(
+        users::get_current_username()
+            .unwrap()
+            .into_string()
+            .unwrap()
+            + "notify-lock",
+    );
     dir
 }
 
