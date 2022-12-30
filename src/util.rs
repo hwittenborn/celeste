@@ -32,34 +32,6 @@ pub fn get_config_dir() -> PathBuf {
     config_dir
 }
 
-/// Get the lockfile that's used to check if a Celeste instance is running.
-pub fn is_running_file() -> PathBuf {
-    let mut dir = PathBuf::new();
-    dir.push("/tmp");
-    dir.push(
-        users::get_current_username()
-            .unwrap()
-            .into_string()
-            .unwrap()
-            + "-celeste-running-lock",
-    );
-    dir
-}
-
-/// Get the file that's used to open a running Celeste instance.
-pub fn notify_open_file() -> PathBuf {
-    let mut dir = PathBuf::new();
-    dir.push("/tmp");
-    dir.push(
-        users::get_current_username()
-            .unwrap()
-            .into_string()
-            .unwrap()
-            + "-celeste-notify-lock",
-    );
-    dir
-}
-
 /// Strip the slashes from the beginning and end of a string.
 pub fn strip_slashes(string: &str) -> String {
     let stripped_prefix = match string.strip_prefix('/') {

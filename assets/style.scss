@@ -22,3 +22,8 @@ window > *:not(contents), window > contents {
     border-width: 1px;
     border-color: unquote("@borders");
 }
+
+// Styling for `EntryRow`s with no titles.
+row.no-title box widget label {
+    font-size: 0;
+}

@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.7] - 2022-12-30
+### Changed
+- Fixed vertical alignment of text in file/folder exclusion section.
+- Improved method for finding running Celeste instances.
+
 ## [0.1.6] - 2022-12-30
 ### Changed
 - Fixed missing icon on about page.

@@ -136,9 +136,6 @@ fn get_image(icon_name: &str) -> Image {
 }
 
 pub fn launch(app: &Application) {
-    // Create the lock file.
-    fs::File::create(&util::is_running_file()).unwrap();
-
     // Create the configuration directory if it doesn't exist.
     let config_path = util::get_config_dir();
     if !config_path.exists() && let Err(err) = fs::create_dir_all(&config_path) {
@@ -980,19 +977,12 @@ pub fn launch(app: &Application) {
     // We have to manually close the window when the close button is clicked for some reason. See https://matrix.to/#/!CxdTjqASmMdXwTeLsR:matrix.org/$16724077630uSZSF:hunterwittenborn.com?via=gnome.org&via=matrix.org&via=tchncs.de.
     window.connect_close_request(|window| {
         window.hide();
-        Inhibit(false)
+        Inhibit(true)
     });
     // Show the window and start syncing.
     window.show();
 
     'main: loop {
-        // If the user requested to open the window, then open it.
-        let notify_file = util::notify_open_file();
-        if notify_file.exists() {
-            window.show();
-            fs::remove_file(&notify_file).unwrap();
-        }
-
         // If the user requested to quit the application, then break the loop.
         if *quit_request.get_ref() {
             break 'main;
@@ -2203,6 +2193,7 @@ pub fn launch(app: &Application) {
         }
     }
 
-    // We broke out of the loop because of a close request, so close the window.
+    // We broke out of the loop because of a close request, so close and destroy the window.
     window.close();
+    window.destroy();
 }

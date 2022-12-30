@@ -1,6 +1,6 @@
 [package]
 name = "celeste"
-version = "0.1.6"
+version = "0.1.7"
 edition = "2021"
 
 [dependencies]
@@ -15,6 +15,7 @@ glob = "0.3.0"
 hw-msg = "0.3.1"
 indexmap = "1.9.2"
 futures = "0.3.25"
+libappindicator = "0.7.1"
 librclone = { version = "0.3.0" }
 quit = "1.1.4"
 rand = "0.8.5"

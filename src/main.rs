@@ -17,6 +17,7 @@ mod util;
 use adw::{
     gtk::{self, gdk::Display, Align, Box, CssProvider, Label, Orientation, StyleContext},
     prelude::*,
+    gio::{DBusSignalFlags, DBusMessage, DBusSendMessageFlags},
     Application, ApplicationWindow, HeaderBar,
 };
 use clap::{Parser, Subcommand};
@@ -44,21 +45,6 @@ enum Commands {
 fn main() {
     // Initialize GTK.
     gtk::init().unwrap();
-
-    // If we already have an instance running, don't create a new instance. Instead
-    // wait for the running instance to detect the file we create.
-    let notify_file = util::notify_open_file();
-    if util::is_running_file().exists() {
-        if  !notify_file.exists() && let Err(err) = File::create(&notify_file) {
-            gtk_util::show_error(
-                "Notify Error",
-                &format!("Failed to notify the running Celeste instance that it needs to be opened [{err}]."),
-                None
-            );
-        }
-
-        return;
-    }
 
     // Configure Rclone.
     let mut config = util::get_config_dir();
@@ -93,7 +79,17 @@ fn main() {
             Commands::RunGui {} => {
                 // Start up the application.
                 app.connect_activate(|app| {
-                    launch::launch(app);
+                    if app.is_remote() {
+                        app.activate();
+                        return;
+                    }
+                    
+                    let windows = app.windows();
+                    if windows.is_empty() {
+                        launch::launch(app);
+                    } else {
+                        windows.iter().for_each(|window| window.show());
+                    }
                 });
 
                 app.run_with_args::<&str>(&[]);
@@ -194,12 +190,6 @@ fn main() {
             });
 
             app.run_with_args::<&str>(&[]);
-        }
-
-        // Delete the running lockfile if it got created.
-        let running_lock = util::is_running_file();
-        if running_lock.exists() {
-            fs::remove_file(&running_lock).unwrap();
         }
     }
 }
