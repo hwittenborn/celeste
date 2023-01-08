@@ -1,0 +1,12 @@
+[package]
+name = "celeste-tray"
+version = "0.1.8"
+edition = "2021"
+
+[dependencies]
+gtk3.workspace = true
+hw-msg.workspace = true
+lazy_static.workspace = true
+libappindicator.workspace = true
+libceleste.workspace = true
+zbus.workspace = true

@@ -1,12 +1,11 @@
-//! Functions and utilities for logging in to a server.
+//! Functions and libcelesteities for logging in to a server.
 use crate::{
     entities::{RemotesActiveModel, RemotesModel},
     gtk_util,
     mpsc::{self, Sender},
     rclone::{self},
-    traits::*,
-    util,
 };
+use libceleste::traits::prelude::*;
 mod dropbox;
 pub mod login_util;
 mod nextcloud;
@@ -90,7 +89,7 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
     // The window.
     let window = ApplicationWindow::builder()
         .application(app)
-        .title(&util::get_title!("Log in"))
+        .title(&libceleste::get_title!("Log in"))
         .width_request(400)
         .build();
     window.connect_close_request(glib::clone!(@strong sender => move |_| {
@@ -243,21 +242,21 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
             }),
         };
 
-        util::run_in_background(move || {
+        libceleste::run_in_background(move || {
             librclone::rpc("config/create", config_query.to_string()).unwrap()
         });
 
         // If we can't connect to the server, assume invalid credentials were given,
         // remote the config, and try asking for input again.
         if !can_login(app, &config_name) {
-            util::run_in_background(move || {
+            libceleste::run_in_background(move || {
                 librclone::rpc("config/delete", json!({ "name": config_name }).to_string()).unwrap()
             });
             window.set_sensitive(true);
         // We've passed validation otherwise, so add the remote to the db, close
         // the window and return the config.
         } else {
-            let model = util::await_future(
+            let model = libceleste::await_future(
                 RemotesActiveModel {
                     name: ActiveValue::Set(config_name),
                     ..Default::default()

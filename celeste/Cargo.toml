@@ -1,0 +1,37 @@
+[package]
+name = "celeste"
+version = "0.1.8"
+edition = "2021"
+
+[dependencies]
+adw.workspace = true
+base64.workspace = true
+blocking.workspace = true
+clap.workspace = true
+dirs.workspace = true
+exitcode.workspace = true
+file-lock.workspace = true
+glob.workspace = true
+hw-msg.workspace = true
+indexmap.workspace = true
+futures.workspace = true
+lazy_static.workspace = true
+libceleste.workspace = true
+librclone.workspace = true
+quit.workspace = true
+rand.workspace = true
+regex.workspace = true
+sea-orm.workspace = true
+sea-orm-migration.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+tempfile.workspace = true
+time.workspace = true
+tokio.workspace = true
+toml_edit.workspace = true
+url.workspace = true
+users.workspace = true
+zbus.workspace = true
+
+[build-dependencies]
+grass.workspace = true

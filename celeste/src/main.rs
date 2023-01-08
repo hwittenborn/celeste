@@ -3,28 +3,24 @@
 #![feature(panic_info_message)]
 #![feature(async_closure)]
 
-mod about;
-mod entities;
-mod gtk_util;
-mod launch;
-mod login;
-mod migrations;
-mod mpsc;
-mod rclone;
-mod traits;
-mod util;
+pub mod about;
+pub mod entities;
+pub mod gtk_util;
+pub mod launch;
+pub mod login;
+pub mod migrations;
+pub mod mpsc;
+pub mod rclone;
 
 use adw::{
     gtk::{self, gdk::Display, Align, Box, CssProvider, Label, Orientation, StyleContext},
     prelude::*,
-    gio::{DBusSignalFlags, DBusMessage, DBusSendMessageFlags},
     Application, ApplicationWindow, HeaderBar,
 };
 use clap::{Parser, Subcommand};
 use serde_json::json;
 use std::{
     env,
-    fs::{self, File},
     io::{BufRead, BufReader},
     process::{Command, Stdio},
     thread,
@@ -47,17 +43,14 @@ fn main() {
     gtk::init().unwrap();
 
     // Configure Rclone.
-    let mut config = util::get_config_dir();
+    let mut config = libceleste::get_config_dir();
     config.push("rclone.conf");
     librclone::initialize();
     librclone::rpc("config/setpath", json!({ "path": config }).to_string()).unwrap();
 
     // Load our CSS.
     let provider = CssProvider::new();
-    provider.load_from_data(
-        // This location maps to `/style.css` at the root of the repository.
-        include_bytes!("../style.css"),
-    );
+    provider.load_from_data(include_bytes!("style.css"));
 
     StyleContext::add_provider_for_display(
         &Display::default().unwrap(),
@@ -66,7 +59,9 @@ fn main() {
     );
 
     // Get the application.
-    let app = Application::builder().application_id(util::APP_ID).build();
+    let app = Application::builder()
+        .application_id(libceleste::APP_ID)
+        .build();
 
     // Due to GTK working in Rust via Rust's FFI, panics don't appear to be able to
     // be captured (this hasn't been confirmed behavior, it's just what I've
@@ -79,19 +74,26 @@ fn main() {
             Commands::RunGui {} => {
                 // Start up the application.
                 app.connect_activate(|app| {
+                    hw_msg::infoln!("WE HERE!");
                     if app.is_remote() {
+                        hw_msg::infoln!("WE HERE 2!");
                         app.activate();
                         return;
                     }
-                    
+
+                    hw_msg::infoln!("WE HERE 3!");
                     let windows = app.windows();
+                    hw_msg::infoln!("WE HERE 4!");
                     if windows.is_empty() {
+                        hw_msg::infoln!("WE HERE 5!");
                         launch::launch(app);
                     } else {
+                        hw_msg::infoln!("WE HERE 6!");
                         windows.iter().for_each(|window| window.show());
                     }
                 });
 
+                hw_msg::infoln!("WE STARTING UP THE MAIN APP!");
                 app.run_with_args::<&str>(&[]);
             }
         }
@@ -166,7 +168,7 @@ fn main() {
             app.connect_startup(move |app| {
                 let window = ApplicationWindow::builder()
                     .application(app)
-                    .title(&util::get_title!("Unknown Error"))
+                    .title(&libceleste::get_title!("Unknown Error"))
                     .build();
                 let sections = Box::builder()
                     .orientation(Orientation::Vertical)

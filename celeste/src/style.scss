@@ -1,5 +1,5 @@
 // Global padding on windows.
-window > *:not(contents), window > contents {
+window:not(.messagedialog) > *:not(contents), window:not(.messagedialog) > contents {
     & > box, & > leaflet > box {
         & > *:not(headerbar):not(stacksidebar) {
             margin-left: 1em;

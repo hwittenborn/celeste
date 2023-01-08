@@ -1,7 +1,8 @@
 //! The data for a Nextcloud Rclone config.
 use super::{login_util, ServerType};
-use crate::{gtk_util, mpsc::Sender, traits::*, util};
+use crate::{gtk_util, mpsc::Sender};
 use adw::{glib, gtk::Button, prelude::*, ApplicationWindow, EntryRow, MessageDialog};
+use libceleste::traits::prelude::*;
 use std::{
     cell::RefCell,
     io::Read,
@@ -45,7 +46,7 @@ impl super::LoginTrait for DropboxConfig {
             let kill_request = Rc::new(RefCell::new(false));
 
             let dialog = MessageDialog::builder()
-                .title(&util::get_title!("Authentication to Dropbox"))
+                .title(&libceleste::get_title!("Authentication to Dropbox"))
                 .heading("Authenticating to Dropbox...")
                 .body("Open the link that opened in your browser, and come back once you've finished.")
                 .build();
@@ -63,7 +64,7 @@ impl super::LoginTrait for DropboxConfig {
             // Run until the process exits or the user clicks 'Cancel'.
             loop {
                 // Sleep a little so the UI has a chance to process.
-                util::run_in_background(|| thread::sleep(Duration::from_millis(500)));
+                libceleste::run_in_background(|| thread::sleep(Duration::from_millis(500)));
 
                 // Check if the user clicked cancel.
                 if *kill_request.get_ref() {

@@ -1,9 +1,27 @@
-use adw::glib::{self, MainContext};
+pub mod traits;
 
 use futures::future::Future;
+use glib::{self, MainContext};
 use std::path::PathBuf;
 
+/// The ID of the app.
 pub static APP_ID: &str = "com.hunterwittenborn.Celeste";
+
+/// The ID of the DBus app.
+/// We have to have a separate ID because our GTK application registers the DBus
+/// connection for `APP_ID`. See the conversation at
+/// https://matrix.to/#/!CxdTjqASmMdXwTeLsR:matrix.org/$16727498910mwIiT:hunterwittenborn.com?via=gnome.org&via=matrix.org&via=tchncs.de
+/// for more info.
+pub static DBUS_APP_ID: &str = "com.hunterwittenborn.CelesteApp";
+
+/// The DBus object of the DBus app.
+pub static DBUS_APP_OBJECT: &str = "/com/hunterwittenborn/CelesteApp";
+
+/// The ID of the tray icon.
+pub static TRAY_ID: &str = "com.hunterwittenborn.CelesteTray";
+
+/// The DBus object of the tray icon.
+pub static DBUS_TRAY_OBJECT: &str = "/com/hunterwittenborn/CelesteTray";
 
 /// Get the value out of a future.
 pub fn await_future<F: Future>(future: F) -> F::Output {
@@ -46,9 +64,9 @@ pub fn strip_slashes(string: &str) -> String {
 }
 
 /// Macro to get the title of a window.
+#[macro_export]
 macro_rules! get_title {
     ($($arg:tt)*) => {
         format!($($arg)*) + " - Celeste"
     }
 }
-pub(crate) use get_title;

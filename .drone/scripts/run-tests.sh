@@ -5,6 +5,6 @@ set -ex
 .drone/scripts/install-pkgbuild-deps.sh
 
 cargo fmt --check
-cargo clippy -- -D warnings
+just clippy
 
 # vim: set sw=4 expandtab:

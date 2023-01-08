@@ -1,0 +1,12 @@
+[package]
+name = "libceleste"
+version = "0.1.8"
+edition = "2021"
+
+[lib]
+name = "libceleste"
+
+[dependencies]
+blocking.workspace = true
+futures.workspace = true
+glib.workspace = true

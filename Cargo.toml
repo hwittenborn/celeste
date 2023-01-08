@@ -1,9 +1,10 @@
-[package]
-name = "celeste"
-version = "0.1.7"
-edition = "2021"
+[workspace]
+members = ["celeste", "celeste-tray", "libceleste"]
 
-[dependencies]
+[workspace.dependencies]
+celeste-tray.path = "celeste-tray"
+libceleste.path = "libceleste"
+
 adw = { package = "libadwaita", version = "0.2.1", features = ["v1_2"] }
 base64 = "0.20.0"
 blocking = "1.3.0"
@@ -11,10 +12,14 @@ clap = { version = "4.0.12", features = ["derive", "env"] }
 dirs = "4.0.0"
 exitcode = "1.1.2"
 file-lock = "2.1.6"
+glib = "0.16.7"
 glob = "0.3.0"
+grass = "0.11.2"
+gtk3 = { package = "gtk", version = "0.15" }
 hw-msg = "0.3.1"
 indexmap = "1.9.2"
 futures = "0.3.25"
+lazy_static = "1.4.0"
 libappindicator = "0.7.1"
 librclone = { version = "0.3.0" }
 quit = "1.1.4"
@@ -24,11 +29,10 @@ sea-orm = { version = "0.10.3", features = ["sqlx-sqlite", "runtime-async-std-ru
 sea-orm-migration = "0.10.0"
 serde = { version = "1.0.143", features = ["derive"] }
 serde_json = "1.0.83"
+tempfile = "3.3.0"
 time = { version = "0.3.17", features = ["serde-well-known"] }
 tokio = { version = "1.21.2", features = ["macros", "rt-multi-thread", "sync"] }
 toml_edit = { version = "0.14.4", features = ["serde"] }
 url = "2.3.1"
 users = "0.11.0"
-
-[build-dependencies]
-grass = "0.11.2"
+zbus = "3.6.2"

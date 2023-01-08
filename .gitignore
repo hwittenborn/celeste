@@ -1,7 +1,10 @@
 /AppDir
 /AppDir.squashfs
+/appimage-build
 /celeste.AppImage
 /celeste.AppImage.zsync
-/appimage-build
+/flatpak/.flatpak-builder
+/flatpak/build-dir
+/flatpak/flatpak-builder-tools
 /target
-/style.css
+/src/style.css

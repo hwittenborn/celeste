@@ -1,0 +1,16 @@
+window > *:not(contents) > box > *:not(headerbar):not(stacksidebar), window > *:not(contents) > leaflet > box > *:not(headerbar):not(stacksidebar), window > contents > box > *:not(headerbar):not(stacksidebar), window > contents > leaflet > box > *:not(headerbar):not(stacksidebar) {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+window > *:not(contents) > box > *:not(headerbar):not(stacksidebar):nth-child(2), window > *:not(contents) > leaflet > box > *:not(headerbar):not(stacksidebar):nth-child(2), window > contents > box > *:not(headerbar):not(stacksidebar):nth-child(2), window > contents > leaflet > box > *:not(headerbar):not(stacksidebar):nth-child(2) {
+  margin-top: 1em;
+}
+window > *:not(contents) > box > *:not(headerbar):not(stacksidebar):last-child, window > *:not(contents) > leaflet > box > *:not(headerbar):not(stacksidebar):last-child, window > contents > box > *:not(headerbar):not(stacksidebar):last-child, window > contents > leaflet > box > *:not(headerbar):not(stacksidebar):last-child {
+  margin-bottom: 1em;
+}
+
+.scrollable-codeblock {
+  border-style: solid;
+  border-width: 1px;
+  border-color: @borders;
+}
