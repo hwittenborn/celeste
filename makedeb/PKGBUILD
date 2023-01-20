@@ -6,6 +6,8 @@ pkgdesc='GUI file synchronization client that can sync with any cloud provider'
 arch=('any')
 depends=(
     'libadwaita-1-0'
+    'libayatana-appindicator3-1'
+    'libgtk-3-0'
     'rclone'
 )
 makedepends=(

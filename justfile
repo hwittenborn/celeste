@@ -24,8 +24,3 @@ update-versions:
     set -euo pipefail
     version="$(just get-version)"
     sed -i "s|version = .*|version = \"${version}\"|" celeste/Cargo.toml celeste-tray/Cargo.toml libceleste/Cargo.toml
-
-create-flatpak:
-    #!/usr/bin/env bash
-    cd "$(git rev-parse --show-toplevel)/.drone/files/flatpak"
-    flatpak-builder build-dir/ com.hunterwittenborn.Celeste.yml --force-clean
