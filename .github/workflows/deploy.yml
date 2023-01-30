@@ -1,0 +1,33 @@
+name: Deploy Celeste
+on: {"push"}
+permissions:
+  id-token: write
+  contents: read
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Git repository
+        uses: actions/checkout@v3
+      - name: Setup makedeb APT repositories
+        uses: makedeb/setup-makedeb@main
+        with:
+          pbmpr-repo: true
+      - name: Import Vault secrets
+        uses: hashicorp/vault-action@v2
+        with:
+          url: https://vault.hunterwittenborn.com
+          method: jwt
+          role: github
+          secrets: |
+            kv/data/ci snapcraft_store_credentials | SNAPCRAFT_STORE_CREDENTIALS
+      - name: Build Celeste Snap
+        uses: snapcore/action-build@v1
+        id: snapcraft-build
+        with:
+          snapcraft-args: "-v"
+      - name: Upload and release Celeste Snap
+        uses: snapcore/action-publish@v1
+        with:
+          snap: ${{ steps.snapcraft-build.outputs.snap }}
+          release: stable

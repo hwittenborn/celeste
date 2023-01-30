@@ -4,6 +4,7 @@ version: '0.1.8'
 summary: GUI file synchronization client that can sync with any cloud provider
 description: |
   Celeste is a GUI file synchronization client that can connect to almost any cloud provider you'd like. It provides a streamlined experience to back up your files, and integrates directly into your desktop system.
+icon: assets/com.hunterwittenborn.Celeste-regular.svg
 grade: stable
 confinement: strict
 
@@ -25,6 +26,8 @@ parts:
     source: .
     source-type: git
     build-packages:
+      - golang-go
+      - just
       - libadwaita-1-dev
       - libatk1.0-dev
       - libcairo2-dev
@@ -35,14 +38,10 @@ parts:
       - libgtk-3-dev
       - libgtk-4-dev
       - libpango1.0-dev
-      - golang-go
       - pkg-config
       - rustup
-      - just
     stage-packages:
       - libadwaita-1-0
-      - libayatana-appindicator3-1
-      - libgtk-3-0
       - rclone
     override-build: |
       just build
@@ -50,6 +49,7 @@ parts:
       craftctl default
       cd ~/project
       DESTDIR=~/prime just install
+      sed -i 's|Icon=.*|Icon=${SNAP}/usr/share/icons/hicolor/scalable/apps/com.hunterwittenborn.Celeste.svg|' ~/prime/usr/share/applications/com.hunterwittenborn.Celeste.desktop
 
 slots:
   celeste:
@@ -70,6 +70,7 @@ apps:
     command: usr/bin/celeste
     autostart: com.hunterwittenborn.Celeste.desktop
     desktop: usr/share/applications/com.hunterwittenborn.Celeste.desktop
+    extensions: [gnome]
     plugs:
       - gsettings
       - home
