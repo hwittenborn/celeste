@@ -1,5 +1,3 @@
-/.drone/files/flatpak/.flatpak-builder
-/.drone/files/flatpak/build-dir
 /celeste_*.snap
 /target
 /src/style.css
