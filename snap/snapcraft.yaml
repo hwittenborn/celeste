@@ -1,0 +1,83 @@
+name: celeste
+base: core22
+version: '0.1.8'
+summary: GUI file synchronization client that can sync with any cloud provider
+description: |
+  Celeste is a GUI file synchronization client that can connect to almost any cloud provider you'd like. It provides a streamlined experience to back up your files, and integrates directly into your desktop system.
+icon: assets/com.hunterwittenborn.Celeste-regular.svg
+grade: stable
+confinement: strict
+
+package-repositories:
+  - type: apt
+    components: [main, multiverse, restricted, universe]
+    suites: [kinetic, kinetic-backports, kinetic-security, kinetic-updates]
+    key-id: F6ECB3762474EDA9D21B7022871920D1991BC93C
+    url: http://security.ubuntu.com/ubuntu
+  - type: apt
+    components: [kinetic]
+    suites: [prebuilt-mpr]
+    key-id: B70EAE798718E0FE2972DD0C4FE9F2C43D9428A0
+    url: https://proget.makedeb.org
+
+parts:
+  celeste:
+    plugin: dump
+    source: .
+    source-type: git
+    build-packages:
+      - golang-go
+      - just
+      - libadwaita-1-dev
+      - libatk1.0-dev
+      - libcairo2-dev
+      - libclang-15-dev
+      - libgdk-pixbuf-2.0-dev
+      - libglib2.0-dev
+      - libgraphene-1.0-dev
+      - libgtk-3-dev
+      - libgtk-4-dev
+      - libpango1.0-dev
+      - pkg-config
+      - rustup
+    stage-packages:
+      - libadwaita-1-0
+      - rclone
+    override-build: |
+      just build
+    override-prime: |
+      craftctl default
+      cd ~/parts/celeste/build
+      DESTDIR=~/prime just install
+      sed -i 's|Icon=.*|Icon=${SNAP}/usr/share/icons/hicolor/scalable/apps/com.hunterwittenborn.Celeste.svg|' ~/prime/usr/share/applications/com.hunterwittenborn.Celeste.desktop
+
+slots:
+  celeste:
+    interface: dbus
+    bus: session
+    name: com.hunterwittenborn.Celeste
+  celeste-app:
+    interface: dbus
+    bus: session
+    name: com.hunterwittenborn.CelesteApp
+  celeste-tray:
+    interface: dbus
+    bus: session
+    name: com.hunterwittenborn.CelesteTray
+
+apps:
+  celeste:
+    command: usr/bin/celeste
+    autostart: com.hunterwittenborn.Celeste.desktop
+    desktop: usr/share/applications/com.hunterwittenborn.Celeste.desktop
+    extensions: [gnome]
+    plugs:
+      - gsettings
+      - home
+      - network
+      - network-bind
+      - unity7
+    slots:
+      - celeste
+      - celeste-app
+      - celeste-tray

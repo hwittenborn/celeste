@@ -24,6 +24,13 @@ Celeste can currently connect to the following cloud providers:
 ## Installation
 Celeste can be installed via the methods listed below:
 
+### Snap (Recommended)
+Celeste is available on the [Snap Store](https://snapcraft.io/celeste), which can be installed on any system that has Snap installed.
+
+```sh
+snap install celeste
+```
+
 ### Prebuilt-MPR (Debian/Ubuntu)
 If you're on Ubuntu 22.10 or later, you can install Celeste from the Prebuilt-MPR. You'll first need to [set up the Prebuilt-MPR on your system](https://docs.makedeb.org/prebuilt-mpr/getting-started/), and then run the following:
 

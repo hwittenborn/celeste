@@ -25,7 +25,23 @@ update-versions:
     version="$(just get-version)"
     sed -i "s|version = .*|version = \"${version}\"|" celeste/Cargo.toml celeste-tray/Cargo.toml libceleste/Cargo.toml
 
-create-flatpak:
+# Create the Snap using an already build copy of Celeste. This currently requires you to be running on Ubuntu 22.10 or newer.
+create-host-snap:
     #!/usr/bin/env bash
-    cd "$(git rev-parse --show-toplevel)/.drone/files/flatpak"
-    flatpak-builder build-dir/ com.hunterwittenborn.Celeste.yml --force-clean
+    set -euo pipefail
+
+    cd "$(git rev-parse --show-toplevel)"
+    host_snapcraft_yml="$(cat snap/snapcraft.yaml | grep -Ev 'source-type: |override-build: |just build')"
+    tmpdir="$(mktemp -d)"
+
+    find ./ -mindepth 1 -maxdepth 1 -not -path './target' -exec cp '{}' "${tmpdir}/{}" -R \;
+    mkdir -p "${tmpdir}/target/release"
+    cp target/release/celeste "${tmpdir}/target/release"
+
+    cd "${tmpdir}"
+    echo "${host_snapcraft_yml}" > snap/snapcraft.yaml
+    snapcraft -v
+
+    cd -
+    cp "${tmpdir}/"*.snap ./
+    rm "${tmpdir}" -rf
