@@ -45,6 +45,7 @@ parts:
       - rclone
     override-build: |
       just build
+      find ./
     override-prime: |
       craftctl default
       cd ~/project
