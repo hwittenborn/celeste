@@ -24,7 +24,7 @@ Celeste can currently connect to the following cloud providers:
 ## Installation
 Celeste can be installed via the methods listed below:
 
-### Snap (Recommended)
+### Snap
 Celeste is available on the [Snap Store](https://snapcraft.io/celeste), which can be installed on any system that has Snap installed.
 
 ```sh
