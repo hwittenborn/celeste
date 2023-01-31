@@ -44,9 +44,11 @@ parts:
       - libadwaita-1-0
       - rclone
     override-build: |
+      pwd
       just build
       find ./
     override-prime: |
+      pwd
       craftctl default
       cd ~/project
       DESTDIR=~/prime just install || true
