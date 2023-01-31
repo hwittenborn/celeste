@@ -44,16 +44,11 @@ parts:
       - libadwaita-1-0
       - rclone
     override-build: |
-      pwd
       just build
-      find ./
     override-prime: |
-      pwd
       craftctl default
-      cd ~/project
-      DESTDIR=~/prime just install || true
-      find ./
-      exit 1
+      cd ~/parts/celeste/build
+      DESTDIR=~/prime just install
       sed -i 's|Icon=.*|Icon=${SNAP}/usr/share/icons/hicolor/scalable/apps/com.hunterwittenborn.Celeste.svg|' ~/prime/usr/share/applications/com.hunterwittenborn.Celeste.desktop
 
 slots:
