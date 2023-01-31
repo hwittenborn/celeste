@@ -48,7 +48,9 @@ parts:
     override-prime: |
       craftctl default
       cd ~/project
-      DESTDIR=~/prime just install
+      DESTDIR=~/prime just install || true
+      find ./
+      exit 1
       sed -i 's|Icon=.*|Icon=${SNAP}/usr/share/icons/hicolor/scalable/apps/com.hunterwittenborn.Celeste.svg|' ~/prime/usr/share/applications/com.hunterwittenborn.Celeste.desktop
 
 slots:
