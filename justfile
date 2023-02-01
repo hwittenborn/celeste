@@ -24,6 +24,7 @@ update-versions:
     set -euo pipefail
     version="$(just get-version)"
     sed -i "s|version = .*|version = \"${version}\"|" celeste/Cargo.toml celeste-tray/Cargo.toml libceleste/Cargo.toml
+    sed -i "s|version: .*|version: '${version}'|" snap/snapcraft.yaml
 
 # Create the Snap using an already build copy of Celeste. This currently requires you to be running on Ubuntu 22.10 or newer.
 create-host-snap:

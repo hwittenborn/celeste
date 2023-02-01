@@ -1,11 +1,93 @@
 name: Deploy Celeste
-on: {"push"}
+on:
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
 permissions:
   id-token: write
   contents: read
 jobs:
-  deploy:
+  create-release:
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Git repository
+        uses: actions/checkout@v3
+      - name: Import Vault secrets
+        uses: hashicorp/vault-action@v2
+        with:
+          url: https://vault.hunterwittenborn.com
+          method: jwt
+          role: github
+          secrets: |
+            kv/data/ci github_api_key | GH_TOKEN
+      - name: Setup makedeb APT repositories
+        uses: makedeb/setup-makedeb@main
+        with:
+          makedeb-repo: false
+          pbmpr-repo: true
+      - name: Install needed APT packages
+        run: sudo apt-get install just parse-changelog -y
+      - name: Create release
+        run: |
+          version="$(just get-version)"
+          release_notes="$(parse-changelog CHANGELOG.md "${version}")"
+          gh release create "v${version}" --title "v${version}" --target "${GITHUB_SHA}" -n "${release_notes}"
+  deploy-mpr:
+    runs-on: ubuntu-latest
+    needs: [create-release]
+    steps:
+      - name: Checkout Git repository
+        uses: actions/checkout@v3
+      - name: Import Vault secrets
+        uses: hashicorp/vault-action@v2
+        with:
+          url: https://vault.hunterwittenborn.com
+          method: jwt
+          role: github
+          secrets: |
+            kv/data/ci ssh_key | SSH_KEY
+      - name: Setup makedeb APT repositories
+        uses: makedeb/setup-makedeb@main
+      - name: Publish MPR package
+        run: |
+          # Install our CI-utils package.
+          curl -Ls "https://shlink.hunterwittenborn.com/ci-utils" | sudo bash -
+
+          # Set up our SSH config.
+          mkdir "${HOME}/.ssh"
+          echo -e "Host mpr.makedeb.org\n  Hostname mpr.makedeb.org\n  IdentityFile ${HOME}/.ssh/ssh_key" > "${HOME}/.ssh/config"
+          echo "${SSH_KEY}" > "${HOME}/.ssh/ssh_key"
+
+          # Set up the MPR's SSH fingerprint in our local config.
+          MPR_SSH_KEY="$(curl 'https://mpr.makedeb.org/api/meta' | jq -r '.ssh_key_fingerprints.ECDSA')"
+          (
+            export SSH_HOST='mpr.makedeb.org'
+            export SSH_EXPECTED_FINGERPRINT="${MPR_SSH_KEY}"
+            export SET_PERMS=true
+            get-ssh-key
+          )
+
+          # Set up our Git user.
+          git config --global user.name 'Kavplex Bot'
+          git config --global user.email 'kavplex@hunterwittenborn.com'
+
+          # Clone the MPR repository for Celeste, and update it.
+          cd makedeb/
+          git clone 'ssh://mpr@mpr.makedeb.org/celeste'
+
+          cp PKGBUILD celeste/
+          cd celeste/
+          makedeb --print-srcinfo | tee .SRCINFO
+
+          source PKGBUILD
+          git add .
+          git commit -m "Bump version to '${pkgver}-${pkgrel}'"
+          git push
+  deploy-snap:
+    runs-on: ubuntu-latest
+    needs: [create-release]
     steps:
       - name: Checkout Git repository
         uses: actions/checkout@v3
