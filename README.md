@@ -18,6 +18,7 @@ Celeste is a GUI file synchronization client that can connect to virtually any c
 ## Supported cloud providers
 Celeste can currently connect to the following cloud providers:
 - Dropbox
+- Google Drive
 - Nextcloud
 - WebDAV
 
