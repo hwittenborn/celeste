@@ -1,5 +1,5 @@
 //! The data for a WebDAV Rclone config.
-use super::{login_util, nextcloud::NextcloudConfig, ServerType};
+use super::{login_util, nextcloud::NextcloudConfig, owncloud::OwncloudConfig, ServerType};
 use crate::mpsc::Sender;
 use adw::{
     gtk::{glib, Button},
@@ -9,6 +9,7 @@ use adw::{
 
 pub enum WebDavType {
     Nextcloud,
+    Owncloud,
     WebDav,
 }
 
@@ -37,7 +38,10 @@ impl WebDavConfig {
         let mut sections: Vec<EntryRow> = vec![];
 
         let server_name = login_util::server_name_input();
-        let server_url = login_util::server_url_input();
+        let server_url = login_util::server_url_input(match webdav_type {
+            WebDavType::Nextcloud | WebDavType::Owncloud => true,
+            WebDavType::WebDav => false,
+        });
         let username = login_util::username_input();
         let password = login_util::password_input();
         let submit_button = login_util::submit_button();
@@ -49,9 +53,19 @@ impl WebDavConfig {
 
         submit_button.connect_clicked(
             glib::clone!(@weak server_name, @weak server_url, @weak username, @weak password => move |_| {
+                // Nextcloud/Owncloud server types have everything after 'remote.php' stripped, so
+                // add it back here.
+                let formatted_nextcloud_url = format!("{server_url}/remote.php/dav/files/{username}");
+
                 let server_type = match webdav_type {
                     WebDavType::Nextcloud => ServerType::Nextcloud(NextcloudConfig {
-                        server_name: server_name.text().to_string(),
+                        server_name: formatted_nextcloud_url,
+                        server_url: server_url.text().to_string(),
+                        username: username.text().to_string(),
+                        password: password.text().to_string(),
+                    }),
+                    WebDavType::Owncloud => ServerType::Owncloud(OwncloudConfig {
+                        server_name: formatted_nextcloud_url,
                         server_url: server_url.text().to_string(),
                         username: username.text().to_string(),
                         password: password.text().to_string(),

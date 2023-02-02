@@ -6,6 +6,7 @@ use adw::{
     EntryRow, PasswordEntryRow,
 };
 
+use regex::Regex;
 use url::Url;
 
 /// Get the input for the server name.
@@ -23,6 +24,10 @@ pub fn server_name_input() -> EntryRow {
         if existing_remotes.contains(&text.to_string()) {
             input.add_css_class("error");
             input.set_tooltip_text(Some("Server name already exists."));
+        } else if !Regex::new(r"^[0-9a-zA-Z_.][0-9a-zA-Z_. -]*[0-9a-zA-Z_.-]$").unwrap().is_match(&text) {
+            let err_msg = "Invalid server name. Server names must:\n- Only contain numbers, letters, '_', '-', '.', and spaces\n- Not start with '-' or a space\n- Not end with a space";
+            input.add_css_class("error");
+            input.set_tooltip_text(Some(err_msg));
         } else {
             input.remove_css_class("error");
             input.set_tooltip_text(None);
@@ -33,9 +38,9 @@ pub fn server_name_input() -> EntryRow {
 }
 
 /// Get the input for the server URL.
-pub fn server_url_input() -> EntryRow {
+pub fn server_url_input(disallow_nextcloud_suffix: bool) -> EntryRow {
     let input = EntryRow::builder().title("Server URL").build();
-    input.connect_changed(|input| {
+    input.connect_changed(move |input| {
         let text = input.text();
         let url = Url::parse(&text);
 
@@ -43,17 +48,31 @@ pub fn server_url_input() -> EntryRow {
             let err_string = format!("Invalid server URL ({err}).");
             input.add_css_class("error");
             input.set_tooltip_text(Some(&err_string));
-        } else if !url.as_ref().unwrap().has_host() {
+            return;
+        }
+
+        let url = url.unwrap();
+        if !url.has_host() {
             input.add_css_class("error");
             input.set_tooltip_text(Some("Invalid server URL (no domain specified)."));
-        } else if url.as_ref().unwrap().password().is_some() {
+        } else if url.password().is_some() {
             input.add_css_class("error");
             input.set_tooltip_text(Some("Invalid server URL (password was specified."));
-        } else if !["http", "https"].contains(&url.as_ref().unwrap().scheme()) {
+        } else if !["http", "https"].contains(&url.scheme()) {
             let err_string = format!(
                 "Invalid server URL(unknown server scheme {}).",
-                url.as_ref().unwrap().scheme()
+                url.scheme()
             );
+            input.add_css_class("error");
+            input.set_tooltip_text(Some(&err_string));
+        } else if disallow_nextcloud_suffix && url.path().contains("/remote.php/") {
+            let text_to_remove = Regex::new(r"/remote\.php/.*")
+                .unwrap()
+                .find(url.path())
+                .unwrap()
+                .as_str()
+                .to_string();
+            let err_string = format!("Don't specify '{text_to_remove}' as part of the URL.");
             input.add_css_class("error");
             input.set_tooltip_text(Some(&err_string));
         } else {

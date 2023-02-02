@@ -31,11 +31,19 @@ use std::{
 struct Cli {
     #[command(subcommand)]
     command: Option<Commands>,
+
+    /// Whether to start in the background.
+    #[arg(long)]
+    background: bool,
 }
 
 #[derive(Subcommand)]
 enum Commands {
-    RunGui {},
+    RunGui {
+        /// Whether to start in the background.
+        #[arg(long)]
+        background: bool,
+    },
 }
 
 fn main() {
@@ -71,9 +79,9 @@ fn main() {
     let cli = Cli::parse();
     if let Some(cmd) = cli.command {
         match cmd {
-            Commands::RunGui {} => {
+            Commands::RunGui { background } => {
                 // Start up the application.
-                app.connect_activate(|app| {
+                app.connect_activate(move |app| {
                     if app.is_remote() {
                         app.activate();
                         return;
@@ -81,7 +89,7 @@ fn main() {
 
                     let windows = app.windows();
                     if windows.is_empty() {
-                        launch::launch(app);
+                        launch::launch(app, background);
                     } else {
                         windows.iter().for_each(|window| window.show());
                     }
@@ -95,8 +103,13 @@ fn main() {
         env::set_var("RUST_BACKTRACE", "1");
 
         // Run the command and get the stderr, checking for a backtrace.
+        let mut args = vec!["run-gui"];
+        if cli.background {
+            args.push("--background");
+        }
+
         let mut command = Command::new(env::args().next().unwrap())
-            .arg("run-gui")
+            .args(args)
             .stdout(Stdio::piped())
             .stderr(Stdio::piped())
             .spawn()

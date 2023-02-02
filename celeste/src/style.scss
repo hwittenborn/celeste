@@ -1,5 +1,5 @@
 // Global padding on windows.
-window:not(.messagedialog) > *:not(contents), window:not(.messagedialog) > contents {
+window > *:not(contents), window > contents {
     & > box, & > leaflet > box {
         & > *:not(headerbar):not(stacksidebar) {
             margin-left: 1em;
@@ -14,6 +14,30 @@ window:not(.messagedialog) > *:not(contents), window:not(.messagedialog) > conte
             }
         }
     }
+}
+
+// Cancel the above formatting for message dialog windows.
+window.message.dialog > *:not(contents), window.message.dialog > contents {
+    & > box, & > leaflet > box {
+        & > *:not(headerbar):not(stacksidebar) {
+            margin-left: 0;
+            margin-right: 0;
+
+            &:nth-child(2) {
+                margin-top: 0;
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+// Cancel the above formatting for tooltips.
+// TODO: This isn't working for some reason :p.
+tooltip * {
+	margin: 0;
 }
 
 // Formatting for code blocks.

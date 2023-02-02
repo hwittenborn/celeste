@@ -185,7 +185,7 @@ fn get_image(icon_name: &str) -> Image {
         .build()
 }
 
-pub fn launch(app: &Application) {
+pub fn launch(app: &Application, background: bool) {
     // Create the configuration directory if it doesn't exist.
     let config_path = libceleste::get_config_dir();
     if !config_path.exists() && let Err(err) = fs::create_dir_all(&config_path) {
@@ -509,7 +509,6 @@ pub fn launch(app: &Application) {
             more_info_delete_button.connect_clicked(glib::clone!(@strong sync_dir_deletion_queue, @strong server_name, @strong local_path, @strong remote_path, @strong formatted_local_path, @strong formatted_remote_path, @weak sections, @weak more_info_back_button, @weak more_info_delete_button, @strong more_info_widgets => move |_| {
                 more_info_widgets.iter().for_each(|item| item.set_sensitive(false));
                 let dialog = MessageDialog::builder()
-                    .title(&libceleste::get_title!("Confirm Sync Dir Deletion"))
                     .text(
                         &format!("Are you sure you want to stop syncing {formatted_local_path} to {formatted_remote_path}?")
                     )
@@ -862,7 +861,6 @@ pub fn launch(app: &Application) {
             delete_remote_button.connect_clicked(glib::clone!(@strong remote_deletion_queue, @strong page, @strong remote_name => move |delete_remote_button| {
                 page.set_sensitive(false);
                 let dialog = MessageDialog::builder()
-                    .title(&libceleste::get_title!("Confirm Remote Deletion"))
                     .text("Are you sure you want to delete this remote?")
                     .secondary_text("All the directories associated with this remote will also stop syncing.")
                     .buttons(ButtonsType::YesNo)
@@ -1033,7 +1031,10 @@ pub fn launch(app: &Application) {
     });
 
     // Show the window, start up the tray, and start syncing.
-    window.show();
+    if !background {
+        window.show();
+    }
+
     start_tray();
 
     let send_dbus_msg = |msg: &str| {
@@ -1227,7 +1228,6 @@ pub fn launch(app: &Application) {
                         match &error {
                             SyncError::General(_, _) => {
                                 let dialog = MessageDialog::builder()
-                                    .title(&libceleste::get_title!("Sync Error"))
                                     .text("Would you like to dismiss this error?")
                                     .buttons(ButtonsType::YesNo)
                                     .build();
@@ -1320,7 +1320,6 @@ pub fn launch(app: &Application) {
                                 }
 
                                 let dialog = MessageDialog::builder()
-                                    .title(&libceleste::get_title!("Sync Error"))
                                     .text(
                                         &format!("Both the local item '{local_item_formatted}' and remote item '{remote_item}' have been updated since the last sync.")
                                     )

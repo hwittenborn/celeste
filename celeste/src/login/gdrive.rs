@@ -1,4 +1,4 @@
-//! The data for a Nextcloud Rclone config.
+//! The data for a Google Drive Rclone config.
 use super::{login_util, ServerType};
 use crate::{gtk_util, mpsc::Sender};
 use adw::{glib, gtk::Button, prelude::*, ApplicationWindow, EntryRow, MessageDialog};

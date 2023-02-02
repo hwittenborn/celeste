@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2023-02-02
+### Added
+- Added Owncloud storage type.
+- Added ability to start up in the background.
+
 ## [0.2.0] - 2023-02-02
 ### Added
 - Added Google Drive storage type.

@@ -518,7 +518,7 @@ checksum = "50d30906286121d95be3d479533b458f87493b30a4b5f79a607db8f5d11aa91f"
 
 [[package]]
 name = "celeste"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "base64 0.20.0",
  "blocking",
@@ -553,7 +553,7 @@ dependencies = [
 
 [[package]]
 name = "celeste-tray"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "gtk",
  "hw-msg",
@@ -1939,7 +1939,7 @@ checksum = "201de327520df007757c1f0adce6e827fe8562fbc28bfd9c15571c66ca1f5f79"
 
 [[package]]
 name = "libceleste"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "blocking",
  "futures",
