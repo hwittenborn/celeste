@@ -1037,7 +1037,7 @@ pub fn launch(app: &Application, background: bool) {
 
     start_tray();
 
-    let send_dbus_msg = |msg: &str| {
+    let send_dbus_msg_checked = |msg: &str| {
         dbus.call_method(
             Some(libceleste::TRAY_ID),
             libceleste::DBUS_TRAY_OBJECT,
@@ -1046,18 +1046,25 @@ pub fn launch(app: &Application, background: bool) {
             &(msg),
         )
     };
+    let send_dbus_msg = |msg: &str| {
+        if let Err(err) = send_dbus_msg_checked(msg) {
+            hw_msg::warningln!("Got error while sending message to application: '{err}'.");
+        }
+    };
     let send_dbus_fn = |func: &str| {
-        dbus.call_method(
+        if let Err(err) = dbus.call_method(
             Some(libceleste::TRAY_ID),
             libceleste::DBUS_TRAY_OBJECT,
             Some(libceleste::TRAY_ID),
             func,
             &(),
-        )
+        ) {
+            hw_msg::warningln!("Got error while sending message to application: '{err}'.");
+        }
     };
 
     // Wait until we can succesfully send a message to the tray icon.
-    while send_dbus_msg("Awaiting sync checks...").is_err() {}
+    while send_dbus_msg_checked("Awaiting sync checks...").is_err() {}
 
     'main: loop {
         // If the user requested to quit the application, then close the tray icon and
@@ -1105,7 +1112,7 @@ pub fn launch(app: &Application, background: bool) {
 
         libceleste::run_in_background(|| thread::sleep(Duration::from_millis(500)));
 
-        send_dbus_fn("SetSyncingIcon").unwrap();
+        send_dbus_fn("SetSyncingIcon");
         for remote in remotes {
             // Process any remote deletion requests.
             {
@@ -1151,7 +1158,7 @@ pub fn launch(app: &Application, background: bool) {
 
             // Notify the tray app that we're syncing this remote now.
             let status_string = format!("Syncing '{}'...", remote.name);
-            send_dbus_msg(&status_string).unwrap();
+            send_dbus_msg(&status_string);
 
             let sync_dirs = libceleste::await_future(
                 SyncDirsEntity::find()
@@ -2309,8 +2316,8 @@ pub fn launch(app: &Application, background: bool) {
         }
 
         // Notify that we've finished checking all remotes for changes.
-        send_dbus_msg("Finished sync checks.").unwrap();
-        send_dbus_fn("SetDoneIcon").unwrap();
+        send_dbus_msg("Finished sync checks.");
+        send_dbus_fn("SetDoneIcon");
     }
 
     // We broke out of the loop because of a close request, so close and destroy the
