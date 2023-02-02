@@ -12,7 +12,7 @@ lazy_static::lazy_static! {
 
 struct TrayIcon;
 
-#[zbus::dbus_interface(name = "com.hunterwittenborn.CelesteTray")]
+#[zbus::dbus_interface(name = "com.hunterwittenborn.Celeste.Tray")]
 impl TrayIcon {
     async fn close(&self) {
         *(*CLOSE_REQUEST).lock().unwrap() = true;
@@ -37,7 +37,7 @@ fn main() {
     // The indicator.
     let mut indicator = AppIndicator::new(
         "Celeste",
-        "com.hunterwittenborn.CelesteTrayLoading-symbolic",
+        "com.hunterwittenborn.Celeste.tray-loading-symbolic",
     );
     indicator.set_status(AppIndicatorStatus::Active);
 
@@ -94,9 +94,9 @@ fn main() {
         menu_sync_status.set_label(&status);
 
         if *(*SYNC_ICON_REQUEST).lock().unwrap() {
-            indicator.set_icon("com.hunterwittenborn.CelesteTraySyncing-symbolic");
+            indicator.set_icon("com.hunterwittenborn.Celeste.tray-syncing-symbolic");
         } else if *(*DONE_ICON_REQUEST).lock().unwrap() {
-            indicator.set_icon("com.hunterwittenborn.CelesteTrayDone-symbolic");
+            indicator.set_icon("com.hunterwittenborn.Celeste.tray-done-symbolic");
         }
         *(*SYNC_ICON_REQUEST).lock().unwrap() = false;
         *(*DONE_ICON_REQUEST).lock().unwrap() = false;

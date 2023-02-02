@@ -143,7 +143,7 @@ struct ZbusApp;
 // For some reason this has to be in a separate module or we get some compiler
 // errors :P.
 mod zbus_app {
-    #[zbus::dbus_interface(name = "com.hunterwittenborn.CelesteApp")]
+    #[zbus::dbus_interface(name = "com.hunterwittenborn.Celeste.App")]
     impl super::ZbusApp {
         async fn close(&self) {
             *(*super::CLOSE_REQUEST).lock().unwrap() = true;
