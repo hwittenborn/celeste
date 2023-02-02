@@ -18,6 +18,7 @@ use adw::{
     },
     prelude::*,
     Application, ApplicationWindow, Bin, EntryRow, HeaderBar, Leaflet, LeafletTransitionType,
+    WindowTitle,
 };
 use file_lock::{FileLock, FileOptions};
 use indexmap::IndexMap;
@@ -983,7 +984,17 @@ pub fn launch(app: &Application, background: bool) {
         .hexpand(true)
         .css_classes(vec!["stack".to_string()])
         .build();
-    let stack_header = HeaderBar::builder().build();
+    let stack_window_title = WindowTitle::new(
+        &libceleste::get_title!("{}", stack.visible_child_name().unwrap()),
+        "",
+    );
+    stack.connect_visible_child_notify(glib::clone!(@weak sections, @weak stack_box, @weak stack_window_title => move |stack| {
+        stack_window_title.set_title(&libceleste::get_title!("{}", stack.visible_child_name().unwrap()));
+        sections.set_visible_child(&stack_box);
+    }));
+    let stack_header = HeaderBar::builder()
+        .title_widget(&stack_window_title)
+        .build();
     let stack_nav_left_button = Button::from_icon_name("go-previous-symbolic");
     stack_box.append(&stack_header);
     stack_box.append(&stack);
