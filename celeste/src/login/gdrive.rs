@@ -12,18 +12,19 @@ use std::{
     time::Duration,
 };
 
-static DEFAULT_CLIENT_ID: &str = "hke0fgr43viaq03";
-static DEFAULT_CLIENT_SECRET: &str = "o4cpx8trcnneq7a";
+static DEFAULT_CLIENT_ID: &str =
+    "617798216802-gpgajsc7o768ukbdegk5esa3jf6aekgj.apps.googleusercontent.com";
+static DEFAULT_CLIENT_SECRET: &str = "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";
 
 #[derive(Clone, Debug, Default)]
-pub struct DropboxConfig {
+pub struct GDriveConfig {
     pub server_name: String,
     pub client_id: String,
     pub client_secret: String,
     pub auth_json: String,
 }
 
-impl super::LoginTrait for DropboxConfig {
+impl super::LoginTrait for GDriveConfig {
     fn get_sections(
         window: &ApplicationWindow,
         sender: Sender<Option<ServerType>>,
@@ -38,7 +39,7 @@ impl super::LoginTrait for DropboxConfig {
             window.set_sensitive(false);
 
             let mut process = Command::new("rclone")
-                .args(["authorize", "dropbox", DEFAULT_CLIENT_ID, DEFAULT_CLIENT_SECRET])
+                .args(["authorize", "drive", DEFAULT_CLIENT_ID, DEFAULT_CLIENT_SECRET])
                 .stdout(Stdio::piped())
                 .stderr(Stdio::piped())
                 .spawn()
@@ -46,8 +47,8 @@ impl super::LoginTrait for DropboxConfig {
             let kill_request = Rc::new(RefCell::new(false));
 
             let dialog = MessageDialog::builder()
-                .title(&libceleste::get_title!("Authentication to Dropbox"))
-                .heading("Authenticating to Dropbox...")
+                .title(&libceleste::get_title!("Authentication to Google Drive"))
+                .heading("Authenticating to Google Drive...")
                 .body("Open the link that opened in your browser, and come back once you've finished.")
                 .build();
             dialog.add_response("cancel", "Cancel");
@@ -79,7 +80,7 @@ impl super::LoginTrait for DropboxConfig {
                     if !exit_status.success() {
                         let mut stderr_string = String::new();
                         process.stderr.take().unwrap().read_to_string(&mut stderr_string).unwrap();
-                        gtk_util::show_codeblock_error("Authentication Error", "There was an issue authenticating to Dropbox", &stderr_string);
+                        gtk_util::show_codeblock_error("Authentication Error", "There was an issue authenticating to Google Drive", &stderr_string);
                         window.set_sensitive(true);
                         break;
                     } else {
@@ -90,7 +91,7 @@ impl super::LoginTrait for DropboxConfig {
                             lines.get(lines.len() - 2).unwrap().to_owned()
                         };
 
-                        sender.send(Some(ServerType::Dropbox(DropboxConfig {
+                        sender.send(Some(ServerType::GDrive(GDriveConfig {
                             server_name: server_name.text().to_string(),
                             client_id: DEFAULT_CLIENT_ID.to_string(),
                             client_secret: DEFAULT_CLIENT_SECRET.to_string(),

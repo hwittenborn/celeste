@@ -74,26 +74,19 @@ fn main() {
             Commands::RunGui {} => {
                 // Start up the application.
                 app.connect_activate(|app| {
-                    hw_msg::infoln!("WE HERE!");
                     if app.is_remote() {
-                        hw_msg::infoln!("WE HERE 2!");
                         app.activate();
                         return;
                     }
 
-                    hw_msg::infoln!("WE HERE 3!");
                     let windows = app.windows();
-                    hw_msg::infoln!("WE HERE 4!");
                     if windows.is_empty() {
-                        hw_msg::infoln!("WE HERE 5!");
                         launch::launch(app);
                     } else {
-                        hw_msg::infoln!("WE HERE 6!");
                         windows.iter().for_each(|window| window.show());
                     }
                 });
 
-                hw_msg::infoln!("WE STARTING UP THE MAIN APP!");
                 app.run_with_args::<&str>(&[]);
             }
         }

@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2023-02-02
+### Added
+- Added Google Drive storage type.
+
+### Changed
+- Fixed DBus connection names in Snapcraft config.
+
 ## [0.1.12] - 2023-02-01
 ### Changed
 - Fixed file names in `justfile`.

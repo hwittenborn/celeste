@@ -7,6 +7,7 @@ use crate::{
 };
 use libceleste::traits::prelude::*;
 mod dropbox;
+mod gdrive;
 pub mod login_util;
 mod nextcloud;
 mod webdav;
@@ -18,6 +19,7 @@ use adw::{
     Application, ApplicationWindow, ComboRow, EntryRow, HeaderBar,
 };
 use dropbox::DropboxConfig;
+use gdrive::GDriveConfig;
 use nextcloud::NextcloudConfig;
 use std::{cell::RefCell, rc::Rc};
 use webdav::WebDavConfig;
@@ -37,6 +39,7 @@ trait LoginTrait {
 #[derive(Clone, Debug)]
 pub enum ServerType {
     Dropbox(dropbox::DropboxConfig),
+    GDrive(gdrive::GDriveConfig),
     Nextcloud(nextcloud::NextcloudConfig),
     WebDav(webdav::WebDavConfig),
 }
@@ -45,6 +48,7 @@ impl ToString for ServerType {
     fn to_string(&self) -> String {
         match self {
             Self::Dropbox(_) => "Dropbox",
+            Self::GDrive(_) => "Google Drive",
             Self::Nextcloud(_) => "Nextcloud",
             Self::WebDav(_) => "WebDAV",
         }
@@ -102,6 +106,10 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
         ..Default::default()
     })
     .to_string();
+    let gdrive_name = ServerType::GDrive(gdrive::GDriveConfig {
+        ..Default::default()
+    })
+    .to_string();
     let nextcloud_name = ServerType::Nextcloud(nextcloud::NextcloudConfig {
         ..Default::default()
     })
@@ -115,6 +123,7 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
     let server_type_dropdown = ComboRow::builder().title("Server Type").build();
     let server_types_array = [
         dropbox_name.as_str(),
+        gdrive_name.as_str(),
         nextcloud_name.as_str(),
         webdav_name.as_str(),
     ];
@@ -137,6 +146,7 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
 
     // Get the window items for each server type.
     let dropbox_items = DropboxConfig::get_sections(&window, sender.clone());
+    let gdrive_items = GDriveConfig::get_sections(&window, sender.clone());
     let nextcloud_items = NextcloudConfig::get_sections(&window, sender.clone());
     let webdav_items = WebDavConfig::get_sections(&window, sender);
 
@@ -151,6 +161,7 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
 
         let (rows, submit_button) = match server_type.to_lowercase().as_str() {
             "dropbox" => dropbox_items.clone(),
+            "google drive" => gdrive_items.clone(),
             "nextcloud" => nextcloud_items.clone(),
             "webdav" => webdav_items.clone(),
             _ => unreachable!()
@@ -199,6 +210,7 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
         // Create a new config with the requested name.
         let config_name = match &server {
             ServerType::Dropbox(config) => config.server_name.clone(),
+            ServerType::GDrive(config) => config.server_name.clone(),
             ServerType::Nextcloud(config) => config.server_name.clone(),
             ServerType::WebDav(config) => config.server_name.clone(),
         };
@@ -213,6 +225,16 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
                     "config_refresh_token": false
                 },
                 "type": "dropbox"
+            }),
+            ServerType::GDrive(config) => json!({
+                "name": config_name,
+                "parameters": {
+                    "client_id": config.client_id,
+                    "client_secret": config.client_secret,
+                    "token": config.auth_json,
+                    "config_refresh_token": false
+                },
+                "type": "drive"
             }),
             ServerType::Nextcloud(config) => json!({
                 "name": config_name,
