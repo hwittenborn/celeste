@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.12] - 2023-02-01
+### Changed
+- Fixed file names in `justfile`.
+
 ## [0.1.11] - 2023-02-01
 ### Changed
 - Fixed namespace used for symbolic icons and DBus connections.
