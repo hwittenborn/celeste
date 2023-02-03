@@ -12,6 +12,7 @@ Celeste is a GUI file synchronization client that can connect to virtually any c
 
 ## Features
 - Two-way sync
+- Asking what to do when a local and remote file have both been updated since last sync
 - Ability to exclude files/folders from sync
 - Connecting to multiple cloud providers at the same time
 
