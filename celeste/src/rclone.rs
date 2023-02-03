@@ -30,6 +30,7 @@ pub fn get_remote<T: ToString>(remote: T) -> Option<Remote> {
         "webdav" => {
             let vendor = match config["vendor"].as_str() {
                 "nextcloud" => WebDavVendors::Nextcloud,
+                "owncloud" => WebDavVendors::Owncloud,
                 "webdav" => WebDavVendors::WebDav,
                 _ => unreachable!(),
             };
@@ -124,6 +125,7 @@ pub struct WebDavRemote {
 #[derive(Clone, Debug)]
 pub enum WebDavVendors {
     Nextcloud,
+    Owncloud,
     GDrive,
     WebDav,
 }
@@ -132,6 +134,7 @@ impl ToString for WebDavVendors {
     fn to_string(&self) -> String {
         match self {
             Self::Nextcloud => "Nextcloud",
+            Self::Owncloud => "Owncloud",
             Self::GDrive => "Google Drive",
             Self::WebDav => "WebDav",
         }

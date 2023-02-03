@@ -55,18 +55,18 @@ impl WebDavConfig {
             glib::clone!(@weak server_name, @weak server_url, @weak username, @weak password => move |_| {
                 // Nextcloud/Owncloud server types have everything after 'remote.php' stripped, so
                 // add it back here.
-                let formatted_nextcloud_url = format!("{server_url}/remote.php/dav/files/{username}");
+                let formatted_nextcloud_url = format!("{}/remote.php/dav/files/{}", server_url.text(), username.text());
 
                 let server_type = match webdav_type {
                     WebDavType::Nextcloud => ServerType::Nextcloud(NextcloudConfig {
-                        server_name: formatted_nextcloud_url,
-                        server_url: server_url.text().to_string(),
+                        server_name: server_name.text().to_string(),
+                        server_url: formatted_nextcloud_url,
                         username: username.text().to_string(),
                         password: password.text().to_string(),
                     }),
                     WebDavType::Owncloud => ServerType::Owncloud(OwncloudConfig {
-                        server_name: formatted_nextcloud_url,
-                        server_url: server_url.text().to_string(),
+                        server_name: server_name.text().to_string(),
+                        server_url: formatted_nextcloud_url,
                         username: username.text().to_string(),
                         password: password.text().to_string(),
                     }),

@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.4] - 2023-02-02
+### Changed
+- Closed tray icon when main application crashes.
+- Fixed new servers not showing up after all have been removed.
+- Fixed crash caused by incorrect server name being registered for Nextcloud and Owncloud servers.
+
 ## [0.3.3] - 2023-02-02
 ### Changed
 - Improved titlebars in main application window.

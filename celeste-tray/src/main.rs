@@ -89,6 +89,12 @@ fn main() {
         } else {
         };
 
+        // If we can't connect to the main application anymore, then quit. This probably
+        // means that the main application has crashed.
+        if call_fn("Poll").is_err() {
+            break;
+        }
+
         let status = (*(*CURRENT_STATUS).lock().unwrap()).clone();
         indicator.set_title(&status);
         menu_sync_status.set_label(&status);

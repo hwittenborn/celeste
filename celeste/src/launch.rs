@@ -146,6 +146,8 @@ struct ZbusApp;
 mod zbus_app {
     #[zbus::dbus_interface(name = "com.hunterwittenborn.Celeste.App")]
     impl super::ZbusApp {
+        async fn poll(&self) {}
+
         async fn close(&self) {
             *(*super::CLOSE_REQUEST).lock().unwrap() = true;
         }
@@ -936,7 +938,7 @@ pub fn launch(app: &Application, background: bool) {
 
             if let Some(remote) = login::login(&app, &db) {
                 let window = gen_remote_window(remote.clone());
-                stack.add_titled(&window, None, &remote.name);
+                stack.add_titled(&window, Some(&remote.name), &remote.name);
             }
 
             window.set_sensitive(true);
@@ -1113,11 +1115,13 @@ pub fn launch(app: &Application, background: bool) {
         if remotes.is_empty() {
             window.close();
 
-            if login::login(app, &db).is_none() {
-                break 'main;
-            } else {
+            if let Some(remote) = login::login(app, &db) {
+                let window = gen_remote_window(remote.clone());
+                stack.add_titled(&window, Some(&remote.name), &remote.name);
                 window.show();
                 continue;
+            } else {
+                break 'main;
             }
         }
 
