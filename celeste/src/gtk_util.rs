@@ -8,7 +8,7 @@ use adw::{
 
 /// Show an error screen.
 pub fn show_error(title: &str, primary_text: &str, secondary_text: Option<&str>) {
-    let (sender, mut reciever) = mpsc::channel::<()>();
+    let (sender, mut receiver) = mpsc::channel::<()>();
     let mut dialog = MessageDialog::builder()
         .title(&libceleste::get_title!("{}", title))
         .heading(primary_text)
@@ -29,12 +29,12 @@ pub fn show_error(title: &str, primary_text: &str, secondary_text: Option<&str>)
         }),
     );
     dialog.show();
-    reciever.recv();
+    receiver.recv();
 }
 
 // Show an error screen with a codeblock.
 pub fn show_codeblock_error(title: &str, primary_text: &str, code: &str) {
-    let (sender, mut reciever) = mpsc::channel::<()>();
+    let (sender, mut receiver) = mpsc::channel::<()>();
     let dialog = MessageDialog::builder()
         .title(&libceleste::get_title!("{title}"))
         .heading(primary_text)
@@ -53,7 +53,7 @@ pub fn show_codeblock_error(title: &str, primary_text: &str, code: &str) {
         }),
     );
     dialog.show();
-    reciever.recv();
+    receiver.recv();
 }
 
 /// Create a codeblock.

@@ -54,7 +54,7 @@ type RemoteDeletionQueue = Rc<RefCell<Vec<String>>>;
 
 // A [`Vec`] for a deletion queue to stop syncing directories - we store this in
 // a queue so we can stop syncing directories safely while syncs may still be
-// occuring.
+// occurring.
 type SyncDirDeletionQueue = Rc<RefCell<Vec<(String, String, String)>>>;
 
 /// The errors that can be found while syncing.
@@ -1076,7 +1076,7 @@ pub fn launch(app: &Application, background: bool) {
         }
     };
 
-    // Wait until we can succesfully send a message to the tray icon.
+    // Wait until we can successfully send a message to the tray icon.
     while send_dbus_msg_checked("Awaiting sync checks...").is_err() {}
 
     'main: loop {
@@ -1641,7 +1641,7 @@ pub fn launch(app: &Application, background: bool) {
 
                         // Push the item to the remote. Returns the
                         // [`crate::rclone::sync::RcloneRemoteItem`] of the item on the remote, or
-                        // an [`Err<()>`] if an issue occured (all errors are automatically added
+                        // an [`Err<()>`] if an issue occurred (all errors are automatically added
                         // via `add_errors`).
                         let push_local_to_remote = || -> Result<rclone::RcloneRemoteItem, ()> {
                             let file_type = item.file_type().unwrap();
@@ -1801,7 +1801,7 @@ pub fn launch(app: &Application, background: bool) {
                             // Both the local and remote item remain unchanged - do nothing.
                             } else if local_utc_timestamp == db_model.last_local_timestamp as u64 && let Some(remote_timestamp) = remote_utc_timestamp && remote_timestamp == db_model.last_remote_timestamp as i64 {
                                 continue;
-                            // Every possible scenario should have been convered above, so panic if not.
+                            // Every possible scenario should have been covered above, so panic if not.
                             } else {
                                 unreachable!();
                             }
@@ -2008,7 +2008,7 @@ pub fn launch(app: &Application, background: bool) {
                         // Push the item from the local machine to the remote machine. Returns the
                         // timestamp of the new file on the remote. Returns the
                         // [`crate::rclone::sync::RcloneRemoteItem`] of the item on the remote, or
-                        // an [`Err<()>`] if an issue occured (all errors are automatically added
+                        // an [`Err<()>`] if an issue occurred (all errors are automatically added
                         // via `add_errors`).
                         let push_local_to_remote = || {
                             if local_path.is_dir() {

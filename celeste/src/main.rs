@@ -187,7 +187,7 @@ fn main() {
                 sections.append(&error_label);
 
                 let error_text = Label::builder()
-                    .label("An unknown error has occurred while running. This is an internal issue with Celeste and should be reported.\n\nThe following backtrace may help with debugging the issue - note that it may contain information such as login tokens/keys, so avoid posting the information publically:")
+                    .label("An unknown error has occurred while running. This is an internal issue with Celeste and should be reported.\n\nThe following backtrace may help with debugging the issue - note that it may contain information such as login tokens/keys, so avoid posting the information publicly:")
                     .halign(Align::Start)
                     .build();
                 sections.append(&error_text);
