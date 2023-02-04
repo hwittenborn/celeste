@@ -87,12 +87,12 @@ pub fn can_login(_app: &Application, config_name: &str) -> bool {
 }
 
 /// Create a new session. Returns [`Some`] with the new session if the client
-/// succesfully logged in, and [`None`] on other events, such as closing the
+/// successfully logged in, and [`None`] on other events, such as closing the
 /// window before logging in. Logged in clients can be obtained after this point
 /// via [`rclone::get_configs`].
 pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel> {
-    // The mspc sender/reciever to get data from fields.
-    let (sender, mut reciever) = mpsc::channel::<Option<ServerType>>();
+    // The mspc sender/receiver to get data from fields.
+    let (sender, mut receiver) = mpsc::channel::<Option<ServerType>>();
 
     // The window.
     let window = ApplicationWindow::builder()
@@ -215,7 +215,7 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
     // is found.
     loop {
         // If the user clicks the 'X' button on the window we get a [`None`] value.
-        let server = reciever.recv()?;
+        let server = receiver.recv()?;
         window.set_sensitive(false);
 
         // Create a new config with the requested name.
