@@ -89,12 +89,6 @@ fn main() {
         } else {
         };
 
-        // If we can't connect to the main application anymore, then quit. This probably
-        // means that the main application has crashed.
-        if call_fn("Poll").is_err() {
-            break;
-        }
-
         let status = (*(*CURRENT_STATUS).lock().unwrap()).clone();
         indicator.set_title(&status);
         menu_sync_status.set_label(&status);
@@ -115,7 +109,9 @@ fn main() {
             // Notify the tray icon to close.
             // I'm not sure when this can fail, so output an error if one is received.
             if let Err(err) = call_fn("Close") {
-                hw_msg::warningln!("Got error while sending close request to tray: '{err}'.");
+                hw_msg::warningln!(
+                    "Got error while sending close request to main application: '{err}'."
+                );
             };
 
             // And then quit the application.

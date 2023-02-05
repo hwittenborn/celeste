@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.5] - 2023-02-04
+### Changed
+- Fixed behavior of tray icon closing when main application crashes inside of Flatpak.
+- Fixed wordage on a couple CLI warning messages.
+
 ## [0.3.4] - 2023-02-02
 ### Changed
 - Closed tray icon when main application crashes.

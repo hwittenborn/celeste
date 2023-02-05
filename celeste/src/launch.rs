@@ -34,7 +34,7 @@ use std::{
     io::Write,
     os::unix::fs::PermissionsExt,
     path::Path,
-    process::Command,
+    process::{Child, Command},
     rc::Rc,
     sync::{Arc, Mutex},
     thread,
@@ -146,8 +146,6 @@ struct ZbusApp;
 mod zbus_app {
     #[zbus::dbus_interface(name = "com.hunterwittenborn.Celeste.App")]
     impl super::ZbusApp {
-        async fn poll(&self) {}
-
         async fn close(&self) {
             *(*super::CLOSE_REQUEST).lock().unwrap() = true;
         }
@@ -159,24 +157,36 @@ mod zbus_app {
 }
 
 /// Start the tray binary.
-fn start_tray() {
-    hw_msg::infoln!("Starting up tray binary...");
+/// We put this in a struct so we can manually kill the subprocess on [`Drop`],
+/// such as in the case of a panic.
+struct TrayApp(Child);
 
-    let named_temp_file = NamedTempFile::new().unwrap();
-    let temp_file = named_temp_file.path().to_owned();
-    let mut file = named_temp_file.persist(&temp_file).unwrap();
-    let mut perms = file.metadata().unwrap().permissions();
-    perms.set_mode(0o755);
-    file.set_permissions(perms).unwrap();
+impl TrayApp {
+    fn start() -> Self {
+        hw_msg::infoln!("Starting up tray binary...");
 
-    #[cfg(debug_assertions)]
-    let tray_file = include_bytes!("../../target/debug/celeste-tray");
-    #[cfg(not(debug_assertions))]
-    let tray_file = include_bytes!("../../target/release/celeste-tray");
+        let named_temp_file = NamedTempFile::new().unwrap();
+        let temp_file = named_temp_file.path().to_owned();
+        let mut file = named_temp_file.persist(&temp_file).unwrap();
+        let mut perms = file.metadata().unwrap().permissions();
+        perms.set_mode(0o755);
+        file.set_permissions(perms).unwrap();
 
-    file.write_all(tray_file).unwrap();
-    drop(file);
-    Command::new(&temp_file).spawn().unwrap();
+        #[cfg(debug_assertions)]
+        let tray_file = include_bytes!("../../target/debug/celeste-tray");
+        #[cfg(not(debug_assertions))]
+        let tray_file = include_bytes!("../../target/release/celeste-tray");
+
+        file.write_all(tray_file).unwrap();
+        drop(file);
+        Self(Command::new(&temp_file).spawn().unwrap())
+    }
+}
+
+impl Drop for TrayApp {
+    fn drop(&mut self) {
+        self.0.kill().unwrap_or(())
+    }
 }
 
 /// Get an icon for use as the status icon for directory syncs.
@@ -1048,7 +1058,7 @@ pub fn launch(app: &Application, background: bool) {
         window.show();
     }
 
-    start_tray();
+    let tray_app = TrayApp::start();
 
     let send_dbus_msg_checked = |msg: &str| {
         dbus.call_method(
@@ -1061,7 +1071,7 @@ pub fn launch(app: &Application, background: bool) {
     };
     let send_dbus_msg = |msg: &str| {
         if let Err(err) = send_dbus_msg_checked(msg) {
-            hw_msg::warningln!("Got error while sending message to application: '{err}'.");
+            hw_msg::warningln!("Got error while sending message to tray icon: '{err}'.");
         }
     };
     let send_dbus_fn = |func: &str| {
@@ -1072,7 +1082,7 @@ pub fn launch(app: &Application, background: bool) {
             func,
             &(),
         ) {
-            hw_msg::warningln!("Got error while sending message to application: '{err}'.");
+            hw_msg::warningln!("Got error while sending message to tray icon: '{err}'.");
         }
     };
 
@@ -1091,9 +1101,7 @@ pub fn launch(app: &Application, background: bool) {
                 "Close",
                 &(),
             ) {
-                hw_msg::warningln!(
-                    "Got error while sending close request to application: '{err}'."
-                );
+                hw_msg::warningln!("Got error while sending close request to tray icon: '{err}'.");
             }
 
             break 'main;
@@ -2335,8 +2343,9 @@ pub fn launch(app: &Application, background: bool) {
         send_dbus_fn("SetDoneIcon");
     }
 
-    // We broke out of the loop because of a close request, so close and destroy the
-    // window.
+    // We broke out of the loop because of a close request, so stop the tray app,
+    // and then close and destroy the window.
+    drop(tray_app);
     window.close();
     window.destroy();
 }

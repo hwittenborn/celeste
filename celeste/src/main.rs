@@ -183,6 +183,7 @@ fn main() {
                 let error_label = Label::builder()
                     .label("Unknown Error")
                     .halign(Align::Start)
+                    .css_classes(vec!["heading".to_owned()])
                     .build();
                 sections.append(&error_label);
 

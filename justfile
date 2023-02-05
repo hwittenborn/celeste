@@ -37,7 +37,7 @@ create-host-snap:
 
     find ./ -mindepth 1 -maxdepth 1 -not -path './target' -exec cp '{}' "${tmpdir}/{}" -R \;
     mkdir -p "${tmpdir}/target/release"
-    cp target/release/celeste "${tmpdir}/target/release"
+    cp target/debug/celeste "${tmpdir}/target/release"
 
     cd "${tmpdir}"
     echo "${host_snapcraft_yml}" > snap/snapcraft.yaml
