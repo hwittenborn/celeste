@@ -812,7 +812,9 @@ pub fn launch(app: &Application, background: bool) {
                 ok_button.connect_clicked(glib::clone!(@strong window, @weak sections, @weak folder_window, @weak sync_dirs, @weak local_entry, @weak remote_entry, @strong db_remote, @strong db, @weak directory_map, @strong remote_name, @strong add_dir => move |_| {
                     folder_window.set_sensitive(false);
 
-                    let local_text = local_entry.text().to_string();
+                    // The local path needs to start with a slash, but not end with one. The remote
+                    // needs to not start or end with a slash.
+                    let local_text = "/".to_string() + &libceleste::strip_slashes(local_entry.text().as_str());
                     let remote_text = libceleste::strip_slashes(remote_entry.text().as_str());
                     let local_path = Path::new(&local_text);
                     match rclone::sync::stat(&remote_name, &remote_text) {
