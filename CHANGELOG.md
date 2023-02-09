@@ -5,8 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.3.6] - 2023-02-08
 ### Changed
 - Fixed slash suffixes in local directory causing a crash in sync directory dialog.
+- Fixed remote directories not being placed correctly on the local system.
 
 ## [0.3.5] - 2023-02-04
 ### Changed

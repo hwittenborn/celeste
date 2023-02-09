@@ -1980,7 +1980,7 @@ pub fn launch(app: &Application, background: bool) {
 
                         let remote_path_string = item.path.clone();
                         let local_path_string = format!(
-                            "{}{}",
+                            "{}/{}",
                             sync_dir.local_path,
                             item.path.strip_prefix(&sync_dir.remote_path).unwrap()
                         );
