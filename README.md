@@ -25,6 +25,7 @@ Celeste can currently connect to the following cloud providers:
 - Google Drive
 - Nextcloud
 - Owncloud
+- pCloud
 - WebDAV
 
 ## Installation

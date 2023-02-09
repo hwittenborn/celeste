@@ -11,6 +11,7 @@ mod gdrive;
 pub mod login_util;
 mod nextcloud;
 mod owncloud;
+mod pcloud;
 mod webdav;
 
 use adw::{
@@ -23,6 +24,7 @@ use dropbox::DropboxConfig;
 use gdrive::GDriveConfig;
 use nextcloud::NextcloudConfig;
 use owncloud::OwncloudConfig;
+use pcloud::PCloudConfig;
 use std::{cell::RefCell, rc::Rc};
 use webdav::WebDavConfig;
 
@@ -44,6 +46,7 @@ pub enum ServerType {
     GDrive(gdrive::GDriveConfig),
     Nextcloud(nextcloud::NextcloudConfig),
     Owncloud(owncloud::OwncloudConfig),
+    PCloud(pcloud::PCloudConfig),
     WebDav(webdav::WebDavConfig),
 }
 
@@ -54,6 +57,7 @@ impl ToString for ServerType {
             Self::GDrive(_) => "Google Drive",
             Self::Nextcloud(_) => "Nextcloud",
             Self::Owncloud(_) => "Owncloud",
+            Self::PCloud(_) => "pCloud",
             Self::WebDav(_) => "WebDAV",
         }
         .to_string()
@@ -122,6 +126,10 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
         ..Default::default()
     })
     .to_string();
+    let pcloud_name = ServerType::PCloud(pcloud::PCloudConfig {
+        ..Default::default()
+    })
+    .to_string();
     let webdav_name = ServerType::WebDav(webdav::WebDavConfig {
         ..Default::default()
     })
@@ -134,6 +142,7 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
         gdrive_name.as_str(),
         nextcloud_name.as_str(),
         owncloud_name.as_str(),
+        pcloud_name.as_str(),
         webdav_name.as_str(),
     ];
     let server_types = StringList::new(&server_types_array);
@@ -158,6 +167,7 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
     let gdrive_items = GDriveConfig::get_sections(&window, sender.clone());
     let nextcloud_items = NextcloudConfig::get_sections(&window, sender.clone());
     let owncloud_items = OwncloudConfig::get_sections(&window, sender.clone());
+    let pcloud_items = PCloudConfig::get_sections(&window, sender.clone());
     let webdav_items = WebDavConfig::get_sections(&window, sender);
 
     // Store the active items.
@@ -174,6 +184,7 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
             "google drive" => gdrive_items.clone(),
             "nextcloud" => nextcloud_items.clone(),
             "owncloud" => owncloud_items.clone(),
+            "pcloud" => pcloud_items.clone(),
             "webdav" => webdav_items.clone(),
             _ => unreachable!()
         };
@@ -224,6 +235,7 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
             ServerType::GDrive(config) => config.server_name.clone(),
             ServerType::Nextcloud(config) => config.server_name.clone(),
             ServerType::Owncloud(config) => config.server_name.clone(),
+            ServerType::PCloud(config) => config.server_name.clone(),
             ServerType::WebDav(config) => config.server_name.clone(),
         };
 
@@ -270,6 +282,19 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
                     "pass": config.password
                 },
                 "type": "webdav",
+                "opt": {
+                    "obscure": true
+                }
+            }),
+            ServerType::PCloud(config) => json!({
+                "name": config_name,
+                "parameters": {
+                    "client_id": config.client_id,
+                    "client_secret": config.client_secret,
+                    "token": config.auth_json,
+                    "config_refresh_token": false
+                },
+                "type": "pcloud",
                 "opt": {
                     "obscure": true
                 }

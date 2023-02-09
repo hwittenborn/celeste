@@ -27,6 +27,11 @@ pub fn get_remote<T: ToString>(remote: T) -> Option<Remote> {
             client_id: config["client_id"].clone(),
             client_secret: config["client_secret"].clone(),
         })),
+        "pcloud" => Some(Remote::PCloud(PCloudRemote {
+            remote_name: remote,
+            client_id: config["client_id"].clone(),
+            client_secret: config["client_secret"].clone(),
+        })),
         "webdav" => {
             let vendor = match config["vendor"].as_str() {
                 "nextcloud" => WebDavVendors::Nextcloud,
@@ -71,6 +76,7 @@ pub fn get_remotes() -> Vec<Remote> {
 pub enum Remote {
     Dropbox(DropboxRemote),
     GDrive(GDriveRemote),
+    PCloud(PCloudRemote),
     WebDav(WebDavRemote),
 }
 
@@ -79,6 +85,7 @@ impl Remote {
         match self {
             Remote::Dropbox(remote) => remote.remote_name.clone(),
             Remote::GDrive(remote) => remote.remote_name.clone(),
+            Remote::PCloud(remote) => remote.remote_name.clone(),
             Remote::WebDav(remote) => remote.remote_name.clone(),
         }
     }
@@ -98,6 +105,17 @@ pub struct DropboxRemote {
 // The Google Drive remote type.
 #[derive(Clone, Debug)]
 pub struct GDriveRemote {
+    /// The name of the remote.
+    pub remote_name: String,
+    /// The client id.
+    pub client_id: String,
+    /// The client secret.
+    pub client_secret: String,
+}
+
+// The pCloud remote type.
+#[derive(Clone, Debug)]
+pub struct PCloudRemote {
     /// The name of the remote.
     pub remote_name: String,
     /// The client id.
@@ -127,6 +145,7 @@ pub enum WebDavVendors {
     Nextcloud,
     Owncloud,
     GDrive,
+    PCloud,
     WebDav,
 }
 
@@ -136,6 +155,7 @@ impl ToString for WebDavVendors {
             Self::Nextcloud => "Nextcloud",
             Self::Owncloud => "Owncloud",
             Self::GDrive => "Google Drive",
+            Self::PCloud => "pCloud",
             Self::WebDav => "WebDav",
         }
         .to_string()

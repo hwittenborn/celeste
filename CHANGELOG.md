@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2023-02-08
+### Added
+- Added support for pCloud.
+
 ## [0.3.6] - 2023-02-08
 ### Changed
 - Fixed slash suffixes in local directory causing a crash in sync directory dialog.
