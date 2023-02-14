@@ -88,14 +88,8 @@ pub fn username_input() -> EntryRow {
     let input = EntryRow::builder().title("Username").build();
     input.connect_changed(|input| {
         let _text = input.text();
-
-        if input.text().contains(':') {
-            input.add_css_class("error");
-            input.set_tooltip_text(Some("Username isn't allowed to contain ':'."));
-        } else {
-            input.remove_css_class("error");
-            input.set_tooltip_text(None);
-        }
+        input.remove_css_class("error");
+        input.set_tooltip_text(None);
     });
     input
 }
