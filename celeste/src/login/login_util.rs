@@ -105,14 +105,8 @@ pub fn password_input() -> PasswordEntryRow {
     let input = PasswordEntryRow::builder().title("Password").build();
     input.connect_changed(|input| {
         let _text = input.text();
-
-        if input.text().contains(':') {
-            input.add_css_class("error");
-            input.set_tooltip_text(Some("Password isn't allowed to contain ':'."));
-        } else {
-            input.remove_css_class("error");
-            input.set_tooltip_text(None);
-        }
+        input.remove_css_class("error");
+        input.set_tooltip_text(None);
     });
     input
 }
