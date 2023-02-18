@@ -85,20 +85,12 @@ pub fn server_url_input(disallow_nextcloud_suffix: bool) -> EntryRow {
 
 /// Get the input for usernames.
 pub fn username_input() -> EntryRow {
-    let input = EntryRow::builder().title("Username").build();
-    input.connect_changed(|input| {
-        let _text = input.text();
-    });
-    input
+    EntryRow::builder().title("Username").build()
 }
 
 /// Get the input for passwords.
 pub fn password_input() -> PasswordEntryRow {
-    let input = PasswordEntryRow::builder().title("Password").build();
-    input.connect_changed(|input| {
-        let _text = input.text();
-    });
-    input
+    PasswordEntryRow::builder().title("Password").build()
 }
 
 /// Get the login button.
