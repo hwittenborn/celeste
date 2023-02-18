@@ -413,12 +413,15 @@ pub fn launch(app: &Application, background: bool) {
             // Read the ignore file to see if anything exists in it so far.
             let file_ignore_path_string = format!("{local_path}/{FILE_IGNORE_NAME}");
             let get_lock = glib::clone!(@strong file_ignore_path_string => move || {
-                FileLock::lock(&file_ignore_path_string, true, FileOptions::new().create(true).read(true).write(true).append(false)).unwrap()
+                // This will return an [`Err`] if the parent folder doesn't exist, so handle that case instead of `.unwrap`ing it.
+                FileLock::lock(&file_ignore_path_string, true, FileOptions::new().create(true).read(true).write(true).append(false))
             });
 
-            let lock = get_lock();
-            let file_ignore_content = fs::read_to_string(&file_ignore_path_string).unwrap();
-            lock.unlock().unwrap();
+            let file_ignore_content = if get_lock().is_ok() {
+                Some(fs::read_to_string(&file_ignore_path_string).unwrap())
+            } else {
+                None
+            };
 
             let ignore_rules: Rc<RefCell<IndexMap<EntryRow, String>>> = Rc::new(RefCell::new(IndexMap::new()));
             let write_file = glib::clone!(@strong file_ignore_path_string, @strong ignore_rules, @strong get_lock => move || {
@@ -429,7 +432,9 @@ pub fn launch(app: &Application, background: bool) {
                 OpenOptions::new().write(true).truncate(true).open(&file_ignore_path_string).unwrap();
 
                 // And then write to it.
-                get_lock().file.write_all(strings.join("\n").as_bytes()).unwrap();
+                if let Ok(mut lock) = get_lock() {
+                    lock.file.write_all(strings.join("\n").as_bytes()).unwrap()
+                };
             });
             let gen_ignore_row = glib::clone!(@strong get_lock, @strong write_file, @strong ignore_rules, @strong more_info_exclusions_list => move |content: Option<String>| {
                 let row = EntryRow::builder().css_classes(vec!["no-title".to_string()]).build();
@@ -482,11 +487,13 @@ pub fn launch(app: &Application, background: bool) {
                 more_info_exclusions_list.append(&gen_ignore_row(None));
             }));
 
-            for line in file_ignore_content.lines() {
-                let line_owned = line.to_owned();
-                let row = gen_ignore_row(Some(line_owned.clone()));
-                more_info_exclusions_list.append(&row);
-                ignore_rules.get_mut_ref().insert(row, line_owned);
+            if let Some(ignore_content) = file_ignore_content {
+                for line in ignore_content.lines() {
+                    let line_owned = line.to_owned();
+                    let row = gen_ignore_row(Some(line_owned.clone()));
+                    more_info_exclusions_list.append(&row);
+                    ignore_rules.get_mut_ref().insert(row, line_owned);
+                }
             }
 
             // The back button to go back to the main page.
