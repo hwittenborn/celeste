@@ -85,36 +85,12 @@ pub fn server_url_input(disallow_nextcloud_suffix: bool) -> EntryRow {
 
 /// Get the input for usernames.
 pub fn username_input() -> EntryRow {
-    let input = EntryRow::builder().title("Username").build();
-    input.connect_changed(|input| {
-        let _text = input.text();
-
-        if input.text().contains(':') {
-            input.add_css_class("error");
-            input.set_tooltip_text(Some("Username isn't allowed to contain ':'."));
-        } else {
-            input.remove_css_class("error");
-            input.set_tooltip_text(None);
-        }
-    });
-    input
+    EntryRow::builder().title("Username").build()
 }
 
 /// Get the input for passwords.
 pub fn password_input() -> PasswordEntryRow {
-    let input = PasswordEntryRow::builder().title("Password").build();
-    input.connect_changed(|input| {
-        let _text = input.text();
-
-        if input.text().contains(':') {
-            input.add_css_class("error");
-            input.set_tooltip_text(Some("Password isn't allowed to contain ':'."));
-        } else {
-            input.remove_css_class("error");
-            input.set_tooltip_text(None);
-        }
-    });
-    input
+    PasswordEntryRow::builder().title("Password").build()
 }
 
 /// Get the login button.

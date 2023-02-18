@@ -20,7 +20,7 @@ jobs:
           chown 'makedeb:makedeb' makedeb/ -R
 
           # Get our needed dependencies by just sourcing them from the PKGBUILD.
-          echo 'build() { true; }; package() { true; }' >> makedeb/PKGBUILD
+          echo 'build() { true; }; package() { true; }; source=(); sha256sums=()' >> makedeb/PKGBUILD
           cd makedeb && sudo -u makedeb makedeb -s --no-confirm
       - name: Run formatting checks
         run: cargo fmt --check
