@@ -2,7 +2,7 @@
 pkgname=celeste
 pkgver=0.4.1
 pkgrel=1
-pkgdesc='GUI file synchronization client that can sync with any cloud provider'
+pkgdesc='Sync your cloud files'
 arch=('any')
 depends=(
     'libadwaita-1-0'
