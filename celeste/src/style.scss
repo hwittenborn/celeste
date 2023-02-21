@@ -1,5 +1,5 @@
 // Global padding on windows.
-window > *:not(contents), window > contents {
+.celeste-global-padding > *:not(contents):not(tooltip), .celeste-global-padding > contents {
     & > box, & > leaflet > box {
         & > *:not(headerbar):not(stacksidebar) {
             margin-left: 1em;
@@ -16,38 +16,15 @@ window > *:not(contents), window > contents {
     }
 }
 
-// Cancel the above formatting for message dialog windows.
-window.message.dialog > *:not(contents), window.message.dialog > contents {
-    & > box, & > leaflet > box {
-        & > *:not(headerbar):not(stacksidebar) {
-            margin-left: 0;
-            margin-right: 0;
-
-            &:nth-child(2) {
-                margin-top: 0;
-            }
-
-            &:last-child {
-                margin-bottom: 0;
-            }
-        }
-    }
-}
-
-// Cancel the above formatting for tooltips.
-// TODO: This isn't working for some reason :p.
-tooltip * {
-	margin: 0;
-}
 
 // Formatting for code blocks.
-.scrollable-codeblock {
+.celeste-scrollable-codeblock {
     border-style: solid;
     border-width: 1px;
     border-color: unquote("@borders");
 }
 
 // Styling for `EntryRow`s with no titles.
-row.no-title box widget label {
+row.celeste-no-title box widget label {
     font-size: 0;
 }

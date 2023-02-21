@@ -104,6 +104,7 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
         .title(&libceleste::get_title!("Log in"))
         .width_request(400)
         .build();
+    window.add_css_class("celeste-global-padding");
     window.connect_close_request(glib::clone!(@strong sender => move |_| {
         sender.send(None);
         Inhibit(false)

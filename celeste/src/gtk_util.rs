@@ -72,7 +72,7 @@ pub fn codeblock(text: &str) -> ScrolledWindow {
         .min_content_width(100)
         .min_content_height(100)
         .margin_top(10)
-        .css_classes(vec!["scrollable-codeblock".to_string()])
+        .css_classes(vec!["celeste-scrollable-codeblock".to_string()])
         .build()
 }
 

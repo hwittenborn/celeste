@@ -269,6 +269,7 @@ pub fn launch(app: &Application, background: bool) {
         .application(app)
         .title(&libceleste::get_title!("Servers"))
         .build();
+    window.add_css_class("celeste-global-padding");
     let stack_sidebar = StackSidebar::builder()
         .width_request(150)
         .height_request(500)
@@ -437,7 +438,7 @@ pub fn launch(app: &Application, background: bool) {
                 };
             });
             let gen_ignore_row = glib::clone!(@strong get_lock, @strong write_file, @strong ignore_rules, @strong more_info_exclusions_list => move |content: Option<String>| {
-                let row = EntryRow::builder().css_classes(vec!["no-title".to_string()]).build();
+                let row = EntryRow::builder().css_classes(vec!["celeste-no-title".to_string()]).build();
                 if let Some(text) = content {
                     row.set_text(&text);
                 } else {
@@ -624,6 +625,7 @@ pub fn launch(app: &Application, background: bool) {
                 let folder_window = ApplicationWindow::builder()
                     .title(&libceleste::get_title!("Remote Folder Picker"))
                     .build();
+                folder_window.add_css_class("celeste-global-padding");
                 let folder_sections = Box::builder().orientation(Orientation::Vertical).build();
                 folder_sections.append(&HeaderBar::new());
 
@@ -1605,13 +1607,23 @@ pub fn launch(app: &Application, background: bool) {
                                 Some(string) => string,
                                 None => local_path_stripped,
                             };
-                            sync_dir.remote_path.clone() + "/" + stripped_path
+
+                            if sync_dir.remote_path.is_empty() {
+                                stripped_path.to_owned()
+                            } else {
+                                sync_dir.remote_path.clone() + "/" + stripped_path
+                            }
                         };
                         // The above path, with `sync_dir.remote_path` stripped from it.
-                        let stripped_remote_path = remote_path
-                            .strip_prefix(&format!("{}/", sync_dir.remote_path))
-                            .unwrap()
-                            .to_owned();
+                        let stripped_remote_path =
+                            if remote_path.contains('/') && sync_dir.remote_path.contains('/') {
+                                remote_path
+                                    .strip_prefix(&format!("{}/", sync_dir.remote_path))
+                                    .unwrap()
+                                    .to_owned()
+                            } else {
+                                remote_path.clone()
+                            };
 
                         update_ui_progress(&local_path);
                         // If this item matches the ignore list, don't sync it.

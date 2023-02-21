@@ -171,7 +171,7 @@ fn main() {
 
         // Show the backtrace in the GUI if one was found.
         if backtrace.is_some() {
-            app.connect_startup(move |app| {
+            app.connect_activate(move |app| {
                 let window = ApplicationWindow::builder()
                     .application(app)
                     .title(&libceleste::get_title!("Unknown Error"))

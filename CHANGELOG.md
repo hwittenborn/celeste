@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed
 - Fixed panic when previously synced local dir no longer exists.
+- Fixed extra padding in certain windows.
+- Fixed recorded remote items incorrectly starting with `/` in Celeste's database.
 
 ## [0.4.1] - 2023-02-15
 ### Changed
