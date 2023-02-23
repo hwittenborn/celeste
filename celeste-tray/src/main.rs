@@ -6,6 +6,7 @@ use zbus::blocking::Connection;
 lazy_static::lazy_static! {
     static ref CLOSE_REQUEST: Mutex<bool> = Mutex::new(false);
     static ref SYNC_ICON_REQUEST: Mutex<bool> = Mutex::new(false);
+    static ref WARNING_ICON_REQUEST: Mutex<bool> = Mutex::new(false);
     static ref DONE_ICON_REQUEST: Mutex<bool> = Mutex::new(false);
     static ref CURRENT_STATUS: Mutex<String> = Mutex::new(String::new());
 }
@@ -26,6 +27,10 @@ impl TrayIcon {
         *(*SYNC_ICON_REQUEST).lock().unwrap() = true;
     }
 
+    async fn set_warning_icon(&self) {
+        *(*WARNING_ICON_REQUEST).lock().unwrap() = true;
+    }
+
     async fn set_done_icon(&self) {
         *(*DONE_ICON_REQUEST).lock().unwrap() = true;
     }
@@ -37,7 +42,7 @@ fn main() {
     // The indicator.
     let mut indicator = AppIndicator::new(
         "Celeste",
-        "com.hunterwittenborn.Celeste.tray-loading-symbolic",
+        "com.hunterwittenborn.Celeste.CelesteTrayLoading-symbolic",
     );
     indicator.set_status(AppIndicatorStatus::Active);
 
@@ -94,11 +99,15 @@ fn main() {
         menu_sync_status.set_label(&status);
 
         if *(*SYNC_ICON_REQUEST).lock().unwrap() {
-            indicator.set_icon("com.hunterwittenborn.Celeste.tray-syncing-symbolic");
+            indicator.set_icon("com.hunterwittenborn.Celeste.CelesteTraySyncing-symbolic");
         } else if *(*DONE_ICON_REQUEST).lock().unwrap() {
-            indicator.set_icon("com.hunterwittenborn.Celeste.tray-done-symbolic");
+            indicator.set_icon("com.hunterwittenborn.Celeste.CelesteTrayDone-symbolic");
+        } else if *(*WARNING_ICON_REQUEST).lock().unwrap() {
+            indicator.set_icon("com.hunterwittenborn.Celeste.CelesteTrayWarning-symbolic");
         }
+
         *(*SYNC_ICON_REQUEST).lock().unwrap() = false;
+        *(*WARNING_ICON_REQUEST).lock().unwrap() = false;
         *(*DONE_ICON_REQUEST).lock().unwrap() = false;
 
         if *(*CLOSE_REQUEST).lock().unwrap() {

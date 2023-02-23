@@ -2,6 +2,7 @@
 #![feature(arc_unwrap_or_clone)]
 #![feature(panic_info_message)]
 #![feature(async_closure)]
+#![feature(trait_alias)]
 
 pub mod about;
 pub mod entities;
@@ -176,6 +177,7 @@ fn main() {
                     .application(app)
                     .title(&libceleste::get_title!("Unknown Error"))
                     .build();
+                window.add_css_class("celeste-global-padding");
                 let sections = Box::builder()
                     .orientation(Orientation::Vertical)
                     .build();
@@ -190,6 +192,9 @@ fn main() {
                 let error_text = Label::builder()
                     .label("An unknown error has occurred while running. This is an internal issue with Celeste and should be reported.\n\nThe following backtrace may help with debugging the issue - note that it may contain information such as login tokens/keys, so avoid posting the information publicly:")
                     .halign(Align::Start)
+                    .wrap(true)
+                    .xalign(0.0)
+                    .yalign(0.0)
                     .build();
                 sections.append(&error_text);
                 sections.append(&gtk_util::codeblock(backtrace.as_ref().unwrap()));

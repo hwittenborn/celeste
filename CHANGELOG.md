@@ -5,10 +5,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.4.2] - 2023-02-22
 ### Changed
 - Fixed panic when previously synced local dir no longer exists.
 - Fixed extra padding in certain windows.
 - Fixed recorded remote items incorrectly starting with `/` in Celeste's database.
+- Fixed long windows when multiple errors are present.
 
 ## [0.4.1] - 2023-02-15
 ### Changed

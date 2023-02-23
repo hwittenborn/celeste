@@ -424,6 +424,23 @@
        apply_with_radius="true"
        only_selected="false"
        hide_knots="false" />
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect14707-3"
+       is_visible="true"
+       lpeversion="1"
+       satellites_param="F,0,0,1,0,1,0,1 @ F,0,0,1,0,1,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,1.7625427e-05,0,1"
+       unit="px"
+       method="auto"
+       mode="F"
+       radius="1"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -432,9 +449,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="69.4023"
-     inkscape:cx="88.923567"
-     inkscape:cy="291.72665"
+     inkscape:zoom="20.558049"
+     inkscape:cx="101.85791"
+     inkscape:cy="293.58331"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -505,7 +522,7 @@
        inkscape:label="tags separated by space"
        transform="translate(0,80)">
       <title
-         id="title851">com.hunterwittenborn.CelesteTrayLoading</title>
+         id="title851">com.hunterwittenborn.Celeste.CelesteTrayLoading</title>
       <rect
          y="522.51965"
          x="82"
@@ -639,6 +656,10 @@
          cx="87.5"
          cy="534.76965"
          r="1.5" />
+      <path
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 168,526.51965 h -3 v 6 h 3 z"
+         id="path698" />
     </g>
     <flowRoot
        transform="translate(43,907.51965)"
@@ -675,7 +696,7 @@
        inkscape:label="tags separated by space"
        transform="translate(24,79.999997)">
       <title
-         id="title14082">com.hunterwittenborn.CelesteTraySyncing</title>
+         id="title14082">com.hunterwittenborn.Celeste.CelesteTraySyncing</title>
       <rect
          y="522.51965"
          x="82"
@@ -820,7 +841,7 @@
        inkscape:label="tags separated by space"
        transform="translate(48,79.999997)">
       <title
-         id="title14653">com.hunterwittenborn.CelesteTrayDone</title>
+         id="title14653">com.hunterwittenborn.Celeste.CelesteTrayDone</title>
       <rect
          y="522.51965"
          x="82"
@@ -940,6 +961,134 @@
          style="color:#000000;fill:#000000;stroke-width:1.01601;-inkscape-stroke:none"
          d="m 96.775429,532.26965 -2.536327,2.54372 -1.014531,-1.01749 L 92,535.02402 l 0.358652,0.3597 1.88045,1.88593 L 98,533.49779 Z"
          id="path15452" />
+    </g>
+    <g
+       id="g14699-6"
+       inkscape:label="tags separated by space"
+       transform="translate(72,79.999997)">
+      <title
+         id="title14653-7">com.hunterwittenborn.Celeste.CelesteTrayWarning</title>
+      <rect
+         y="522.51965"
+         x="82"
+         height="16"
+         width="16"
+         id="rect14655-5"
+         style="opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;paint-order:normal" />
+      <rect
+         style="fill:#808080;fill-opacity:0.6;stroke-width:0.707109;stroke-linejoin:round"
+         id="rect14657-3"
+         width="12"
+         height="1.0000067"
+         x="84"
+         y="534.76965" />
+      <path
+         style="fill:#808080;fill-opacity:0.294118;stroke-width:0.5;stroke-linejoin:round"
+         id="path14661-5"
+         width="8"
+         height="9.5"
+         x="86"
+         y="525.26965"
+         sodipodi:type="rect"
+         inkscape:path-effect="#path-effect14707-3"
+         d="m 87,525.26965 h 6 a 1,1 45 0 1 1,1 v 8.5 H 86.000018 A 1.7625427e-5,1.7625427e-5 45 0 1 86,534.76964 v -8.49999 a 1,1 135 0 1 1,-1 z" />
+      <rect
+         style="fill:#808080;fill-opacity:0.29;stroke-width:0.707103;stroke-linejoin:round"
+         id="rect14663-6"
+         width="4"
+         height="0.99999106"
+         x="87"
+         y="532.26965" />
+      <rect
+         style="fill:#808080;fill-opacity:0.6;stroke-width:0.5;stroke-linejoin:round"
+         id="rect14665-2"
+         width="2"
+         height="1"
+         x="84"
+         y="533.76965" />
+      <rect
+         style="fill:#808080;fill-opacity:0.6;stroke-width:0.5;stroke-linejoin:round"
+         id="rect14667-9"
+         width="2"
+         height="1"
+         x="94"
+         y="533.76965" />
+      <rect
+         style="fill:#808080;fill-opacity:0.29;stroke-width:0.5;stroke-linejoin:round"
+         id="rect14669-1"
+         width="1"
+         height="1"
+         x="92"
+         y="532.26965" />
+      <rect
+         style="fill:#808080;fill-opacity:0.29;stroke-width:0.612368;stroke-linejoin:round"
+         id="rect14671-2"
+         width="3"
+         height="0.99999106"
+         x="90"
+         y="528.26965" />
+      <rect
+         style="fill:#808080;fill-opacity:0.29;stroke-width:0.707102;stroke-linejoin:round"
+         id="rect14675-7"
+         width="4"
+         height="0.99999106"
+         x="89"
+         y="530.26965" />
+      <rect
+         style="fill:#808080;fill-opacity:0.6;stroke-width:0.5;stroke-linejoin:round"
+         id="rect14677-0"
+         width="2"
+         height="1"
+         x="84"
+         y="530.76965" />
+      <rect
+         style="fill:#808080;fill-opacity:0.6;stroke-width:0.5;stroke-linejoin:round"
+         id="rect14679-9"
+         width="2"
+         height="1"
+         x="84"
+         y="531.76965" />
+      <rect
+         style="fill:#808080;fill-opacity:0.6;stroke-width:0.5;stroke-linejoin:round"
+         id="rect14681-3"
+         width="2"
+         height="1"
+         x="94"
+         y="531.76965" />
+      <rect
+         style="fill:#808080;fill-opacity:0.6;stroke-width:0.5;stroke-linejoin:round"
+         id="rect14683-6"
+         width="2"
+         height="1"
+         x="94"
+         y="530.76965" />
+      <rect
+         style="fill:#808080;fill-opacity:0.29;stroke-width:0.5;stroke-linejoin:round"
+         id="rect14685-0"
+         width="2"
+         height="1"
+         x="87"
+         y="528.26965" />
+      <rect
+         style="fill:#808080;fill-opacity:0.29;stroke-width:0.866025;stroke-linejoin:round"
+         id="rect14687-6"
+         width="6"
+         height="1"
+         x="87"
+         y="526.26965" />
+      <rect
+         style="fill:#808080;fill-opacity:0.29;stroke-width:0.5;stroke-linejoin:round"
+         id="rect14689-2"
+         width="1"
+         height="1"
+         x="87"
+         y="530.26965" />
+      <circle
+         style="fill:#000000;fill-opacity:1;stroke-width:1.49999;stroke-linejoin:round"
+         id="path10235-1"
+         cx="94.5"
+         cy="534.76965"
+         r="1.5" />
     </g>
   </g>
   <g
