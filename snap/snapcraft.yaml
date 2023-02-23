@@ -1,6 +1,6 @@
 name: celeste
 base: core22
-version: '0.4.2'
+version: '0.4.3'
 summary: Sync your cloud files
 description: |
   Celeste is a GUI file synchronization client that can connect to almost any cloud provider you'd like. It provides a streamlined experience to back up your files, and integrates directly into your desktop system.

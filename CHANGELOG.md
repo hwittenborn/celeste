@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.3] - 2023-02-23
+### Fixed
+- Removed commented line in `justfile`.
+
 ## [0.4.2] - 2023-02-22
 ### Changed
 - Fixed panic when previously synced local dir no longer exists.

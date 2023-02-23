@@ -3,7 +3,7 @@ build:
 	cargo build --release --bin celeste
 
 install:
-	#install -Dm 755 target/release/celeste "{{ env_var('DESTDIR') }}/usr/bin/celeste"
+	install -Dm 755 target/release/celeste "{{ env_var('DESTDIR') }}/usr/bin/celeste"
 	install -Dm 644 assets/com.hunterwittenborn.Celeste.desktop "{{ env_var('DESTDIR') }}/usr/share/applications/com.hunterwittenborn.Celeste.desktop"
 	install -Dm 644 assets/com.hunterwittenborn.Celeste-regular.svg "{{ env_var('DESTDIR') }}/usr/share/icons/hicolor/scalable/apps/com.hunterwittenborn.Celeste.svg"
 	install -Dm 644 assets/context/com.hunterwittenborn.Celeste.CelesteTrayLoading-symbolic.svg "{{ env_var('DESTDIR') }}/usr/share/icons/hicolor/symbolic/apps/com.hunterwittenborn.Celeste.CelesteTrayLoading-symbolic.svg"
