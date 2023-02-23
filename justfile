@@ -1,3 +1,5 @@
+set positional-arguments
+
 build:
 	cargo build --release --bin celeste-tray
 	cargo build --release --bin celeste
@@ -10,6 +12,7 @@ install:
 	install -Dm 644 assets/context/com.hunterwittenborn.Celeste.CelesteTraySyncing-symbolic.svg "{{ env_var('DESTDIR') }}/usr/share/icons/hicolor/symbolic/apps/com.hunterwittenborn.Celeste.CelesteTraySyncing-symbolic.svg"
 	install -Dm 644 assets/context/com.hunterwittenborn.Celeste.CelesteTrayWarning-symbolic.svg "{{ env_var('DESTDIR') }}/usr/share/icons/hicolor/symbolic/apps/com.hunterwittenborn.Celeste.CelesteTrayWarning-symbolic.svg"
 	install -Dm 644 assets/context/com.hunterwittenborn.Celeste.CelesteTrayDone-symbolic.svg "{{ env_var('DESTDIR') }}/usr/share/icons/hicolor/symbolic/apps/com.hunterwittenborn.Celeste.CelesteTrayDone-symbolic.svg"
+	install -Dm 644 assets/com.hunterwittenborn.Celeste.metainfo.xml "{{ env_var('DESTDIR') }}/app/share/metainfo/com.hunterwittenborn.Celeste.metainfo.xml"
 
 clippy:
 	cargo build --bin celeste-tray
@@ -26,6 +29,34 @@ update-versions:
     version="$(just get-version)"
     sed -i "s|version = .*|version = \"${version}\"|" celeste/Cargo.toml celeste-tray/Cargo.toml libceleste/Cargo.toml
     sed -i "s|version: .*|version: '${version}'|" snap/snapcraft.yaml
+
+    date="$(cat CHANGELOG.md | grep "^## \[${version}\]" | grep -o '[^ ]*$')"
+    notes="$(parse-changelog CHANGELOG.md "${version}")"
+    just update-metainfo "${version}" "${date}" "${notes}"
+
+update-metainfo version date notes:
+    #!/usr/bin/env python3
+    import sys
+    import markdown
+    from bs4 import BeautifulSoup
+
+    metainfo_path = "assets/com.hunterwittenborn.Celeste.metainfo.xml"
+    version = sys.argv[1]
+    date = sys.argv[2]
+    notes = markdown.markdown(sys.argv[3])
+
+    text = open(metainfo_path).read()
+
+    soup = BeautifulSoup(text, features="xml")
+    release = soup.new_tag("release")
+    release["version"] = version
+    release["date"] = date
+    description = soup.new_tag("description")
+    description.append(BeautifulSoup(notes, "html.parser"))
+    release.append(description)
+
+    soup.component.releases.findAll()[0].insert_before(release)
+    open(metainfo_path, "w").write(soup.prettify())
 
 # Create the Snap using an already build copy of Celeste. This currently requires you to be running on Ubuntu 22.10 or newer.
 create-host-snap:

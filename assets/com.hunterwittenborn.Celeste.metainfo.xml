@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2023 Hunter Wittenborn -->
+<component type="desktop-application">
+ <id>
+  com.hunterwittenborn.Celeste
+ </id>
+ <name>
+  Celeste
+ </name>
+ <developer_name>
+  Hunter Wittenborn
+ </developer_name>
+ <summary>
+  Sync your cloud files
+ </summary>
+ <metadata_license>
+  CC0-1.0
+ </metadata_license>
+ <project_license>
+  GPL-3.0-or-later
+ </project_license>
+ <url type="homepage">
+  https://github.com/hwittenborn/celeste
+ </url>
+ <description>
+  <p>
+   Celeste is a GUI file synchronization client that can connect to almost any cloud provider you'd like. It provides a streamlined experience to back up your files, and integrates directly into your desktop system.
+  </p>
+ </description>
+ <launchable type="desktop-id">
+  com.hunterwittenborn.Celeste.desktop
+ </launchable>
+ <screenshots>
+  <screenshot type="default">
+   <image type="source">
+    https://raw.githubusercontent.com/hwittenborn/celeste/main/assets/main-window.png
+   </image>
+   <caption>
+    Celeste's main window
+   </caption>
+  </screenshot>
+ </screenshots>
+ <releases>
+  <release date="2023-02-15" version="0.4.1"/>
+  <release date="2023-02-08" version="0.4.0"/>
+  <release date="2023-02-08" version="0.3.6"/>
+  <release date="2023-02-04" version="0.3.5"/>
+  <release date="2023-01-14" version="0.1.12"/>
+ </releases>
+ <content_rating type="oars-1.1"/>
+ <update_contact>
+  hunter@hunterwittenborn.com
+ </update_contact>
+</component>
+<!-- vim: set sw=4 expandtab: -->
