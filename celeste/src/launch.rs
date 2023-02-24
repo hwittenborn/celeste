@@ -1594,7 +1594,7 @@ pub fn launch(app: &Application, background: bool) {
                     let dir_string = local_dir.to_str().unwrap().to_owned();
                     let update_ui_progress = |dir: &str| {
                         // If this directory no longer exists in the database (i.e. from being
-                        // deleted from the `sync_dir_deletion_queue`, do nothing).
+                        // deleted from the `sync_dir_deletion_queue`), then do nothing.
                         if !sync_dir.exists(db) {
                             return;
                         }
@@ -1662,6 +1662,7 @@ pub fn launch(app: &Application, background: bool) {
                         }
                         let item = item.unwrap();
                         let local_path = item.path().to_str().unwrap().to_owned();
+
                         // The path from the root of the remote.
                         let remote_path = {
                             let local_path_stripped = local_path

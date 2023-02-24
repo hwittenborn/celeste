@@ -22,14 +22,17 @@ futures = "0.3.25"
 lazy_static = "1.4.0"
 libappindicator = "0.7.1"
 librclone = { version = "0.3.0" }
+nix = "0.26.2"
 quit = "1.1.4"
 rand = "0.8.5"
 regex = "1.6.0"
+rocket = "0.5.0-rc.2"
 sea-orm = { version = "0.10.3", features = ["sqlx-sqlite", "runtime-async-std-rustls", "macros"] }
 sea-orm-migration = "0.10.0"
 serde = { version = "1.0.143", features = ["derive"] }
 serde_json = "1.0.83"
 tempfile = "3.3.0"
+tera = "1.17.1"
 time = { version = "0.3.17", features = ["serde-well-known"] }
 tokio = { version = "1.21.2", features = ["macros", "rt-multi-thread", "sync"] }
 toml_edit = { version = "0.14.4", features = ["serde"] }

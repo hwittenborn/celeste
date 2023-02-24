@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.4] - 2023-02-23
+### Fixed
+- Add `com.hunterwittenborn.Celeste.metainfo.xml` to packaging.
+- Fixed Google Drive authentication for Google's branding requirements.
+
 ## [0.4.3] - 2023-02-23
 ### Fixed
 - Removed commented line in `justfile`.

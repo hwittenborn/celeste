@@ -41,6 +41,25 @@
   </screenshot>
  </screenshots>
  <releases>
+  <release date="2023-02-23" version="0.4.4">
+   <description>
+    <h3>
+     Fixed
+    </h3>
+    <ul>
+     <li>
+      Add
+      <code>
+       com.hunterwittenborn.Celeste.metainfo.xml
+      </code>
+      to packaging.
+     </li>
+     <li>
+      Fixed Google Drive authentication for Google's branding requirements.
+     </li>
+    </ul>
+   </description>
+  </release>
   <release date="2023-02-15" version="0.4.1"/>
   <release date="2023-02-08" version="0.4.0"/>
   <release date="2023-02-08" version="0.3.6"/>

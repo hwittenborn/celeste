@@ -1,6 +1,6 @@
 [package]
 name = "celeste"
-version = "0.4.3"
+version = "0.4.4"
 edition = "2021"
 
 [dependencies]
@@ -18,15 +18,18 @@ futures.workspace = true
 lazy_static.workspace = true
 libceleste.workspace = true
 librclone.workspace = true
+nix.workspace = true
 quit.workspace = true
 rand.workspace = true
 regex.workspace = true
+rocket.workspace = true
 sea-orm.workspace = true
 sea-orm-migration.workspace = true
 serde.workspace = true
 serde_json.workspace = true
 tempfile.workspace = true
 time.workspace = true
+tera.workspace = true
 tokio.workspace = true
 toml_edit.workspace = true
 url.workspace = true
