@@ -38,25 +38,43 @@ update-metainfo version date notes:
     #!/usr/bin/env python3
     import sys
     import markdown
-    from bs4 import BeautifulSoup
-
+    import bs4
+    from bs4 import BeautifulSoup, NavigableString
+    
     metainfo_path = "assets/com.hunterwittenborn.Celeste.metainfo.xml"
     version = sys.argv[1]
     date = sys.argv[2]
     notes = markdown.markdown(sys.argv[3])
-
+    
     text = open(metainfo_path).read()
-
+    
     soup = BeautifulSoup(text, features="xml")
     release = soup.new_tag("release")
     release["version"] = version
     release["date"] = date
     description = soup.new_tag("description")
     description.append(BeautifulSoup(notes, "html.parser"))
-    release.append(description)
+    
+    for h3 in description.find_all("h3"):
+        changed_header_str = ""
+    
+        if h3.contents[0] == "Fixed":
+            changed_header_str = "Fixes in this release:"
+        elif h3.contents[0] == "Changed":
+            changed_header_str = "Changes made in this release:"
+        elif h3.contents[0] == "Added":
+            changed_header_str = "Feature additions in this release:"
+        else:
+            raise Exception("Unknown header: " + str(h3))
 
+        header = soup.new_tag("p")
+        header.insert(0, NavigableString(changed_header_str))
+        h3.insert_before(header)
+        h3.extract()
+    
+    release.append(description)
     soup.component.releases.findAll()[0].insert_before(release)
-    open(metainfo_path, "w").write(soup.prettify())
+    open(metainfo_path, "w").write(soup.prettify(formatter=bs4.formatter.HTMLFormatter(indent=4)))
 
 # Create the Snap using an already build copy of Celeste. This currently requires you to be running on Ubuntu 22.10 or newer.
 create-host-snap:
