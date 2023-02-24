@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.5] - 2023-02-24
+### Fixed
+- Fixed location of metainfo file.
+
 ## [0.4.4] - 2023-02-23
 ### Fixed
 - Add `com.hunterwittenborn.Celeste.metainfo.xml` to packaging.

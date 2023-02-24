@@ -41,6 +41,18 @@
   </screenshot>
  </screenshots>
  <releases>
+  <release date="2023-02-24" version="0.4.5">
+   <description>
+    <h3>
+     Fixed
+    </h3>
+    <ul>
+     <li>
+      Fixed location of metainfo file.
+     </li>
+    </ul>
+   </description>
+  </release>
   <release date="2023-02-23" version="0.4.4">
    <description>
     <h3>
