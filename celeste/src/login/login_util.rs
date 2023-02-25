@@ -11,7 +11,7 @@ use url::Url;
 
 /// Get the input for the server name.
 pub fn server_name_input() -> EntryRow {
-    let input = EntryRow::builder().title("Server Name").build();
+    let input = EntryRow::builder().title(&tr::tr!("Server Name")).build();
     input.connect_changed(|input| {
         let text = input.text();
 
@@ -23,11 +23,11 @@ pub fn server_name_input() -> EntryRow {
 
         if existing_remotes.contains(&text.to_string()) {
             input.add_css_class("error");
-            input.set_tooltip_text(Some("Server name already exists."));
+            input.set_tooltip_text(Some(&tr::tr!("Server name already exists.")));
         } else if !Regex::new(r"^[0-9a-zA-Z_.][0-9a-zA-Z_. -]*[0-9a-zA-Z_.-]$").unwrap().is_match(&text) {
-            let err_msg = "Invalid server name. Server names must:\n- Only contain numbers, letters, '_', '-', '.', and spaces\n- Not start with '-' or a space\n- Not end with a space";
+            let err_msg = tr::tr!("Invalid server name. Server names must:\n- Only contain numbers, letters, '_', '-', '.', and spaces\n- Not start with '-' or a space\n- Not end with a space");
             input.add_css_class("error");
-            input.set_tooltip_text(Some(err_msg));
+            input.set_tooltip_text(Some(&err_msg));
         } else {
             input.remove_css_class("error");
             input.set_tooltip_text(None);
@@ -39,13 +39,13 @@ pub fn server_name_input() -> EntryRow {
 
 /// Get the input for the server URL.
 pub fn server_url_input(disallow_nextcloud_suffix: bool) -> EntryRow {
-    let input = EntryRow::builder().title("Server URL").build();
+    let input = EntryRow::builder().title(&tr::tr!("Server URL")).build();
     input.connect_changed(move |input| {
         let text = input.text();
         let url = Url::parse(&text);
 
         if let Err(err) = url {
-            let err_string = format!("Invalid server URL ({err}).");
+            let err_string = tr::tr!("Invalid server URL ({}).", err);
             input.add_css_class("error");
             input.set_tooltip_text(Some(&err_string));
             return;
@@ -54,12 +54,14 @@ pub fn server_url_input(disallow_nextcloud_suffix: bool) -> EntryRow {
         let url = url.unwrap();
         if !url.has_host() {
             input.add_css_class("error");
-            input.set_tooltip_text(Some("Invalid server URL (no domain specified)."));
+            input.set_tooltip_text(Some(&tr::tr!("Invalid server URL (no domain specified).")));
         } else if url.password().is_some() {
             input.add_css_class("error");
-            input.set_tooltip_text(Some("Invalid server URL (password was specified."));
+            input.set_tooltip_text(Some(&tr::tr!(
+                "Invalid server URL (password was specified)."
+            )));
         } else if !["http", "https"].contains(&url.scheme()) {
-            let err_string = format!(
+            let err_string = tr::tr!(
                 "Invalid server URL(unknown server scheme {}).",
                 url.scheme()
             );
@@ -72,7 +74,7 @@ pub fn server_url_input(disallow_nextcloud_suffix: bool) -> EntryRow {
                 .unwrap()
                 .as_str()
                 .to_string();
-            let err_string = format!("Don't specify '{text_to_remove}' as part of the URL.");
+            let err_string = tr::tr!("Don't specify '{}' as part of the URL.", text_to_remove);
             input.add_css_class("error");
             input.set_tooltip_text(Some(&err_string));
         } else {
@@ -85,17 +87,19 @@ pub fn server_url_input(disallow_nextcloud_suffix: bool) -> EntryRow {
 
 /// Get the input for usernames.
 pub fn username_input() -> EntryRow {
-    EntryRow::builder().title("Username").build()
+    EntryRow::builder().title(&tr::tr!("Username")).build()
 }
 
 /// Get the input for passwords.
 pub fn password_input() -> PasswordEntryRow {
-    PasswordEntryRow::builder().title("Password").build()
+    PasswordEntryRow::builder()
+        .title(&tr::tr!("Password"))
+        .build()
 }
 
 /// Get the login button.
 pub fn submit_button() -> Button {
-    let label = Label::builder().label("Log in").build();
+    let label = Label::builder().label(&tr::tr!("Log in")).build();
     let button = Button::builder()
         .child(&label)
         .halign(Align::End)

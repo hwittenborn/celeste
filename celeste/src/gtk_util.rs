@@ -7,10 +7,9 @@ use adw::{
 };
 
 /// Show an error screen.
-pub fn show_error(title: &str, primary_text: &str, secondary_text: Option<&str>) {
+pub fn show_error(primary_text: &str, secondary_text: Option<&str>) {
     let (sender, mut receiver) = mpsc::channel::<()>();
     let mut dialog = MessageDialog::builder()
-        .title(&libceleste::get_title!("{}", title))
         .heading(primary_text)
         .modal(true)
         .resizable(true);
@@ -18,7 +17,7 @@ pub fn show_error(title: &str, primary_text: &str, secondary_text: Option<&str>)
         dialog = dialog.body(text);
     }
     let dialog = dialog.build();
-    dialog.add_response("ok", "Ok");
+    dialog.add_response("ok", &tr::tr!("Ok"));
     dialog.connect_response(
         None,
         glib::clone!(@strong sender => move |dialog, resp| {
@@ -33,7 +32,7 @@ pub fn show_error(title: &str, primary_text: &str, secondary_text: Option<&str>)
 }
 
 // Show an error screen with a codeblock.
-pub fn show_codeblock_error(title: &str, primary_text: &str, code: &str) {
+pub fn show_codeblock_error(primary_text: &str, code: &str) {
     let (sender, mut receiver) = mpsc::channel::<()>();
     let dialog = MessageDialog::builder()
         .title(&libceleste::get_title!("{title}"))
@@ -41,7 +40,7 @@ pub fn show_codeblock_error(title: &str, primary_text: &str, code: &str) {
         .extra_child(&codeblock(code))
         .resizable(true)
         .build();
-    dialog.add_response("ok", "Ok");
+    dialog.add_response("ok", &tr::tr!("Ok"));
     dialog.connect_response(
         None,
         glib::clone!(@strong sender => move |dialog, resp| {

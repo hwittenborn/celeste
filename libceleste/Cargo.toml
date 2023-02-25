@@ -10,3 +10,4 @@ name = "libceleste"
 blocking.workspace = true
 futures.workspace = true
 glib.workspace = true
+tr.workspace = true

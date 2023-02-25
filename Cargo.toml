@@ -36,6 +36,7 @@ tera = "1.17.1"
 time = { version = "0.3.17", features = ["serde-well-known"] }
 tokio = { version = "1.21.2", features = ["macros", "rt-multi-thread", "sync"] }
 toml_edit = { version = "0.14.4", features = ["serde"] }
+tr = "0.1.6"
 url = "2.3.1"
 users = "0.11.0"
 zbus = "3.8.0"

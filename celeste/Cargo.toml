@@ -32,6 +32,7 @@ time.workspace = true
 tera.workspace = true
 tokio.workspace = true
 toml_edit.workspace = true
+tr.workspace = true
 url.workspace = true
 users.workspace = true
 zbus.workspace = true

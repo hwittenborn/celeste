@@ -48,11 +48,11 @@ fn main() {
 
     let mut menu = Menu::new();
     let menu_sync_status = MenuItem::builder()
-        .label("Awaiting sync checks...")
+        .label(&tr::tr!("Awaiting sync checks..."))
         .sensitive(false)
         .build();
-    let menu_open = MenuItem::builder().label("Open").build();
-    let menu_quit = MenuItem::builder().label("Quit").build();
+    let menu_open = MenuItem::builder().label(&tr::tr!("Open")).build();
+    let menu_quit = MenuItem::builder().label(&tr::tr!("Quit")).build();
     menu.append(&menu_sync_status);
     menu.append(&menu_open);
     menu.append(&menu_quit);
@@ -113,7 +113,7 @@ fn main() {
         if *(*CLOSE_REQUEST).lock().unwrap() {
             // Set up the quit label.
             menu_quit.set_sensitive(false);
-            menu_quit.set_label("Quitting...");
+            menu_quit.set_label(&tr::tr!("Quitting..."));
 
             // Notify the tray icon to close.
             // I'm not sure when this can fail, so output an error if one is received.

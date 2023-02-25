@@ -98,8 +98,10 @@ impl SyncError {
                 error_container.append(&file_label);
             }
             SyncError::BothMoreCurrent(local_path, remote_path) => {
-                let err_msg = format!(
-                    "Both '{local_path}' and '{remote_path}' are more recent than at last sync."
+                let err_msg = tr::tr!(
+                    "Both '{}' and '{}' are more recent than at last sync.",
+                    local_path,
+                    remote_path
                 );
                 let err_label = Label::builder()
                     .label(&err_msg)
@@ -209,8 +211,7 @@ pub fn launch(app: &Application, background: bool) {
     let config_path = libceleste::get_config_dir();
     if !config_path.exists() && let Err(err) = fs::create_dir_all(&config_path) {
         gtk_util::show_error(
-            "Config Error",
-            &format!("Unable to create Celeste's config directory [{err}]."),
+            &tr::tr!("Unable to create Celeste's config directory [{}].", err),
             None
         );
         return;
@@ -222,8 +223,7 @@ pub fn launch(app: &Application, background: bool) {
     if !db_path.exists() {
         if let Err(err) = fs::File::create(&db_path) {
             gtk_util::show_error(
-                "Database Error",
-                &format!("Unable to create Celeste's database file [{err}]."),
+                &tr::tr!("Unable to create Celeste's database file [{}].", err),
                 None,
             );
             return;
@@ -234,8 +234,7 @@ pub fn launch(app: &Application, background: bool) {
     let db = libceleste::await_future(Database::connect(format!("sqlite://{}", db_path.display())));
     if let Err(err) = &db {
         gtk_util::show_error(
-            "Database Error",
-            &format!("Unable to connect to database [{err}]."),
+            &tr::tr!("Unable to connect to database [{}].", err),
             None,
         );
         return;
@@ -245,8 +244,7 @@ pub fn launch(app: &Application, background: bool) {
     // Run migrations.
     if let Err(err) = libceleste::await_future(Migrator::up(&db, None)) {
         gtk_util::show_error(
-            "Database Error",
-            &format!("Unable to run database migrations [{err}]"),
+            &tr::tr!("Unable to run database migrations [{}]", err),
             None,
         );
         return;
@@ -353,7 +351,7 @@ pub fn launch(app: &Application, background: bool) {
                 .css_classes(vec!["caption".to_string(), "dim-label".to_string(), "error".to_string()])
                 .build();
             let status = Label::builder()
-                .label("Awaiting sync check...")
+                .label(&tr::tr!("Awaiting sync check..."))
                 .halign(Align::Start)
                 .css_classes(vec!["caption".to_string(), "dim-label".to_string()])
                 .ellipsize(EllipsizeMode::End)
@@ -389,7 +387,7 @@ pub fn launch(app: &Application, background: bool) {
 
             // The errors section.
             let more_info_errors_label = Label::builder()
-            .label("Sync Errors")
+            .label(&tr::tr!("Sync Errors"))
             .halign(Align::Start)
             .hexpand_set(true)
             .hexpand(true)
@@ -404,7 +402,7 @@ pub fn launch(app: &Application, background: bool) {
             // The exclusion list.
             let more_info_exclusions_header = Box::builder().orientation(Orientation::Horizontal).margin_top(20).margin_bottom(10).build();
             let more_info_exclusions_label = Label::builder()
-                .label("File/Folder Exclusions")
+                .label(&tr::tr!("File/Folder Exclusions"))
                 .halign(Align::Start)
                 .hexpand_set(true)
                 .hexpand(true)
@@ -523,7 +521,7 @@ pub fn launch(app: &Application, background: bool) {
             let more_info_delete_button = Button::builder()
                 .icon_name("user-trash-symbolic")
                 .has_tooltip(true)
-                .tooltip_text("Stop syncing this directory")
+                .tooltip_text(&tr::tr!("Stop syncing this directory"))
                 .halign(Align::End)
                 .build();
 
@@ -540,7 +538,7 @@ pub fn launch(app: &Application, background: bool) {
                 more_info_widgets.iter().for_each(|item| item.set_sensitive(false));
                 let dialog = MessageDialog::builder()
                     .text(
-                        &format!("Are you sure you want to stop syncing {formatted_local_path} to {formatted_remote_path}?")
+                        &tr::tr!("Are you sure you want to stop syncing '{}' to '{}'?", formatted_local_path, formatted_remote_path)
                     )
                     .buttons(ButtonsType::YesNo)
                     .build();
@@ -549,7 +547,7 @@ pub fn launch(app: &Application, background: bool) {
                         ResponseType::Yes => {
                             let data = (server_name.clone(), local_path.clone(), remote_path.clone());
                             sync_dir_deletion_queue.get_mut_ref().push(data);
-                            more_info_delete_button.set_tooltip_text(Some("This directory is currently being processed to no longer be synced."));
+                            more_info_delete_button.set_tooltip_text(Some(&tr::tr!("This directory is currently being processed to no longer be synced.")));
                             more_info_back_button.set_sensitive(true);
                             dialog.close();
                         },
@@ -640,7 +638,7 @@ pub fn launch(app: &Application, background: bool) {
         {
             let section = Box::builder().orientation(Orientation::Horizontal).build();
             let label = Label::builder()
-                .label("Directories")
+                .label(&tr::tr!("Directories"))
                 .halign(Align::Start)
                 .hexpand(true)
                 .hexpand_set(true)
@@ -663,7 +661,7 @@ pub fn launch(app: &Application, background: bool) {
                 folder_sections.append(&HeaderBar::new());
 
                 // Get the local folder to sync with.
-                let local_label = Label::builder().label("Local folder:").halign(Align::Start).css_classes(vec!["heading".to_string()]).build();
+                let local_label = Label::builder().label(&tr::tr!("Local folder:")).halign(Align::Start).css_classes(vec!["heading".to_string()]).build();
                 let local_entry = Entry::builder()
                     .secondary_icon_activatable(true)
                     .secondary_icon_name("folder-symbolic")
@@ -679,8 +677,8 @@ pub fn launch(app: &Application, background: bool) {
                         .create_folders(true)
                         .filter(&filter)
                         .build();
-                    let cancel_button = Button::with_label("Cancel");
-                    let ok_button = Button::with_label("Ok");
+                    let cancel_button = Button::with_label(&tr::tr!("Cancel"));
+                    let ok_button = Button::with_label(&tr::tr!("Ok"));
                     dialog.add_action_widget(&cancel_button, ResponseType::Cancel);
                     dialog.add_action_widget(&ok_button, ResponseType::Ok);
                     dialog.connect_close_request(glib::clone!(@strong folder_window => move |_| {
@@ -699,7 +697,7 @@ pub fn launch(app: &Application, background: bool) {
 
                 // Get the remote folder to sync with, and add it.
                 // The entry completion code is largely inspired by https://github.com/gtk-rs/gtk4-rs/blob/master/examples/entry_completion/main.rs. I honestly have no clue what half the code for that is doing, I just know the current code is working well enough, and it can be fixed later if it breaks.
-                let remote_label = Label::builder().label("Remote folder:").halign(Align::Start).css_classes(vec!["heading".to_string()]).build();
+                let remote_label = Label::builder().label(&tr::tr!("Remote folder:")).halign(Align::Start).css_classes(vec!["heading".to_string()]).build();
                 let entry_completion = EntryCompletion::new();
                 let store = ListStore::new(&[glib::Type::STRING]);
                 entry_completion.set_text_column(0);
@@ -817,8 +815,8 @@ pub fn launch(app: &Application, background: bool) {
                 folder_sections.append(&remote_label);
                 folder_sections.append(&remote_entry);
                 let confirm_box = Box::builder().orientation(Orientation::Horizontal).spacing(10).halign(Align::End).build();
-                let cancel_button = Button::with_label("Cancel");
-                let ok_button = Button::with_label("Ok");
+                let cancel_button = Button::with_label(&tr::tr!("Cancel"));
+                let ok_button = Button::with_label(&tr::tr!("Ok"));
                 confirm_box.append(&cancel_button);
                 confirm_box.append(&ok_button);
                 folder_sections.append(&Separator::builder().orientation(Orientation::Vertical).css_classes(vec!["spacer".to_string()]).build());
@@ -862,7 +860,7 @@ pub fn launch(app: &Application, background: bool) {
                     match rclone::sync::stat(&remote_name, &remote_text) {
                         Ok(path) => {
                             if path.is_none() {
-                                gtk_util::show_error("Validation Error", "The specified remote directory doesn't exist", None);
+                                gtk_util::show_error(&tr::tr!("The specified remote directory doesn't exist"), None);
                                 folder_window.set_sensitive(true);
                                 return;
                             } else {
@@ -870,7 +868,7 @@ pub fn launch(app: &Application, background: bool) {
                             }
                         },
                         Err(err) => {
-                            gtk_util::show_error("Validation Error", "Failed to check if the specified remote directory exists", Some(&err.error));
+                            gtk_util::show_error(&tr::tr!("Failed to check if the specified remote directory exists"), Some(&err.error));
                             folder_window.set_sensitive(true);
                             return;
                         }
@@ -881,16 +879,16 @@ pub fn launch(app: &Application, background: bool) {
                     ).unwrap();
 
                     if sync_dir.is_some() {
-                        gtk_util::show_error("Validation Error", "The specified directory pair is already being synced", None);
+                        gtk_util::show_error(&tr::tr!("The specified directory pair is already being synced"), None);
                         folder_window.set_sensitive(true);
                     } else if !local_path.exists() {
-                        gtk_util::show_error("Validation Error", "The specified local directory doesn't exist", None);
+                        gtk_util::show_error(&tr::tr!("The specified local directory doesn't exist"), None);
                         folder_window.set_sensitive(true);
                     } else if !local_path.is_dir() {
-                        gtk_util::show_error("Validation Error", "The specified local path isn't a directory", None);
+                        gtk_util::show_error(&tr::tr!("The specified local path isn't a directory"), None);
                         folder_window.set_sensitive(true);
                     } else if !local_path.is_absolute() {
-                        gtk_util::show_error("Validation Error", "The specified local directory needs to be an absolute path", None);
+                        gtk_util::show_error(&tr::tr!("The specified local directory needs to be an absolute path"), None);
                         folder_window.set_sensitive(true);
                     } else {
                         libceleste::await_future(
@@ -918,8 +916,8 @@ pub fn launch(app: &Application, background: bool) {
             delete_remote_button.connect_clicked(glib::clone!(@strong remote_deletion_queue, @strong page, @strong remote_name => move |delete_remote_button| {
                 page.set_sensitive(false);
                 let dialog = MessageDialog::builder()
-                    .text("Are you sure you want to delete this remote?")
-                    .secondary_text("All the directories associated with this remote will also stop syncing.")
+                    .text(&tr::tr!("Are you sure you want to delete this remote?"))
+                    .secondary_text(&tr::tr!("All the directories associated with this remote will also stop syncing."))
                     .buttons(ButtonsType::YesNo)
                     .build();
                 dialog.connect_response(glib::clone!(@strong remote_deletion_queue, @strong page, @strong remote_name, @weak delete_remote_button => move |dialog, resp| {
@@ -1145,7 +1143,7 @@ pub fn launch(app: &Application, background: bool) {
     });
 
     // Wait until we can successfully send a message to the tray icon.
-    while send_dbus_msg_checked("Awaiting sync checks...").is_err() {}
+    while send_dbus_msg_checked(&tr::tr!("Awaiting sync checks...")).is_err() {}
 
     'main: loop {
         // If the user requested to quit the application, then close the tray icon and
@@ -1241,7 +1239,7 @@ pub fn launch(app: &Application, background: bool) {
             }
 
             // Notify the tray app that we're syncing this remote now.
-            let status_string = format!("Syncing '{}'...", remote.name);
+            let status_string = tr::tr!("Syncing '{}'...", remote.name);
             send_dbus_msg(&status_string);
 
             let sync_dirs = libceleste::await_future(
@@ -1275,24 +1273,26 @@ pub fn launch(app: &Application, background: bool) {
                     .margin_end(3)
                     .build();
                 item.status_icon.set_child(Some(&spinner));
-                item.status_text.set_label("Checking for changes...");
+                item.status_text
+                    .set_label(&tr::tr!("Checking for changes..."));
                 // Dropping this is important, otherwise the pointer borrow might last a lot
                 // longer and other parts of the code won't be able to get a pointer to the
                 // directory indexmap.
                 drop(item_ptr);
 
                 // Add an error for reporting in the UI.
-                static PLEASE_RESOLVE_MSG: &str = " Please resolve the reported syncing issues.";
-                let add_error = glib::clone!(@strong db, @strong directory_map, @strong remote, @strong sync_dir, @strong sync_errors_count => move |error: SyncError| {
+                let please_resolve_msg_tr = tr::tr!("Please resolve the reported syncing issues.");
+                let please_resolve_msg = " ".to_owned() + &please_resolve_msg_tr;
+                let add_error = glib::clone!(@strong db, @strong directory_map, @strong remote, @strong sync_dir, @strong sync_errors_count, @strong please_resolve_msg => move |error: SyncError| {
                     let path_pair = (sync_dir.local_path.clone(), sync_dir.remote_path.clone());
                     let ui_item = error.generate_ui();
                     let ui_item_listbox = ListBoxRow::builder().child(&ui_item).build();
 
                     // Generate the callback.
                     let gesture = GestureClick::new();
-                    gesture.connect_released(glib::clone!(@strong directory_map, @strong remote, @strong path_pair, @strong db, @strong error, @weak ui_item, @weak ui_item_listbox => move |_, _, _, _| {
+                    gesture.connect_released(glib::clone!(@strong directory_map, @strong remote, @strong path_pair, @strong db, @strong error, @weak ui_item, @weak ui_item_listbox, @strong please_resolve_msg => move |_, _, _, _| {
                         ui_item.set_sensitive(false);
-                        let remove_ui_item = glib::clone!(@strong directory_map, @strong remote, @strong path_pair, @strong error, @weak ui_item_listbox => move || {
+                        let remove_ui_item = glib::clone!(@strong directory_map, @strong remote, @strong path_pair, @strong error, @weak ui_item_listbox, @strong please_resolve_msg => move || {
                             let mut ptr = directory_map.get_mut_ref();
                             let item = ptr.get_mut(&remote.name).unwrap().get_mut(&path_pair).unwrap();
 
@@ -1301,14 +1301,14 @@ pub fn launch(app: &Application, background: bool) {
                             let new_num_errors = error_text.split_whitespace().next().unwrap_or("0").parse::<i32>().unwrap() - 1;
                             if new_num_errors == 0 {
                                 item.error_status_text.set_label("");
-                                let label_text = match item.status_text.text().as_str().strip_suffix(PLEASE_RESOLVE_MSG) {
+                                let label_text = match item.status_text.text().as_str().strip_suffix(&please_resolve_msg) {
                                     Some(text) => text.to_string(),
                                     None => item.status_text.text().to_string()
                                 };
                                 item.status_text.set_label(&label_text);
 
                             } else {
-                                let error_string = format!("{new_num_errors} errors found. ");
+                                let error_string = tr::tr!("{} errors found. ", new_num_errors);
                                 item.error_status_text.set_label(&error_string);
                             }
 
@@ -1322,7 +1322,7 @@ pub fn launch(app: &Application, background: bool) {
                         match &error {
                             SyncError::General(_, _) => {
                                 let dialog = MessageDialog::builder()
-                                    .text("Would you like to dismiss this error?")
+                                    .text(&tr::tr!("Would you like to dismiss this error?"))
                                     .buttons(ButtonsType::YesNo)
                                     .build();
                                 dialog.connect_close_request(glib::clone!(@strong ui_item => move |_| {
@@ -1349,7 +1349,7 @@ pub fn launch(app: &Application, background: bool) {
                                 let local_path = Path::new(&local_item);
                                 let sync_local_to_remote = glib::clone!(@strong remote, @strong local_item_formatted, @strong local_item, @strong remote_item => move || {
                                     if let Err(err) = rclone::sync::copy_to_remote(&local_item, &remote.name, &remote_item) {
-                                        gtk_util::show_error("Sync Error", &format!("Failed to sync '{local_item_formatted}' to '{remote_item}' on remote."), Some(&err.error));
+                                        gtk_util::show_error(&tr::tr!("Failed to sync '{}' to '{}' on remote.", local_item_formatted, remote_item), Some(&err.error));
                                         Err(())
                                     } else {
                                         Ok(())
@@ -1357,7 +1357,7 @@ pub fn launch(app: &Application, background: bool) {
                                 });
                                 let sync_remote_to_local = glib::clone!(@strong remote, @strong local_item_formatted, @strong local_item, @strong remote_item => move || {
                                     if let Err(err) = rclone::sync::copy_to_local(&local_item, &remote.name, &remote_item) {
-                                        gtk_util::show_error("Sync Error", &format!("Failed to sync '{remote_item}' on remote to {local_item_formatted}."), Some(&err.error));
+                                        gtk_util::show_error(&tr::tr!("Failed to sync '{}' on remote to '{}'.", remote_item, local_item_formatted), Some(&err.error));
                                         Err(())
                                     } else {
                                         Ok(())
@@ -1382,8 +1382,7 @@ pub fn launch(app: &Application, background: bool) {
                                     Ok(item) => item,
                                     Err(err) => {
                                         gtk_util::show_error(
-                                            "Remote Item Fetch Error",
-                                            &format!("Unable to fetch data for '{remote_item}' from the remote."),
+                                            &tr::tr!("Unable to fetch data for '{}' from the remote.", remote_item),
                                             Some(&err.error)
                                         );
                                         return;
@@ -1392,12 +1391,12 @@ pub fn launch(app: &Application, background: bool) {
 
                                 // If neither the local item or the remote item exist anymore, this error is no longer relevant.
                                 if !local_path.exists() && rclone_remote_item.is_none() {
-                                    gtk_util::show_error("File Update", "File Update", Some("Neither the local item or remote item exists anymore. This error will now be removed."));
+                                    gtk_util::show_error(&tr::tr!("File Update"), Some(&tr::tr!("Neither the local item or remote item exists anymore. This error will now be removed.")));
                                     remove_ui_item();
                                     return;
                                 // Otherwise if only the local exists, use that.
                                 } else if local_path.exists() && rclone_remote_item.is_none() {
-                                    gtk_util::show_error("File Update", "File Update", Some("Only the local item exists now, so it will be synced to the remote."));
+                                    gtk_util::show_error(&tr::tr!("File Update"), Some(&tr::tr!("Only the local item exists now, so it will be synced to the remote.")));
                                     if sync_local_to_remote().is_ok() {
                                         update_db_item();
                                         remove_ui_item();
@@ -1405,7 +1404,7 @@ pub fn launch(app: &Application, background: bool) {
                                     }
                                 // Otherwise if only the remote exists, use that.
                                 } else if !local_path.exists() && rclone_remote_item.is_some() {
-                                    gtk_util::show_error("File Update", "File Update", Some("Only the remote item exists now, so it will be synced to the local machine."));
+                                    gtk_util::show_error(&tr::tr!("File Update"), Some(&tr::tr!("Only the remote item exists now, so it will be synced to the local machine.")));
                                     if sync_remote_to_local().is_ok() {
                                         update_db_item();
                                         remove_ui_item();
@@ -1415,12 +1414,12 @@ pub fn launch(app: &Application, background: bool) {
 
                                 let dialog = MessageDialog::builder()
                                     .text(
-                                        &format!("Both the local item '{local_item_formatted}' and remote item '{remote_item}' have been updated since the last sync.")
+                                        &tr::tr!("Both the local item '{}' and remote item '{}' have been updated since the last sync.", local_item_formatted, remote_item)
                                     )
-                                    .secondary_text("Which item would you like to keep?")
+                                    .secondary_text(&tr::tr!("Which item would you like to keep?"))
                                     .build();
-                                dialog.add_button("Local", ResponseType::Other(0));
-                                dialog.add_button("Remote", ResponseType::Other(1));
+                                dialog.add_button(&tr::tr!("Local"), ResponseType::Other(0));
+                                dialog.add_button(&tr::tr!("Remote"), ResponseType::Other(1));
                                 dialog.connect_close_request(glib::clone!(@strong ui_item => move |_| {
                                     ui_item.set_sensitive(true);
                                     Inhibit(false)
@@ -1468,12 +1467,12 @@ pub fn launch(app: &Application, background: bool) {
                     let error_text = item.error_status_text.text().to_string();
                     let new_num_errors = error_text.split_whitespace().next().unwrap_or("0").parse::<i32>().unwrap() + 1;
 
-                    if new_num_errors == 1 {
-                        item.error_status_text.set_label("1 error found. ");
+                    let error_string = if new_num_errors == 1 {
+                        tr::tr!("1 error found.")
                     } else {
-                        let error_string = format!("{new_num_errors} errors found. ");
-                        item.error_status_text.set_label(&error_string);
-                    }
+                        tr::tr!("{} errors found.", new_num_errors)
+                    };
+                    item.error_status_text.set_label(&(error_string + " "));
 
                     // Add the error to the UI.
                     item.error_list.append(&ui_item_listbox);
@@ -1603,7 +1602,7 @@ pub fn launch(app: &Application, background: bool) {
                         let dir_pair = (sync_dir.local_path.clone(), sync_dir.remote_path.clone());
                         let item = ptr.get(&remote.name).unwrap().get(&dir_pair).unwrap();
                         let status_string =
-                            format!("Checking '{}' for changes...", libceleste::fmt_home(dir));
+                            tr::tr!("Checking '{}' for changes...", libceleste::fmt_home(dir));
                         item.status_text.set_label(&status_string);
                     };
                     update_ui_progress(&dir_string);
@@ -2019,7 +2018,7 @@ pub fn launch(app: &Application, background: bool) {
                         let ptr = directory_map.get_ref();
                         let dir_pair = (sync_dir.local_path.clone(), sync_dir.remote_path.clone());
                         let item = ptr.get(&remote.name).unwrap().get(&dir_pair).unwrap();
-                        let status_string = format!("Checking '{dir}' on remote for changes...");
+                        let status_string = tr::tr!("Checking '{}' on remote for changes...", dir);
                         item.status_text.set_label(&status_string);
                     };
                     update_ui_progress(remote_dir);
@@ -2410,9 +2409,9 @@ pub fn launch(app: &Application, background: bool) {
                     .unwrap();
                 item.status_icon
                     .set_child(Some(&get_image("object-select-symbolic")));
-                let mut finished_text = "Directory has finished sync checks.".to_string();
+                let mut finished_text = tr::tr!("Directory has finished sync checks.");
                 if item.error_status_text.text().len() != 0 {
-                    finished_text += PLEASE_RESOLVE_MSG;
+                    finished_text += &please_resolve_msg;
                     item.status_icon
                         .set_child(Some(&get_image("dialog-warning-symbolic")));
                 } else {
@@ -2430,7 +2429,7 @@ pub fn launch(app: &Application, background: bool) {
             let error_msg = if error_count == 1 {
                 "Finished sync checks with 1 error.".to_string()
             } else {
-                format!("Finished sync checks with {error_count} errors.")
+                tr::tr!("Finished sync checks with {} errors.", error_count)
             };
             send_dbus_msg(&error_msg);
         } else {

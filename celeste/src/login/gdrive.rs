@@ -191,10 +191,10 @@ impl GDriveConfig {
 
             // Wait for input from the user.
             let dialog = MessageDialog::builder()
-                .heading(&format!("Authenticating to {auth_type}..."))
-                .body("Open the link that opened in your browser, and come back once you've finished.")
+                .heading(&tr::tr!("Authenticating to {}...", auth_type))
+                .body(&tr::tr!("Open the link that opened in your browser, and come back once you've finished."))
                 .build();
-            dialog.add_response("cancel", "Cancel");
+            dialog.add_response("cancel", &tr::tr!("Cancel"));
             dialog.connect_response(None, glib::clone!(@strong kill_request => move |dialog, resp| {
                 if resp != "cancel" {
                     return
@@ -219,7 +219,7 @@ impl GDriveConfig {
                 // Otherwise if the temporary webserver has died off, report it.
                 } else if handle.is_finished() {
                     let error_string = libceleste::await_future(handle).unwrap().unwrap_err().to_string();
-                    gtk_util::show_codeblock_error("Authentication Error", "There was an issue while running the webserver for authentication", &error_string);
+                    gtk_util::show_codeblock_error(&tr::tr!("There was an issue while running the webserver for authentication"), &error_string);
                     window.set_sensitive(true);
                     break;
                 // Otherwise if the command has finished, check if it returned a good exit code and then return it.
@@ -228,7 +228,7 @@ impl GDriveConfig {
                     dialog.close();
 
                     if !exit_status.success() {
-                        gtk_util::show_codeblock_error("Authentication Error", &format!("There was an issue authenticating to {auth_type}"), &process_stderr.lock().unwrap());
+                        gtk_util::show_codeblock_error(&tr::tr!("There was an issue authenticating to {}", auth_type), &process_stderr.lock().unwrap());
                         window.set_sensitive(true);
                         break;
                     } else {

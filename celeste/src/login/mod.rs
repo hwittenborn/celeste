@@ -78,12 +78,19 @@ pub fn can_login(_app: &Application, config_name: &str) -> bool {
     if let Err(err_str) = res {
         let err: rclone::RcloneError = serde_json::from_str(&err_str).unwrap();
         let err_msg = if err.error.contains("Temporary failure in name resolution") {
-            "Unable to connect to the server. Check your internet connection and try again."
+            tr::tr!(
+                "Unable to connect to the server. Check your internet connection and try again."
+            )
         } else {
-            "Unable to authenticate to the server. Check your login credentials and try again."
+            tr::tr!(
+                "Unable to authenticate to the server. Check your login credentials and try again."
+            )
         };
 
-        gtk_util::show_error("Connection Error", "Unable to log in", Some(err_msg));
+        gtk_util::show_error(
+            &tr::tr!("Unable to log in"),
+            Some(&err_msg),
+        );
         false
     } else {
         true
@@ -137,7 +144,7 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
     .to_string();
 
     // The dropdown for selecting the server type.
-    let server_type_dropdown = ComboRow::builder().title("Server Type").build();
+    let server_type_dropdown = ComboRow::builder().title(&tr::tr!("Server Type")).build();
     let server_types_array = [
         dropbox_name.as_str(),
         gdrive_name.as_str(),

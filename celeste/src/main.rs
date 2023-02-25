@@ -184,14 +184,14 @@ fn main() {
                     .build();
                 sections.append(&HeaderBar::new());
                 let error_label = Label::builder()
-                    .label("Unknown Error")
+                    .label(&tr::tr!("Unknown Error"))
                     .halign(Align::Start)
                     .css_classes(vec!["heading".to_owned()])
                     .build();
                 sections.append(&error_label);
 
                 let error_text = Label::builder()
-                    .label("An unknown error has occurred while running. This is an internal issue with Celeste and should be reported.\n\nThe following backtrace may help with debugging the issue - note that it may contain information such as login tokens/keys, so avoid posting the information publicly:")
+                    .label(&tr::tr!("An unknown error has occurred while running. This is an internal issue with Celeste and should be reported.\n\nThe following backtrace may help with debugging the issue - note that it may contain information such as login tokens/keys, so avoid posting the information publicly:"))
                     .halign(Align::Start)
                     .wrap(true)
                     .xalign(0.0)

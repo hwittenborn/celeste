@@ -9,4 +9,5 @@ hw-msg.workspace = true
 lazy_static.workspace = true
 libappindicator.workspace = true
 libceleste.workspace = true
+tr.workspace = true
 zbus.workspace = true

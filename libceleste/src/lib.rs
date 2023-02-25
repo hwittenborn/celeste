@@ -67,6 +67,6 @@ pub fn strip_slashes(string: &str) -> String {
 #[macro_export]
 macro_rules! get_title {
     ($($arg:tt)*) => {
-        format!($($arg)*) + " - Celeste"
+        tr::tr!($($arg)*) + " - Celeste"
     }
 }

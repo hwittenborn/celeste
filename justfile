@@ -76,6 +76,9 @@ update-metainfo version date notes:
     soup.component.releases.findAll()[0].insert_before(release)
     open(metainfo_path, "w").write(soup.prettify(formatter=bs4.formatter.HTMLFormatter(indent=4)))
 
+update-translations:
+    xtr celeste/src/main.rs celeste-tray/src/main.rs libceleste/src/lib.rs --copyright-holder 'Hunter Wittenborn <hunter@hunterwittenborn.com>' -o /dev/stdout --package-name 'Celeste' --package-version "$(just get-version)" > po/com.hunterwittenborn.Celeste.pot
+
 # Create the Snap using an already build copy of Celeste. This currently requires you to be running on Ubuntu 22.10 or newer.
 create-host-snap:
     #!/usr/bin/env bash
