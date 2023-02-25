@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Celeste 0.4.6\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-02-25 02:14+0000\n"
-"PO-Revision-Date: 2023-02-25 19:27+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2023-02-25 20:39+0000\n"
+"Last-Translator: Twilight is-the-best <hwengerstickel@protonmail.com>\n"
 "Language-Team: Spanish <https://weblate.makedeb.org/projects/hwittenborn/"
 "celeste/es/>\n"
 "Language: es\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: celeste/src/gtk_util.rs:20 celeste/src/gtk_util.rs:43 celeste/src/launch.rs:681 celeste/src/launch.rs:819
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: celeste/src/launch.rs:102
 msgid "Both '{}' and '{}' are more recent than at last sync."
@@ -78,7 +78,7 @@ msgstr ""
 
 #: celeste/src/launch.rs:680 celeste/src/launch.rs:818 celeste/src/login/gdrive.rs:197
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #. Get the remote folder to sync with, and add it.
 #. The entry completion code is largely inspired by https://github.com/gtk-rs/gtk4-rs/blob/master/examples/entry_completion/main.rs. I honestly have no clue what half the code for that is doing, I just know the current code is working well enough, and it can be fixed later if it breaks.
@@ -273,7 +273,7 @@ msgstr ""
 
 #: celeste/src/login/login_util.rs:96
 msgid "Password"
-msgstr ""
+msgstr "Contraseña"
 
 #: celeste/src/login/login_util.rs:102
 msgid "Log in"
