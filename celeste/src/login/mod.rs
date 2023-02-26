@@ -87,10 +87,7 @@ pub fn can_login(_app: &Application, config_name: &str) -> bool {
             )
         };
 
-        gtk_util::show_error(
-            &tr::tr!("Unable to log in"),
-            Some(&err_msg),
-        );
+        gtk_util::show_error(&tr::tr!("Unable to log in"), Some(&err_msg));
         false
     } else {
         true

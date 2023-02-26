@@ -233,10 +233,7 @@ pub fn launch(app: &Application, background: bool) {
     // Connect to the database.
     let db = libceleste::await_future(Database::connect(format!("sqlite://{}", db_path.display())));
     if let Err(err) = &db {
-        gtk_util::show_error(
-            &tr::tr!("Unable to connect to database [{}].", err),
-            None,
-        );
+        gtk_util::show_error(&tr::tr!("Unable to connect to database [{}].", err), None);
         return;
     };
     let db = db.unwrap();
