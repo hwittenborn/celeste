@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Celeste 0.4.6\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-02-25 02:14+0000\n"
-"PO-Revision-Date: 2023-02-25 20:39+0000\n"
+"PO-Revision-Date: 2023-02-27 13:02+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: Dutch <https://weblate.makedeb.org/projects/hwittenborn/"
 "celeste/nl/>\n"
@@ -248,78 +248,92 @@ msgid "Invalid server name. Server names must:\n"
 "- Not start with '-' or a space\n"
 "- Not end with a space"
 msgstr ""
+"De servernaam is ongeldig. Servernamen dienen:\n"
+"- Enkel te bestaan uit letters, getallen, ‘_’, ‘-’, ‘.’ en spaties;\n"
+"- Niet te beginnen met ‘-’ of een spatie;\n"
+"- Niet te eindigen op een spatie."
 
 #: celeste/src/login/login_util.rs:42
 msgid "Server URL"
-msgstr ""
+msgstr "Server-url"
 
 #: celeste/src/login/login_util.rs:48
 msgid "Invalid server URL ({})."
-msgstr ""
+msgstr "Ongeldige server-url ({})."
 
 #: celeste/src/login/login_util.rs:57
 msgid "Invalid server URL (no domain specified)."
-msgstr ""
+msgstr "Ongeldige server-url (geen domeinnaam opgegeven)."
 
 #: celeste/src/login/login_util.rs:61
 msgid "Invalid server URL (password was specified)."
-msgstr ""
+msgstr "Ongeldige server-url (geen wachtwoord opgegeven)."
 
 #: celeste/src/login/login_util.rs:65
 msgid "Invalid server URL(unknown server scheme {})."
-msgstr ""
+msgstr "Ongeldige server-url (onbekend serverschema {})."
 
 #: celeste/src/login/login_util.rs:77
 msgid "Don't specify '{}' as part of the URL."
-msgstr ""
+msgstr "Verwerk ‘{}’ niet in de url."
 
 #: celeste/src/login/login_util.rs:90
 msgid "Username"
-msgstr ""
+msgstr "Gebruikersnaam"
 
 #: celeste/src/login/login_util.rs:96
 msgid "Password"
-msgstr ""
+msgstr "Wachtwoord"
 
 #: celeste/src/login/login_util.rs:102
 msgid "Log in"
-msgstr ""
+msgstr "Inloggen"
 
 #: celeste/src/login/mod.rs:82
 msgid "Unable to connect to the server. Check your internet connection and try again."
 msgstr ""
+"Er kan geen verbinding worden gemaakt met de server. Controleer uw "
+"internetverbinding en probeer het opnieuw."
 
 #: celeste/src/login/mod.rs:86
 msgid "Unable to authenticate to the server. Check your login credentials and try again."
 msgstr ""
+"De verificatie is mislukt. Controleer uw inloggegevens en probeer het "
+"opnieuw."
 
 #: celeste/src/login/mod.rs:91
 msgid "Unable to log in"
-msgstr ""
+msgstr "Het inloggen is mislukt"
 
 #. The dropdown for selecting the server type.
 #: celeste/src/login/mod.rs:147
 msgid "Server Type"
-msgstr ""
+msgstr "Servertype"
 
 #: celeste/src/main.rs:187
 msgid "Unknown Error"
-msgstr ""
+msgstr "Onbekende foutmelding"
 
 #: celeste/src/main.rs:194
 msgid "An unknown error has occurred while running. This is an internal issue with Celeste and should be reported.\n"
 "\n"
 "The following backtrace may help with debugging the issue - note that it may contain information such as login tokens/keys, so avoid posting the information publicly:"
 msgstr ""
+"Er is een onbekende foutmelding opgetreden tijdens het uitvoeren. Dit duidt "
+"op een intern probleem en dient te worden gemeld.\n"
+"\n"
+"De volgende informatie kan ondersteuning bieden bij het opsporen van de fout "
+"(maar kan gevoelige informatie, zoals inloggegevens bevatten, dus deel deze "
+"informatie niet!):"
 
 #: celeste-tray/src/main.rs:54
 msgid "Open"
-msgstr ""
+msgstr "Openen"
 
 #: celeste-tray/src/main.rs:55
 msgid "Quit"
-msgstr ""
+msgstr "Afsluiten"
 
 #: celeste-tray/src/main.rs:116
 msgid "Quitting..."
-msgstr ""
+msgstr "Bezig met afsluiten…"
