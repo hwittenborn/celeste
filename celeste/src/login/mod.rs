@@ -3,7 +3,7 @@ use crate::{
     entities::{RemotesActiveModel, RemotesModel},
     gtk_util,
     mpsc::{self, Sender},
-    rclone::{self},
+    rclone,
 };
 use libceleste::traits::prelude::*;
 mod dropbox;
@@ -66,17 +66,7 @@ impl ToString for ServerType {
 
 // Verify if a specific config can log in to a server.
 pub fn can_login(_app: &Application, config_name: &str) -> bool {
-    let res = librclone::rpc(
-        "operations/size",
-        json!({
-            "fs": format!("{config_name}:"),
-            "remote": "/"
-        })
-        .to_string(),
-    );
-
-    if let Err(err_str) = res {
-        let err: rclone::RcloneError = serde_json::from_str(&err_str).unwrap();
+    if let Err(err) = rclone::sync::stat(config_name, "/") {
         let err_msg = if err.error.contains("Temporary failure in name resolution") {
             tr::tr!(
                 "Unable to connect to the server. Check your internet connection and try again."

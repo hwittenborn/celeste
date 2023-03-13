@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Added support for translations.
 
+### Fixed
+- Fixed loading times when adding remotes with high storage usage.
+
 ## [0.4.6] - 2023-02-24
 ### Fixed
 - Fixed HTML elements in metainfo release descriptions.
