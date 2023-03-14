@@ -7,6 +7,7 @@ description: |
 icon: assets/com.hunterwittenborn.Celeste-regular.svg
 grade: stable
 confinement: strict
+compression: lzo
 
 package-repositories:
   - type: apt
@@ -43,7 +44,19 @@ parts:
       cd ~/parts/celeste/build
       DESTDIR=~/prime just install
       sed -i 's|Icon=.*|Icon=${SNAP}/usr/share/icons/hicolor/scalable/apps/com.hunterwittenborn.Celeste.svg|' ~/prime/usr/share/applications/com.hunterwittenborn.Celeste.desktop
-
+  cleanup:
+    after:  # Make this part run last; list all your other parts here
+      - celeste
+    plugin: nil
+    build-snaps:  # List all content-snaps and base snaps you're using here
+      - core22
+      - gnome-42-2204
+      - gnome-42-2204-sdk
+    override-prime: |
+      set -eux
+      for snap in "core22" "gnome-42-2204" "gnome-42-2204-sdk"; do  # List all content-snaps and base snaps you're using here
+          cd "/snap/$snap/current" && find . -type f,l -exec rm -f "$SNAPCRAFT_PRIME/{}" \;
+      done
 slots:
   celeste:
     interface: dbus
