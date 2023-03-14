@@ -30,6 +30,8 @@ parts:
       - just
       - libatk1.0-dev
       - libcairo2-dev
+      - libclang-15-dev
+      - libgraphene-1.0-dev
       - libgraphene-1.0-dev
       - rustup
     stage-packages:
