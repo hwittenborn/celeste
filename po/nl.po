@@ -19,7 +19,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.15.2\n"
 
-#: celeste/src/gtk_util.rs:20 celeste/src/gtk_util.rs:43 celeste/src/launch.rs:681 celeste/src/launch.rs:819
+#: celeste/src/gtk_util.rs:20 celeste/src/gtk_util.rs:43
+#: celeste/src/launch.rs:681 celeste/src/launch.rs:819
 msgid "Ok"
 msgstr "Oké"
 
@@ -76,7 +77,8 @@ msgstr "Mappen"
 msgid "Local folder:"
 msgstr "Lokale map:"
 
-#: celeste/src/launch.rs:680 celeste/src/launch.rs:818 celeste/src/login/gdrive.rs:197
+#: celeste/src/launch.rs:680 celeste/src/launch.rs:818
+#: celeste/src/login/gdrive.rs:197
 msgid "Cancel"
 msgstr "Annuleren"
 
@@ -156,12 +158,15 @@ msgstr "Het synchroniseren van ‘{}’ met ‘{}’ is mislukt."
 msgid "Unable to fetch data for '{}' from the remote."
 msgstr "Er kan geen informatie over ‘{}’ worden opgehaald."
 
-#: celeste/src/launch.rs:1394 celeste/src/launch.rs:1399 celeste/src/launch.rs:1407
+#: celeste/src/launch.rs:1394 celeste/src/launch.rs:1399
+#: celeste/src/launch.rs:1407
 msgid "File Update"
 msgstr "Bestanden bijwerken"
 
 #: celeste/src/launch.rs:1394
-msgid "Neither the local item or remote item exists anymore. This error will now be removed."
+msgid ""
+"Neither the local item or remote item exists anymore. This error will now be "
+"removed."
 msgstr ""
 "Zowel het lokale als externe item bestaan niet meer - deze foutmelding wordt "
 "gewist."
@@ -171,11 +176,14 @@ msgid "Only the local item exists now, so it will be synced to the remote."
 msgstr "Alleen het lokale item bestaat nog en wordt gesynchroniseerd."
 
 #: celeste/src/launch.rs:1407
-msgid "Only the remote item exists now, so it will be synced to the local machine."
+msgid ""
+"Only the remote item exists now, so it will be synced to the local machine."
 msgstr "Alleen het externe item bestaat nog en wordt gesynchroniseerd."
 
 #: celeste/src/launch.rs:1417
-msgid "Both the local item '{}' and remote item '{}' have been updated since the last sync."
+msgid ""
+"Both the local item '{}' and remote item '{}' have been updated since the "
+"last sync."
 msgstr ""
 "Zowel het lokale item, {}, als het externe item, {}, zijn sinds de vorige "
 "synchronisatie bijgewerkt."
@@ -221,8 +229,11 @@ msgid "Authenticating to {}..."
 msgstr "Bezig met goedkeuren op {}…"
 
 #: celeste/src/login/gdrive.rs:195
-msgid "Open the link that opened in your browser, and come back once you've finished."
-msgstr "Open de in uw webbrowser geopende link en keer na het goedkeuren terug."
+msgid ""
+"Open the link that opened in your browser, and come back once you've "
+"finished."
+msgstr ""
+"Open de in uw webbrowser geopende link en keer na het goedkeuren terug."
 
 #: celeste/src/login/gdrive.rs:222
 msgid "There was an issue while running the webserver for authentication"
@@ -243,7 +254,8 @@ msgid "Server name already exists."
 msgstr "Deze servernaam is al in gebruik."
 
 #: celeste/src/login/login_util.rs:28
-msgid "Invalid server name. Server names must:\n"
+msgid ""
+"Invalid server name. Server names must:\n"
 "- Only contain numbers, letters, '_', '-', '.', and spaces\n"
 "- Not start with '-' or a space\n"
 "- Not end with a space"
@@ -290,13 +302,17 @@ msgid "Log in"
 msgstr "Inloggen"
 
 #: celeste/src/login/mod.rs:82
-msgid "Unable to connect to the server. Check your internet connection and try again."
+msgid ""
+"Unable to connect to the server. Check your internet connection and try "
+"again."
 msgstr ""
 "Er kan geen verbinding worden gemaakt met de server. Controleer uw "
 "internetverbinding en probeer het opnieuw."
 
 #: celeste/src/login/mod.rs:86
-msgid "Unable to authenticate to the server. Check your login credentials and try again."
+msgid ""
+"Unable to authenticate to the server. Check your login credentials and try "
+"again."
 msgstr ""
 "De verificatie is mislukt. Controleer uw inloggegevens en probeer het "
 "opnieuw."
@@ -315,9 +331,13 @@ msgid "Unknown Error"
 msgstr "Onbekende foutmelding"
 
 #: celeste/src/main.rs:194
-msgid "An unknown error has occurred while running. This is an internal issue with Celeste and should be reported.\n"
+msgid ""
+"An unknown error has occurred while running. This is an internal issue with "
+"Celeste and should be reported.\n"
 "\n"
-"The following backtrace may help with debugging the issue - note that it may contain information such as login tokens/keys, so avoid posting the information publicly:"
+"The following backtrace may help with debugging the issue - note that it may "
+"contain information such as login tokens/keys, so avoid posting the "
+"information publicly:"
 msgstr ""
 "Er is een onbekende foutmelding opgetreden tijdens het uitvoeren. Dit duidt "
 "op een intern probleem en dient te worden gemeld.\n"
