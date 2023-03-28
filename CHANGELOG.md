@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.2] - 2023-03-27
+### Fixed
+- Fixed more issues in automated Flathub packaging.
+
 ## [0.5.1] - 2023-03-27
 ### Fixed
 - Fixed automated Flathub packaging.
