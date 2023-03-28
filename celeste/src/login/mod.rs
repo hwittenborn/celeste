@@ -105,30 +105,12 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
     }));
 
     // The stack containing the forms for all login sections.
-    let dropbox_name = ServerType::Dropbox(dropbox::DropboxConfig {
-        ..Default::default()
-    })
-    .to_string();
-    let gdrive_name = ServerType::GDrive(gdrive::GDriveConfig {
-        ..Default::default()
-    })
-    .to_string();
-    let nextcloud_name = ServerType::Nextcloud(nextcloud::NextcloudConfig {
-        ..Default::default()
-    })
-    .to_string();
-    let owncloud_name = ServerType::Owncloud(owncloud::OwncloudConfig {
-        ..Default::default()
-    })
-    .to_string();
-    let pcloud_name = ServerType::PCloud(pcloud::PCloudConfig {
-        ..Default::default()
-    })
-    .to_string();
-    let webdav_name = ServerType::WebDav(webdav::WebDavConfig {
-        ..Default::default()
-    })
-    .to_string();
+    let dropbox_name = ServerType::Dropbox(Default::default()).to_string();
+    let gdrive_name = ServerType::GDrive(Default::default()).to_string();
+    let nextcloud_name = ServerType::Nextcloud(Default::default()).to_string();
+    let owncloud_name = ServerType::Owncloud(Default::default()).to_string();
+    let pcloud_name = ServerType::PCloud(Default::default()).to_string();
+    let webdav_name = ServerType::WebDav(Default::default()).to_string();
 
     // The dropdown for selecting the server type.
     let server_type_dropdown = ComboRow::builder().title(&tr::tr!("Server Type")).build();
