@@ -41,6 +41,44 @@
         </screenshot>
     </screenshots>
     <releases>
+        <release date="2023-03-27" version="0.5.0">
+            <description>
+                <p>
+                    Feature additions in this release:
+                </p>
+                <ul>
+                    <li>
+                        Added support for translations.
+                    </li>
+                </ul>
+                <p>
+                    Changes made in this release:
+                </p>
+                <ul>
+                    <li>
+                        Fixed loading times when adding new sync directories.
+                    </li>
+                    <li>
+                        Made autocompletions in sync directory additions more dynamic.
+                    </li>
+                </ul>
+                <p>
+                    Fixes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Fixed loading times when adding remotes with high storage usage.
+                    </li>
+                    <li>
+                        Fixed freeze when ports needed by
+                        <code>
+                            rclone authorize
+                        </code>
+                        are already being used.
+                    </li>
+                </ul>
+            </description>
+        </release>
         <release date="2023-02-24" version="0.4.6">
             <description>
                 <p>
