@@ -117,6 +117,14 @@ jobs:
     runs-on: ubuntu-latest
     needs: [deploy-snap]
     steps:
+      - name: Import Vault secrets
+        uses: hashicorp/vault-action@v2
+        with:
+          url: https://vault.hunterwittenborn.com
+          method: jwt
+          role: github
+          secrets: |
+            kv/data/ci github_api_key | GH_TOKEN
       - name: Checkout Flathub Celeste Git repository
         uses: actions/checkout@v3
         repository: flathub/com.hunterwittenborn.Celeste
@@ -148,7 +156,9 @@ jobs:
               echo "The build failed! Please investigate manually."
               exit 1
             elif echo "${comments}" | grep -q successful; then
-              exit 0
+              echo "The build succeeded! Merging the PR..."
+              gh pr merge "${pr_id}"
+              exit
             fi
 
             echo "Waiting for @flathubbot to report status checks..."
