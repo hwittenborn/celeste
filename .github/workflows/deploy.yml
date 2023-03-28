@@ -113,3 +113,54 @@ jobs:
         with:
           snap: ${{ steps.snapcraft-build.outputs.snap }}
           release: stable
+  deploy-flathub:
+    runs-on: ubuntu-latest
+    needs: [deploy-snap]
+    steps:
+      - name: Import Vault secrets
+        uses: hashicorp/vault-action@v2
+        with:
+          url: https://vault.hunterwittenborn.com
+          method: jwt
+          role: github
+          secrets: |
+            kv/data/ci github_api_key | GH_TOKEN
+      - name: Checkout Flathub Celeste Git repository
+        uses: actions/checkout@v3
+        with:
+          repository: flathub/com.hunterwittenborn.Celeste
+          path: com.hunterwittenborn.Celeste
+      - name: Setup makedeb APT repositories
+        uses: makedeb/setup-makedeb@main
+      - name: Update Flathub package
+        run: |
+          # Get the current snap revision.
+          snap download celeste
+          snap_revision="$(echo celeste_*.snap | sed -e 's|^celeste_||' -e 's|\.snap$||')"
+          snap_sha256sum="$(sha256sum celeste_*.snap | awk '{print $1}')"
+
+          # Update the version info for the Flatpak.
+          cd com.hunterwittenborn.Celeste
+          git checkout -b "version/${snap_revision}"
+          sed -i -e "s|a9zAmHVl4doDwIGkptVyA7VI7fMlPPpE_[0-9]*\.snap|a9zAmHVl4doDwIGkptVyA7VI7fMlPPpE_${snap_revision}.snap|" -e "s|sha256: .*|sha256: '${snap_sha256sum}'|" com.hunterwittenborn.Celeste.yml
+          git add . && git commit -m "Update package version"
+          git push --set-upstream origin "version/${snap_revision}"
+
+          # Create the PR and wait until we can merge it.
+          gh pr create --title "Update package version" --body ''
+          pr_id="$(gh pr list | grep "version/${snap_revision}")"
+
+          while true; do
+            comments="$(gh pr view -c)"
+
+            if echo "${comments}" | grep -q failed; then
+              echo "The build failed! Please investigate manually."
+              exit 1
+            elif echo "${comments}" | grep -q successful; then
+              echo "The build succeeded! Merging the PR..."
+              gh pr merge "${pr_id}"
+              exit
+            fi
+
+            echo "Waiting for @flathubbot to report status checks..."
+          done
