@@ -41,6 +41,18 @@
         </screenshot>
     </screenshots>
     <releases>
+        <release date="2023-03-27" version="0.5.1">
+            <description>
+                <p>
+                    Fixes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Fixed automated Flathub packaging.
+                    </li>
+                </ul>
+            </description>
+        </release>
         <release date="2023-03-27" version="0.5.0">
             <description>
                 <p>

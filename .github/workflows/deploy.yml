@@ -134,6 +134,10 @@ jobs:
         uses: makedeb/setup-makedeb@main
       - name: Update Flathub package
         run: |
+          # Set up our Git user.
+          git config --global user.name 'Kavplex Bot'
+          git config --global user.email 'kavplex@hunterwittenborn.com'
+
           # Get the current snap revision.
           snap download celeste
           snap_revision="$(echo celeste_*.snap | sed -e 's|^celeste_||' -e 's|\.snap$||')"
