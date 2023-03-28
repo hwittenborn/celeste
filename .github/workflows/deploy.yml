@@ -127,8 +127,9 @@ jobs:
             kv/data/ci github_api_key | GH_TOKEN
       - name: Checkout Flathub Celeste Git repository
         uses: actions/checkout@v3
-        repository: flathub/com.hunterwittenborn.Celeste
-        path: com.hunterwittenborn.Celeste
+        with:
+          repository: flathub/com.hunterwittenborn.Celeste
+          path: com.hunterwittenborn.Celeste
       - name: Setup makedeb APT repositories
         uses: makedeb/setup-makedeb@main
       - name: Update Flathub package
