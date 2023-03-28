@@ -3,7 +3,7 @@ use crate::{
     entities::{RemotesActiveModel, RemotesModel},
     gtk_util,
     mpsc::{self, Sender},
-    rclone::{self},
+    rclone,
 };
 use libceleste::traits::prelude::*;
 mod dropbox;
@@ -66,17 +66,7 @@ impl ToString for ServerType {
 
 // Verify if a specific config can log in to a server.
 pub fn can_login(_app: &Application, config_name: &str) -> bool {
-    let res = librclone::rpc(
-        "operations/size",
-        json!({
-            "fs": format!("{config_name}:"),
-            "remote": "/"
-        })
-        .to_string(),
-    );
-
-    if let Err(err_str) = res {
-        let err: rclone::RcloneError = serde_json::from_str(&err_str).unwrap();
+    if let Err(err) = rclone::sync::stat(config_name, "/") {
         let err_msg = if err.error.contains("Temporary failure in name resolution") {
             tr::tr!(
                 "Unable to connect to the server. Check your internet connection and try again."
@@ -115,30 +105,12 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
     }));
 
     // The stack containing the forms for all login sections.
-    let dropbox_name = ServerType::Dropbox(dropbox::DropboxConfig {
-        ..Default::default()
-    })
-    .to_string();
-    let gdrive_name = ServerType::GDrive(gdrive::GDriveConfig {
-        ..Default::default()
-    })
-    .to_string();
-    let nextcloud_name = ServerType::Nextcloud(nextcloud::NextcloudConfig {
-        ..Default::default()
-    })
-    .to_string();
-    let owncloud_name = ServerType::Owncloud(owncloud::OwncloudConfig {
-        ..Default::default()
-    })
-    .to_string();
-    let pcloud_name = ServerType::PCloud(pcloud::PCloudConfig {
-        ..Default::default()
-    })
-    .to_string();
-    let webdav_name = ServerType::WebDav(webdav::WebDavConfig {
-        ..Default::default()
-    })
-    .to_string();
+    let dropbox_name = ServerType::Dropbox(Default::default()).to_string();
+    let gdrive_name = ServerType::GDrive(Default::default()).to_string();
+    let nextcloud_name = ServerType::Nextcloud(Default::default()).to_string();
+    let owncloud_name = ServerType::Owncloud(Default::default()).to_string();
+    let pcloud_name = ServerType::PCloud(Default::default()).to_string();
+    let webdav_name = ServerType::WebDav(Default::default()).to_string();
 
     // The dropdown for selecting the server type.
     let server_type_dropdown = ComboRow::builder().title(&tr::tr!("Server Type")).build();

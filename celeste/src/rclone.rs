@@ -208,8 +208,9 @@ pub enum RcloneListFilter {
 }
 
 /// Functions for syncing to a remote.
-/// All of these functions run long-running tasks under
-/// [`libceleste::run_in_background`], so it's safe to run these under the GUI.
+/// All functions in this module automatically run under
+/// [`libceleste::run_in_background`], so they don't need to be wrapped around
+/// such to be ran during UI execution.
 pub mod sync {
     use super::{RcloneError, RcloneList, RcloneListFilter, RcloneRemoteItem, RcloneStat};
     use serde_json::json;
