@@ -134,7 +134,7 @@ jobs:
         with:
           repository: flathub/com.hunterwittenborn.Celeste
           path: com.hunterwittenborn.Celeste
-          persist-credentials: false
+          token: "${{ env.GH_TOKEN }}"
       - name: Setup makedeb APT repositories
         uses: makedeb/setup-makedeb@main
       - name: Update Flathub package
