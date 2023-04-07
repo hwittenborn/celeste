@@ -11,6 +11,7 @@ permissions:
 jobs:
   create-release:
     runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, 'skip-ci: create-release')"
     steps:
       - name: Checkout Git repository
         uses: actions/checkout@v3
@@ -37,6 +38,7 @@ jobs:
   deploy-mpr:
     runs-on: ubuntu-latest
     needs: [create-release]
+    if: "!failure() && !contains(github.event.head_commit.message, 'skip-ci: deploy-mpr')"
     steps:
       - name: Checkout Git repository
         uses: actions/checkout@v3
@@ -88,6 +90,7 @@ jobs:
   deploy-snap:
     runs-on: ubuntu-latest
     needs: [create-release]
+    if: "!failure() && !contains(github.event.head_commit.message, 'skip-ci: deploy-snap')"
     steps:
       - name: Checkout Git repository
         uses: actions/checkout@v3
@@ -116,6 +119,7 @@ jobs:
   deploy-flathub:
     runs-on: ubuntu-latest
     needs: [deploy-snap]
+    if: "!failure() && !contains(github.event.head_commit.message, 'skip-ci: deply-flathub')"
     steps:
       - name: Import Vault secrets
         uses: hashicorp/vault-action@v2
