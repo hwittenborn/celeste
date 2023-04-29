@@ -51,3 +51,9 @@ If you're on Ubuntu 22.10 or later, you can install Celeste from the Prebuilt-MP
 ```sh
 sudo apt install celeste
 ```
+
+## Contributing
+Instructions still largely need to be written up - if you'd like to help with that, feel free to submit a PR!
+
+### Translating
+Celeste uses [Weblate](https://weblate.org) to manage translations. See <https://hosted.weblate.org/projects/hwittenborn/celeste> if you'd like to assist in translating.
