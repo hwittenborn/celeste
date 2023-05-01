@@ -7,7 +7,7 @@ use adw::{
 };
 
 /// Show an error screen.
-pub fn show_error(primary_text: &str, secondary_text: Option<&str>) {
+pub fn show_notification_dialog(primary_text: &str, secondary_text: Option<&str>) {
     let (sender, mut receiver) = mpsc::channel::<()>();
     let mut dialog = MessageDialog::builder()
         .heading(primary_text)
@@ -31,7 +31,14 @@ pub fn show_error(primary_text: &str, secondary_text: Option<&str>) {
     receiver.recv();
 }
 
-// Show an error screen with a codeblock.
+/// Show a beta notice dialog.
+pub fn show_beta_dialog(feature: &str) {
+    show_notification_dialog(
+        &tr::tr!("Beta Notice"),
+        Some(&tr::tr!("{} support is currently in beta. Usability isn't guaranteed, and support may be dropped in a future release.", feature))
+    )
+}
+/// Show an error screen with a codeblock.
 pub fn show_codeblock_error(primary_text: &str, code: &str) {
     let (sender, mut receiver) = mpsc::channel::<()>();
     let dialog = MessageDialog::builder()

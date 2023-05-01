@@ -41,6 +41,18 @@
         </screenshot>
     </screenshots>
     <releases>
+        <release type="development" version="0.5.2-git">
+            <description>
+                <p>
+                    Features added in this release:
+                </p>
+                <ul>
+                    <li>
+                        Added support for OneDrive.
+                    </li>
+                </ul>
+            </description>
+        </release>
         <release date="2023-03-27" version="0.5.2">
             <description>
                 <p>
@@ -68,7 +80,7 @@
         <release date="2023-03-27" version="0.5.0">
             <description>
                 <p>
-                    Feature additions in this release:
+                    Features added in this release:
                 </p>
                 <ul>
                     <li>
@@ -76,7 +88,7 @@
                     </li>
                 </ul>
                 <p>
-                    Changes made in this release:
+                    Changes in this release:
                 </p>
                 <ul>
                     <li>
@@ -115,13 +127,380 @@
                 </ul>
             </description>
         </release>
-        <release date="2023-02-24" version="0.4.5"/>
-        <release date="2023-02-23" version="0.4.4"/>
-        <release date="2023-02-15" version="0.4.1"/>
-        <release date="2023-02-08" version="0.4.0"/>
-        <release date="2023-02-08" version="0.3.6"/>
-        <release date="2023-02-04" version="0.3.5"/>
-        <release date="2023-01-14" version="0.1.12"/>
+        <release date="2023-02-24" version="0.4.5">
+            <description>
+                <p>
+                    Fixes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Fixed location of metainfo file.
+                    </li>
+                </ul>
+            </description>
+        </release>
+        <release date="2023-02-23" version="0.4.4">
+            <description>
+                <p>
+                    Fixes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Add
+                        <code>
+                            com.hunterwittenborn.Celeste.metainfo.xml
+                        </code>
+                        to packaging.
+                    </li>
+                    <li>
+                        Fixed Google Drive authentication for Google's branding requirements.
+                    </li>
+                </ul>
+            </description>
+        </release>
+        <release date="2023-02-23" version="0.4.3">
+            <description>
+                <p>
+                    Fixes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Removed commented line in
+                        <code>
+                            justfile
+                        </code>
+                        .
+                    </li>
+                </ul>
+            </description>
+        </release>
+        <release date="2023-02-22" version="0.4.2">
+            <description>
+                <p>
+                    Changes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Fixed panic when previously synced local dir no longer exists.
+                    </li>
+                    <li>
+                        Fixed extra padding in certain windows.
+                    </li>
+                    <li>
+                        Fixed recorded remote items incorrectly starting with
+                        <code>
+                            /
+                        </code>
+                        in Celeste's database.
+                    </li>
+                    <li>
+                        Fixed long windows when multiple errors are present.
+                    </li>
+                </ul>
+            </description>
+        </release>
+        <release date="2023-02-15" version="0.4.1">
+            <description>
+                <p>
+                    Changes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Removed no
+                        <code>
+                            :
+                        </code>
+                        requirement in username and password login fields.
+                    </li>
+                </ul>
+            </description>
+        </release>
+        <release date="2023-02-08" version="0.4.0">
+            <description>
+                <p>
+                    Features added in this release:
+                </p>
+                <ul>
+                    <li>
+                        Added support for pCloud.
+                    </li>
+                </ul>
+            </description>
+        </release>
+        <release date="2023-02-08" version="0.3.6">
+            <description>
+                <p>
+                    Changes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Fixed slash suffixes in local directory causing a crash in sync directory dialog.
+                    </li>
+                    <li>
+                        Fixed remote directories not being placed correctly on the local system.
+                    </li>
+                </ul>
+            </description>
+        </release>
+        <release date="2023-02-04" version="0.3.5">
+            <description>
+                <p>
+                    Changes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Fixed behavior of tray icon closing when main application crashes inside of Flatpak.
+                    </li>
+                    <li>
+                        Fixed wordage on a couple CLI warning messages.
+                    </li>
+                </ul>
+            </description>
+        </release>
+        <release date="2023-02-02" version="0.3.4">
+            <description>
+                <p>
+                    Changes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Closed tray icon when main application crashes.
+                    </li>
+                    <li>
+                        Fixed new servers not showing up after all have been removed.
+                    </li>
+                    <li>
+                        Fixed crash caused by incorrect server name being registered for Nextcloud and Owncloud servers.
+                    </li>
+                </ul>
+            </description>
+        </release>
+        <release date="2023-02-02" version="0.3.3">
+            <description>
+                <p>
+                    Changes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Improved titlebars in main application window.
+                    </li>
+                </ul>
+            </description>
+        </release>
+        <release date="2023-02-02" version="0.3.2">
+            <description>
+                <p>
+                    Changes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Added better error handing when sending DBus messages.
+                    </li>
+                </ul>
+            </description>
+        </release>
+        <release date="2023-02-02" version="0.3.0">
+            <description>
+                <p>
+                    Features added in this release:
+                </p>
+                <ul>
+                    <li>
+                        Added Owncloud storage type.
+                    </li>
+                    <li>
+                        Added ability to start up in the background.
+                    </li>
+                </ul>
+            </description>
+        </release>
+        <release date="2023-02-02" version="0.2.0">
+            <description>
+                <p>
+                    Features added in this release:
+                </p>
+                <ul>
+                    <li>
+                        Added Google Drive storage type.
+                    </li>
+                </ul>
+                <p>
+                    Changes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Fixed DBus connection names in Snapcraft config.
+                    </li>
+                </ul>
+            </description>
+        </release>
+        <release date="2023-02-01" version="0.1.12">
+            <description>
+                <p>
+                    Changes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Fixed file names in
+                        <code>
+                            justfile
+                        </code>
+                        .
+                    </li>
+                </ul>
+            </description>
+        </release>
+        <release date="2023-02-01" version="0.1.11">
+            <description>
+                <p>
+                    Changes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Fixed namespace used for symbolic icons and DBus connections.
+                    </li>
+                </ul>
+            </description>
+        </release>
+        <release date="2023-02-01" version="0.1.10">
+            <description>
+                <p>
+                    Changes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Fixed location of symbolic icons during installation.
+                    </li>
+                </ul>
+            </description>
+        </release>
+        <release date="2023-02-01" version="0.1.9">
+            <description>
+                <p>
+                    Features added in this release:
+                </p>
+                <ul>
+                    <li>
+                        Added Snap packaging
+                    </li>
+                </ul>
+            </description>
+        </release>
+        <release date="2023-01-07" version="0.1.8">
+            <description>
+                <p>
+                    Features added in this release:
+                </p>
+                <ul>
+                    <li>
+                        Added tray icon.
+                    </li>
+                </ul>
+            </description>
+        </release>
+        <release date="2022-12-30" version="0.1.7">
+            <description>
+                <p>
+                    Changes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Fixed vertical alignment of text in file/folder exclusion section.
+                    </li>
+                    <li>
+                        Improved method for finding running Celeste instances.
+                    </li>
+                </ul>
+            </description>
+        </release>
+        <release date="2022-12-30" version="0.1.6">
+            <description>
+                <p>
+                    Changes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Fixed missing icon on about page.
+                    </li>
+                    <li>
+                        Updated progress text to show individual file checks.
+                    </li>
+                    <li>
+                        Fixed missing popover button on main screen.
+                    </li>
+                    <li>
+                        Fixed main screen window not closing after being reopened.
+                    </li>
+                </ul>
+            </description>
+        </release>
+        <release date="2022-12-30" version="0.1.5">
+            <description>
+                <p>
+                    Changes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Fixed panic on launch from missing directory.
+                    </li>
+                </ul>
+            </description>
+        </release>
+        <release date="2022-12-29" version="0.1.4">
+            <description>
+                <p>
+                    Changes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Added very hacky workaround to finally fix linker usage in AppImage.
+                    </li>
+                </ul>
+            </description>
+        </release>
+        <release date="2022-12-29" version="0.1.3">
+            <description>
+                <p>
+                    Changes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Fixed more linker usage in AppImage.
+                    </li>
+                </ul>
+            </description>
+        </release>
+        <release date="2022-12-29" version="0.1.2">
+            <description>
+                <p>
+                    Changes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Fixed linker usage and missing dependencies in AppImage.
+                    </li>
+                </ul>
+            </description>
+        </release>
+        <release date="2022-12-29" version="0.1.1">
+            <description>
+                <p>
+                    Changes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Fixed MPR packaging.
+                    </li>
+                </ul>
+            </description>
+        </release>
+        <release date="2022-12-29" version="0.1.0">
+            <description>
+                <p>
+                    First release! 🥳
+                </p>
+            </description>
+        </release>
     </releases>
     <content_rating type="oars-1.1"/>
     <update_contact>

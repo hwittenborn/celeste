@@ -1,6 +1,9 @@
 [workspace]
 members = ["celeste", "celeste-tray", "libceleste"]
 
+[workspace.package]
+version = "0.5.2"
+
 [workspace.dependencies]
 celeste-tray.path = "celeste-tray"
 libceleste.path = "libceleste"

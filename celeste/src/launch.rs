@@ -210,7 +210,7 @@ pub fn launch(app: &Application, background: bool) {
     // Create the configuration directory if it doesn't exist.
     let config_path = libceleste::get_config_dir();
     if !config_path.exists() && let Err(err) = fs::create_dir_all(&config_path) {
-        gtk_util::show_error(
+        gtk_util::show_notification_dialog(
             &tr::tr!("Unable to create Celeste's config directory [{}].", err),
             None
         );
@@ -222,7 +222,7 @@ pub fn launch(app: &Application, background: bool) {
     db_path.push("celeste.db");
     if !db_path.exists() {
         if let Err(err) = fs::File::create(&db_path) {
-            gtk_util::show_error(
+            gtk_util::show_notification_dialog(
                 &tr::tr!("Unable to create Celeste's database file [{}].", err),
                 None,
             );
@@ -233,14 +233,17 @@ pub fn launch(app: &Application, background: bool) {
     // Connect to the database.
     let db = libceleste::await_future(Database::connect(format!("sqlite://{}", db_path.display())));
     if let Err(err) = &db {
-        gtk_util::show_error(&tr::tr!("Unable to connect to database [{}].", err), None);
+        gtk_util::show_notification_dialog(
+            &tr::tr!("Unable to connect to database [{}].", err),
+            None,
+        );
         return;
     };
     let db = db.unwrap();
 
     // Run migrations.
     if let Err(err) = libceleste::await_future(Migrator::up(&db, None)) {
-        gtk_util::show_error(
+        gtk_util::show_notification_dialog(
             &tr::tr!("Unable to run database migrations [{}]", err),
             None,
         );
@@ -881,7 +884,7 @@ pub fn launch(app: &Application, background: bool) {
                     match rclone::sync::stat(&remote_name, &remote_text) {
                         Ok(path) => {
                             if path.is_none() {
-                                gtk_util::show_error(&tr::tr!("The specified remote directory doesn't exist"), None);
+                                gtk_util::show_notification_dialog(&tr::tr!("The specified remote directory doesn't exist"), None);
                                 folder_window.set_sensitive(true);
                                 return;
                             } else {
@@ -889,7 +892,7 @@ pub fn launch(app: &Application, background: bool) {
                             }
                         },
                         Err(err) => {
-                            gtk_util::show_error(&tr::tr!("Failed to check if the specified remote directory exists"), Some(&err.error));
+                            gtk_util::show_notification_dialog(&tr::tr!("Failed to check if the specified remote directory exists"), Some(&err.error));
                             folder_window.set_sensitive(true);
                             return;
                         }
@@ -900,16 +903,16 @@ pub fn launch(app: &Application, background: bool) {
                     ).unwrap();
 
                     if sync_dir.is_some() {
-                        gtk_util::show_error(&tr::tr!("The specified directory pair is already being synced"), None);
+                        gtk_util::show_notification_dialog(&tr::tr!("The specified directory pair is already being synced"), None);
                         folder_window.set_sensitive(true);
                     } else if !local_path.exists() {
-                        gtk_util::show_error(&tr::tr!("The specified local directory doesn't exist"), None);
+                        gtk_util::show_notification_dialog(&tr::tr!("The specified local directory doesn't exist"), None);
                         folder_window.set_sensitive(true);
                     } else if !local_path.is_dir() {
-                        gtk_util::show_error(&tr::tr!("The specified local path isn't a directory"), None);
+                        gtk_util::show_notification_dialog(&tr::tr!("The specified local path isn't a directory"), None);
                         folder_window.set_sensitive(true);
                     } else if !local_path.is_absolute() {
-                        gtk_util::show_error(&tr::tr!("The specified local directory needs to be an absolute path"), None);
+                        gtk_util::show_notification_dialog(&tr::tr!("The specified local directory needs to be an absolute path"), None);
                         folder_window.set_sensitive(true);
                     } else {
                         libceleste::await_future(
@@ -1370,7 +1373,7 @@ pub fn launch(app: &Application, background: bool) {
                                 let local_path = Path::new(&local_item);
                                 let sync_local_to_remote = glib::clone!(@strong remote, @strong local_item_formatted, @strong local_item, @strong remote_item => move || {
                                     if let Err(err) = rclone::sync::copy_to_remote(&local_item, &remote.name, &remote_item) {
-                                        gtk_util::show_error(&tr::tr!("Failed to sync '{}' to '{}' on remote.", local_item_formatted, remote_item), Some(&err.error));
+                                        gtk_util::show_notification_dialog(&tr::tr!("Failed to sync '{}' to '{}' on remote.", local_item_formatted, remote_item), Some(&err.error));
                                         Err(())
                                     } else {
                                         Ok(())
@@ -1378,7 +1381,7 @@ pub fn launch(app: &Application, background: bool) {
                                 });
                                 let sync_remote_to_local = glib::clone!(@strong remote, @strong local_item_formatted, @strong local_item, @strong remote_item => move || {
                                     if let Err(err) = rclone::sync::copy_to_local(&local_item, &remote.name, &remote_item) {
-                                        gtk_util::show_error(&tr::tr!("Failed to sync '{}' on remote to '{}'.", remote_item, local_item_formatted), Some(&err.error));
+                                        gtk_util::show_notification_dialog(&tr::tr!("Failed to sync '{}' on remote to '{}'.", remote_item, local_item_formatted), Some(&err.error));
                                         Err(())
                                     } else {
                                         Ok(())
@@ -1402,7 +1405,7 @@ pub fn launch(app: &Application, background: bool) {
                                 let rclone_remote_item = match rclone::sync::stat(&remote.name, remote_item) {
                                     Ok(item) => item,
                                     Err(err) => {
-                                        gtk_util::show_error(
+                                        gtk_util::show_notification_dialog(
                                             &tr::tr!("Unable to fetch data for '{}' from the remote.", remote_item),
                                             Some(&err.error)
                                         );
@@ -1412,12 +1415,12 @@ pub fn launch(app: &Application, background: bool) {
 
                                 // If neither the local item or the remote item exist anymore, this error is no longer relevant.
                                 if !local_path.exists() && rclone_remote_item.is_none() {
-                                    gtk_util::show_error(&tr::tr!("File Update"), Some(&tr::tr!("Neither the local item or remote item exists anymore. This error will now be removed.")));
+                                    gtk_util::show_notification_dialog(&tr::tr!("File Update"), Some(&tr::tr!("Neither the local item or remote item exists anymore. This error will now be removed.")));
                                     remove_ui_item();
                                     return;
                                 // Otherwise if only the local exists, use that.
                                 } else if local_path.exists() && rclone_remote_item.is_none() {
-                                    gtk_util::show_error(&tr::tr!("File Update"), Some(&tr::tr!("Only the local item exists now, so it will be synced to the remote.")));
+                                    gtk_util::show_notification_dialog(&tr::tr!("File Update"), Some(&tr::tr!("Only the local item exists now, so it will be synced to the remote.")));
                                     if sync_local_to_remote().is_ok() {
                                         update_db_item();
                                         remove_ui_item();
@@ -1425,7 +1428,7 @@ pub fn launch(app: &Application, background: bool) {
                                     }
                                 // Otherwise if only the remote exists, use that.
                                 } else if !local_path.exists() && rclone_remote_item.is_some() {
-                                    gtk_util::show_error(&tr::tr!("File Update"), Some(&tr::tr!("Only the remote item exists now, so it will be synced to the local machine.")));
+                                    gtk_util::show_notification_dialog(&tr::tr!("File Update"), Some(&tr::tr!("Only the remote item exists now, so it will be synced to the local machine.")));
                                     if sync_remote_to_local().is_ok() {
                                         update_db_item();
                                         remove_ui_item();

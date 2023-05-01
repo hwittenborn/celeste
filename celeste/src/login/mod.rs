@@ -10,6 +10,7 @@ mod dropbox;
 mod gdrive;
 pub mod login_util;
 mod nextcloud;
+mod onedrive;
 mod owncloud;
 mod pcloud;
 mod webdav;
@@ -23,6 +24,7 @@ use adw::{
 use dropbox::DropboxConfig;
 use gdrive::GDriveConfig;
 use nextcloud::NextcloudConfig;
+use onedrive::OneDriveConfig;
 use owncloud::OwncloudConfig;
 use pcloud::PCloudConfig;
 use std::{cell::RefCell, rc::Rc};
@@ -45,6 +47,7 @@ pub enum ServerType {
     Dropbox(dropbox::DropboxConfig),
     GDrive(gdrive::GDriveConfig),
     Nextcloud(nextcloud::NextcloudConfig),
+    OneDrive(onedrive::OneDriveConfig),
     Owncloud(owncloud::OwncloudConfig),
     PCloud(pcloud::PCloudConfig),
     WebDav(webdav::WebDavConfig),
@@ -56,6 +59,7 @@ impl ToString for ServerType {
             Self::Dropbox(_) => "Dropbox",
             Self::GDrive(_) => "Google Drive",
             Self::Nextcloud(_) => "Nextcloud",
+            Self::OneDrive(_) => "OneDrive",
             Self::Owncloud(_) => "Owncloud",
             Self::PCloud(_) => "pCloud",
             Self::WebDav(_) => "WebDAV",
@@ -77,7 +81,7 @@ pub fn can_login(_app: &Application, config_name: &str) -> bool {
             )
         };
 
-        gtk_util::show_error(&tr::tr!("Unable to log in"), Some(&err_msg));
+        gtk_util::show_notification_dialog(&tr::tr!("Unable to log in"), Some(&err_msg));
         false
     } else {
         true
@@ -108,6 +112,7 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
     let dropbox_name = ServerType::Dropbox(Default::default()).to_string();
     let gdrive_name = ServerType::GDrive(Default::default()).to_string();
     let nextcloud_name = ServerType::Nextcloud(Default::default()).to_string();
+    let onedrive_name = ServerType::OneDrive(Default::default()).to_string();
     let owncloud_name = ServerType::Owncloud(Default::default()).to_string();
     let pcloud_name = ServerType::PCloud(Default::default()).to_string();
     let webdav_name = ServerType::WebDav(Default::default()).to_string();
@@ -118,6 +123,7 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
         dropbox_name.as_str(),
         gdrive_name.as_str(),
         nextcloud_name.as_str(),
+        onedrive_name.as_str(),
         owncloud_name.as_str(),
         pcloud_name.as_str(),
         webdav_name.as_str(),
@@ -143,6 +149,7 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
     let dropbox_items = DropboxConfig::get_sections(&window, sender.clone());
     let gdrive_items = GDriveConfig::get_sections(&window, sender.clone());
     let nextcloud_items = NextcloudConfig::get_sections(&window, sender.clone());
+    let onedrive_items = OneDriveConfig::get_sections(&window, sender.clone());
     let owncloud_items = OwncloudConfig::get_sections(&window, sender.clone());
     let pcloud_items = PCloudConfig::get_sections(&window, sender.clone());
     let webdav_items = WebDavConfig::get_sections(&window, sender);
@@ -155,11 +162,18 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
     // changes.
     server_type_dropdown.connect_selected_notify(glib::clone!(@weak container, @weak input_sections, @strong server_types, @strong nextcloud_items, @strong webdav_items, @strong active_items => move |server_type_dropdown| {
         let server_type = server_types.string(server_type_dropdown.selected()).unwrap().to_string();
+        let lowercased_server_type = server_type.to_lowercase();
 
-        let (rows, submit_button) = match server_type.to_lowercase().as_str() {
+        // Show a warning if a backend is still in beta support.
+        if ["onedrive"].contains(&lowercased_server_type.as_str()) {
+            gtk_util::show_beta_dialog(&server_type)
+        }
+
+        let (rows, submit_button) = match lowercased_server_type.as_str() {
             "dropbox" => dropbox_items.clone(),
             "google drive" => gdrive_items.clone(),
             "nextcloud" => nextcloud_items.clone(),
+            "onedrive" => onedrive_items.clone(),
             "owncloud" => owncloud_items.clone(),
             "pcloud" => pcloud_items.clone(),
             "webdav" => webdav_items.clone(),
@@ -211,6 +225,7 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
             ServerType::Dropbox(config) => config.server_name.clone(),
             ServerType::GDrive(config) => config.server_name.clone(),
             ServerType::Nextcloud(config) => config.server_name.clone(),
+            ServerType::OneDrive(config) => config.server_name.clone(),
             ServerType::Owncloud(config) => config.server_name.clone(),
             ServerType::PCloud(config) => config.server_name.clone(),
             ServerType::WebDav(config) => config.server_name.clone(),
@@ -249,6 +264,16 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
                 "opt": {
                     "obscure": true
                 }
+            }),
+            ServerType::OneDrive(config) => json!({
+                "name": config_name,
+                "parameters": {
+                    "client_id": config.client_id,
+                    "client_secret": config.client_secret,
+                    "token": config.auth_json,
+                    "config_refresh_token": false
+                },
+                "type": "onedrive"
             }),
             ServerType::Owncloud(config) => json!({
                 "name": config_name,
