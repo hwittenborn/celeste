@@ -202,7 +202,7 @@ impl GDriveConfig {
             // Wait for input from the user.
             let dialog = MessageDialog::builder()
                 .heading(&tr::tr!("Authenticating to {}...", auth_type))
-                .body(&tr::tr!("Open the link that opened in your browser, and come back once you've finished."))
+                .body(&tr::tr!("Follow the link that opened in your browser, and come back once you've finished."))
                 .build();
             dialog.add_response("cancel", &tr::tr!("Cancel"));
             dialog.connect_response(None, glib::clone!(@strong kill_request => move |dialog, resp| {
