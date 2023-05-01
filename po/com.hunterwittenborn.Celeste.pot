@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Celeste 0.5.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-01 20:43+0000\n"
+"POT-Creation-Date: 2023-05-01 20:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -223,7 +223,7 @@ msgid "Authenticating to {}..."
 msgstr ""
 
 #: celeste/src/login/gdrive.rs:208
-msgid "Open the link that opened in your browser, and come back once you've finished."
+msgid "Follow the link that opened in your browser, and come back once you've finished."
 msgstr ""
 
 #: celeste/src/login/gdrive.rs:235
