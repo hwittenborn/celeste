@@ -8,230 +8,246 @@ msgstr ""
 "Project-Id-Version: Celeste 0.5.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-01 18:51+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2023-05-05 11:52+0000\n"
+"Last-Translator: Dan <denqwerta@gmail.com>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/hwittenborn/"
+"celeste/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: celeste/src/gtk_util.rs:20 celeste/src/gtk_util.rs:43 celeste/src/launch.rs:678 celeste/src/launch.rs:840
 msgid "Ok"
-msgstr ""
+msgstr "Ок"
 
 #: celeste/src/launch.rs:102
 msgid "Both '{}' and '{}' are more recent than at last sync."
-msgstr ""
+msgstr "І '{}', і '{}' є більш свіжими, ніж під час останньої синхронізації."
 
 #: celeste/src/launch.rs:214
 msgid "Unable to create Celeste's config directory [{}]."
-msgstr ""
+msgstr "Не вдалося створити каталог конфігурації Celeste [{}]."
 
 #: celeste/src/launch.rs:226
 msgid "Unable to create Celeste's database file [{}]."
-msgstr ""
+msgstr "Не вдалося створити файл бази даних Celeste [{}]."
 
 #: celeste/src/launch.rs:236
 msgid "Unable to connect to database [{}]."
-msgstr ""
+msgstr "Не вдалося під'єднатися до бази даних [{}]."
 
 #: celeste/src/launch.rs:244
 msgid "Unable to run database migrations [{}]"
-msgstr ""
+msgstr "Не вдається запустити перенесення бази даних [{}]"
 
 #: celeste/src/launch.rs:351
 msgid "Awaiting sync check..."
-msgstr ""
+msgstr "Очікуємо на перевірку синхронізації..."
 
 #: celeste/src/launch.rs:387
 msgid "Sync Errors"
-msgstr ""
+msgstr "Помилки синхронізації"
 
 #: celeste/src/launch.rs:402
 msgid "File/Folder Exclusions"
-msgstr ""
+msgstr "Виключення файлу/папки"
 
 #: celeste/src/launch.rs:521
 msgid "Stop syncing this directory"
-msgstr ""
+msgstr "Зупинити синхронізацію цього каталогу"
 
 #: celeste/src/launch.rs:538
 msgid "Are you sure you want to stop syncing '{}' to '{}'?"
-msgstr ""
+msgstr "Ви впевнені, що хочете припинити синхронізацію '{}' з '{}'?"
 
 #: celeste/src/launch.rs:547
 msgid "This directory is currently being processed to no longer be synced."
-msgstr ""
+msgstr "Наразі цей каталог обробляється, щоб більше не синхронізуватися."
 
 #: celeste/src/launch.rs:638
 msgid "Directories"
-msgstr ""
+msgstr "Каталоги"
 
 #. Get the local folder to sync with.
 #: celeste/src/launch.rs:661
 msgid "Local folder:"
-msgstr ""
+msgstr "Локальна папка:"
 
 #: celeste/src/launch.rs:677 celeste/src/launch.rs:839 celeste/src/login/gdrive.rs:207
 msgid "Cancel"
-msgstr ""
+msgstr "Скасувати"
 
 #. Get the remote folder to sync with, and add it.
 #. The entry completion code is largely inspired by https://github.com/gtk-rs/gtk4-rs/blob/master/examples/entry_completion/main.rs. I honestly have no clue what half the code for that is doing, I just know the current code is working well enough, and it can be fixed later if it breaks.
 #: celeste/src/launch.rs:697
 msgid "Remote folder:"
-msgstr ""
+msgstr "Віддалена папка:"
 
 #: celeste/src/launch.rs:884
 msgid "The specified remote directory doesn't exist"
-msgstr ""
+msgstr "Вказаний віддалений каталог не існує"
 
 #: celeste/src/launch.rs:892
 msgid "Failed to check if the specified remote directory exists"
-msgstr ""
+msgstr "Не вдалося перевірити, чи існує вказаний віддалений каталог"
 
 #: celeste/src/launch.rs:903
 msgid "The specified directory pair is already being synced"
-msgstr ""
+msgstr "Зазначена пара каталогів вже синхронізується"
 
 #: celeste/src/launch.rs:906
 msgid "The specified local directory doesn't exist"
-msgstr ""
+msgstr "Вказаний локальний каталог не існує"
 
 #: celeste/src/launch.rs:909
 msgid "The specified local path isn't a directory"
-msgstr ""
+msgstr "Вказаний локальний шлях не є каталогом"
 
 #: celeste/src/launch.rs:912
 msgid "The specified local directory needs to be an absolute path"
-msgstr ""
+msgstr "Вказаний локальний каталог має бути абсолютним шляхом"
 
 #: celeste/src/launch.rs:940
 msgid "Are you sure you want to delete this remote?"
-msgstr ""
+msgstr "Ви впевнені, що хочете видалити цей віддалений пристрій?"
 
 #: celeste/src/launch.rs:941
 msgid "All the directories associated with this remote will also stop syncing."
 msgstr ""
+"Всі каталоги, пов'язані з цим віддаленим пристроєм, також припинять "
+"синхронізацію."
 
 #: celeste/src/launch.rs:1167 celeste-tray/src/main.rs:51
 msgid "Awaiting sync checks..."
-msgstr ""
+msgstr "Очікуємо перевірки синхронізації..."
 
 #. Notify the tray app that we're syncing this remote now.
 #: celeste/src/launch.rs:1263
 msgid "Syncing '{}'..."
-msgstr ""
+msgstr "Синхронізація \"{}\"..."
 
 #: celeste/src/launch.rs:1298
 msgid "Checking for changes..."
-msgstr ""
+msgstr "Перевірка змін..."
 
 #. Add an error for reporting in the UI.
 #: celeste/src/launch.rs:1305
 msgid "Please resolve the reported syncing issues."
-msgstr ""
+msgstr "Будь ласка, вирішіть проблеми з синхронізацією, про які повідомлялося."
 
 #: celeste/src/launch.rs:1332
 msgid "{} errors found. "
-msgstr ""
+msgstr "Знайдено помилок: {}. "
 
 #: celeste/src/launch.rs:1346
 msgid "Would you like to dismiss this error?"
-msgstr ""
+msgstr "Бажаєте відхилити цю помилку?"
 
 #: celeste/src/launch.rs:1373
 msgid "Failed to sync '{}' to '{}' on remote."
-msgstr ""
+msgstr "Не вдалося синхронізувати \"{}\" з \"{}\" на віддаленому пристрої."
 
 #: celeste/src/launch.rs:1381
 msgid "Failed to sync '{}' on remote to '{}'."
-msgstr ""
+msgstr "Не вдалося синхронізувати \"{}\" на віддаленому пристрої з \"{}\"."
 
 #: celeste/src/launch.rs:1406
 msgid "Unable to fetch data for '{}' from the remote."
-msgstr ""
+msgstr "Не вдається отримати дані для '{}' з віддаленого пристрою."
 
 #: celeste/src/launch.rs:1415 celeste/src/launch.rs:1420 celeste/src/launch.rs:1428
 msgid "File Update"
-msgstr ""
+msgstr "Оновлення файлу"
 
 #: celeste/src/launch.rs:1415
 msgid "Neither the local item or remote item exists anymore. This error will now be removed."
 msgstr ""
+"Ні локального, ні віддаленого елемента більше не існує. Тепер цю помилку "
+"буде видалено."
 
 #: celeste/src/launch.rs:1420
 msgid "Only the local item exists now, so it will be synced to the remote."
 msgstr ""
+"Наразі існує лише локальний елемент, тому його буде синхронізовано з "
+"віддаленим."
 
 #: celeste/src/launch.rs:1428
 msgid "Only the remote item exists now, so it will be synced to the local machine."
 msgstr ""
+"Наразі існує лише віддалений елемент, тому його буде синхронізовано з "
+"локальною машиною."
 
 #: celeste/src/launch.rs:1438
 msgid "Both the local item '{}' and remote item '{}' have been updated since the last sync."
 msgstr ""
+"І локальний елемент '{}', і віддалений елемент '{}' було оновлено з моменту "
+"останньої синхронізації."
 
 #: celeste/src/launch.rs:1440
 msgid "Which item would you like to keep?"
-msgstr ""
+msgstr "Яку річ ви хотіли б залишити?"
 
 #: celeste/src/launch.rs:1442
 msgid "Local"
-msgstr ""
+msgstr "Локально"
 
 #: celeste/src/launch.rs:1443
 msgid "Remote"
-msgstr ""
+msgstr "Віддалено"
 
 #: celeste/src/launch.rs:1492
 msgid "1 error found."
-msgstr ""
+msgstr "Знайдено 1 помилку."
 
 #: celeste/src/launch.rs:1494
 msgid "{} errors found."
-msgstr ""
+msgstr "Знайдено помилок: {}."
 
 #: celeste/src/launch.rs:1626
 msgid "Checking '{}' for changes..."
-msgstr ""
+msgstr "Перевірка '{}' на наявність змін..."
 
 #: celeste/src/launch.rs:2042
 msgid "Checking '{}' on remote for changes..."
-msgstr ""
+msgstr "Перевірка '{}' на віддаленому пристрої на наявність змін..."
 
 #: celeste/src/launch.rs:2433
 msgid "Directory has finished sync checks."
-msgstr ""
+msgstr "Каталог завершив перевірку синхронізації."
 
 #: celeste/src/launch.rs:2454
 msgid "Finished sync checks with {} errors."
-msgstr ""
+msgstr "Завершено перевірку синхронізації з помилками {}."
 
 #: celeste/src/login/gdrive.rs:204
 msgid "Authenticating to {}..."
-msgstr ""
+msgstr "Автентифікація до {}..."
 
 #: celeste/src/login/gdrive.rs:205
 msgid "Follow the link that opened in your browser, and come back once you've finished."
 msgstr ""
+"Перейдіть за посиланням, яке відкрилося у вашому браузері, і поверніться, "
+"коли закінчите."
 
 #: celeste/src/login/gdrive.rs:232
 msgid "There was an issue while running the webserver for authentication"
-msgstr ""
+msgstr "Виникла проблема під час запуску вебсервера для автентифікації"
 
 #: celeste/src/login/gdrive.rs:241
 msgid "There was an issue authenticating to {}"
-msgstr ""
+msgstr "Виникла проблема з автентифікацією до {}"
 
 #: celeste/src/login/login_util.rs:14
 msgid "Server Name"
-msgstr ""
+msgstr "Ім'я сервера"
 
 #: celeste/src/login/login_util.rs:26
 msgid "Server name already exists."
-msgstr ""
+msgstr "Ім'я сервера вже існує."
 
 #: celeste/src/login/login_util.rs:28
 msgid "Invalid server name. Server names must:\n"
@@ -239,78 +255,92 @@ msgid "Invalid server name. Server names must:\n"
 "- Not start with '-' or a space\n"
 "- Not end with a space"
 msgstr ""
+"Неправильне ім'я сервера. Імена серверів повинні:\n"
+"- містити лише цифри, літери, '_', '-', '.' та пробіли\n"
+"- Не починатися з '-' або пробілу\n"
+"- Не закінчуватися пробілом"
 
 #: celeste/src/login/login_util.rs:42
 msgid "Server URL"
-msgstr ""
+msgstr "URL сервера"
 
 #: celeste/src/login/login_util.rs:48
 msgid "Invalid server URL ({})."
-msgstr ""
+msgstr "Невірна URL-адреса сервера ({})."
 
 #: celeste/src/login/login_util.rs:57
 msgid "Invalid server URL (no domain specified)."
-msgstr ""
+msgstr "Невірна URL-адреса сервера (не вказано домен)."
 
 #: celeste/src/login/login_util.rs:61
 msgid "Invalid server URL (password was specified)."
-msgstr ""
+msgstr "Невірна URL-адреса сервера (вказано пароль)."
 
 #: celeste/src/login/login_util.rs:65
 msgid "Invalid server URL(unknown server scheme {})."
-msgstr ""
+msgstr "Невірна URL-адреса сервера (невідома схема сервера {})."
 
 #: celeste/src/login/login_util.rs:77
 msgid "Don't specify '{}' as part of the URL."
-msgstr ""
+msgstr "Не вказуйте '{}' як частину URL-адреси."
 
 #: celeste/src/login/login_util.rs:90
 msgid "Username"
-msgstr ""
+msgstr "Ім’я користувача"
 
 #: celeste/src/login/login_util.rs:96
 msgid "Password"
-msgstr ""
+msgstr "Пароль"
 
 #: celeste/src/login/login_util.rs:102
 msgid "Log in"
-msgstr ""
+msgstr "Ввійти"
 
 #: celeste/src/login/mod.rs:72
 msgid "Unable to connect to the server. Check your internet connection and try again."
 msgstr ""
+"Не вдалося під'єднатися до сервера. Перевірте з'єднання з інтернетом та "
+"спробуйте ще раз."
 
 #: celeste/src/login/mod.rs:76
 msgid "Unable to authenticate to the server. Check your login credentials and try again."
 msgstr ""
+"Не вдалося авторизуватися на сервері. Перевірте свої облікові дані та "
+"спробуйте ще раз."
 
 #: celeste/src/login/mod.rs:80
 msgid "Unable to log in"
-msgstr ""
+msgstr "Не вдається ввійти"
 
 #. The dropdown for selecting the server type.
 #: celeste/src/login/mod.rs:116
 msgid "Server Type"
-msgstr ""
+msgstr "Тип сервера"
 
 #: celeste/src/main.rs:187
 msgid "Unknown Error"
-msgstr ""
+msgstr "Невідома помилка"
 
 #: celeste/src/main.rs:194
 msgid "An unknown error has occurred while running. This is an internal issue with Celeste and should be reported.\n"
 "\n"
 "The following backtrace may help with debugging the issue - note that it may contain information such as login tokens/keys, so avoid posting the information publicly:"
 msgstr ""
+"Під час запуску сталася невідома помилка. Це внутрішня проблема Celeste, про "
+"яку слід повідомити.\n"
+"\n"
+"Наведене нижче технічне повідомлення може допомогти у налагодженні проблеми -"
+" зверніть увагу, що воно може містити таку інформацію, як токени/ключі для "
+"входу в систему, тому уникайте публічного розміщення цієї інформації:"
 
 #: celeste-tray/src/main.rs:54
 msgid "Open"
-msgstr ""
+msgstr "Відкрити"
 
 #: celeste-tray/src/main.rs:55
 msgid "Quit"
-msgstr ""
+msgstr "Вийти"
 
 #: celeste-tray/src/main.rs:116
 msgid "Quitting..."
-msgstr ""
+msgstr "Вихід..."
