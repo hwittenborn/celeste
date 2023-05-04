@@ -8,17 +8,20 @@ msgstr ""
 "Project-Id-Version: Celeste 0.5.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-01 18:51+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2023-05-05 11:52+0000\n"
+"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/"
+"hwittenborn/celeste/nb_NO/>\n"
 "Language: nb_NO\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: celeste/src/gtk_util.rs:20 celeste/src/gtk_util.rs:43 celeste/src/launch.rs:678 celeste/src/launch.rs:840
 msgid "Ok"
-msgstr ""
+msgstr "OK"
 
 #: celeste/src/launch.rs:102
 msgid "Both '{}' and '{}' are more recent than at last sync."
@@ -34,7 +37,7 @@ msgstr ""
 
 #: celeste/src/launch.rs:236
 msgid "Unable to connect to database [{}]."
-msgstr ""
+msgstr "Kunne ikke koble til database [{}]."
 
 #: celeste/src/launch.rs:244
 msgid "Unable to run database migrations [{}]"
@@ -42,11 +45,11 @@ msgstr ""
 
 #: celeste/src/launch.rs:351
 msgid "Awaiting sync check..."
-msgstr ""
+msgstr "Venter på synkroniseringssjekk …"
 
 #: celeste/src/launch.rs:387
 msgid "Sync Errors"
-msgstr ""
+msgstr "Synkroniseringsfeil"
 
 #: celeste/src/launch.rs:402
 msgid "File/Folder Exclusions"
@@ -58,7 +61,7 @@ msgstr ""
 
 #: celeste/src/launch.rs:538
 msgid "Are you sure you want to stop syncing '{}' to '{}'?"
-msgstr ""
+msgstr "Stopp synkronisering av «{}» til «{}»?"
 
 #: celeste/src/launch.rs:547
 msgid "This directory is currently being processed to no longer be synced."
@@ -66,30 +69,30 @@ msgstr ""
 
 #: celeste/src/launch.rs:638
 msgid "Directories"
-msgstr ""
+msgstr "Mapper"
 
 #. Get the local folder to sync with.
 #: celeste/src/launch.rs:661
 msgid "Local folder:"
-msgstr ""
+msgstr "Lokal mappe:"
 
 #: celeste/src/launch.rs:677 celeste/src/launch.rs:839 celeste/src/login/gdrive.rs:207
 msgid "Cancel"
-msgstr ""
+msgstr "Avbryt"
 
 #. Get the remote folder to sync with, and add it.
 #. The entry completion code is largely inspired by https://github.com/gtk-rs/gtk4-rs/blob/master/examples/entry_completion/main.rs. I honestly have no clue what half the code for that is doing, I just know the current code is working well enough, and it can be fixed later if it breaks.
 #: celeste/src/launch.rs:697
 msgid "Remote folder:"
-msgstr ""
+msgstr "Mappe annensteds hen:"
 
 #: celeste/src/launch.rs:884
 msgid "The specified remote directory doesn't exist"
-msgstr ""
+msgstr "Angitt mappe annensteds hen finnes ikke der"
 
 #: celeste/src/launch.rs:892
 msgid "Failed to check if the specified remote directory exists"
-msgstr ""
+msgstr "Klarte ikke å finne ut om angitt mappe annensteds hen finnes"
 
 #: celeste/src/launch.rs:903
 msgid "The specified directory pair is already being synced"
@@ -101,7 +104,7 @@ msgstr ""
 
 #: celeste/src/launch.rs:909
 msgid "The specified local path isn't a directory"
-msgstr ""
+msgstr "Angitt lokal sti er ikke en mappe"
 
 #: celeste/src/launch.rs:912
 msgid "The specified local directory needs to be an absolute path"
@@ -117,29 +120,30 @@ msgstr ""
 
 #: celeste/src/launch.rs:1167 celeste-tray/src/main.rs:51
 msgid "Awaiting sync checks..."
-msgstr ""
+msgstr "Venter på synkroniseringssjekking …"
 
 #. Notify the tray app that we're syncing this remote now.
 #: celeste/src/launch.rs:1263
 msgid "Syncing '{}'..."
-msgstr ""
+msgstr "Synkroniserer «{}» …"
 
 #: celeste/src/launch.rs:1298
 msgid "Checking for changes..."
-msgstr ""
+msgstr "Ser etter endringer …"
 
 #. Add an error for reporting in the UI.
 #: celeste/src/launch.rs:1305
 msgid "Please resolve the reported syncing issues."
-msgstr ""
+msgstr "Løs de rapporterte synkroniseringsproblemene."
 
 #: celeste/src/launch.rs:1332
+#, fuzzy
 msgid "{} errors found. "
-msgstr ""
+msgstr "Fant {} feil. "
 
 #: celeste/src/launch.rs:1346
 msgid "Would you like to dismiss this error?"
-msgstr ""
+msgstr "Forkast denne feilen?"
 
 #: celeste/src/launch.rs:1373
 msgid "Failed to sync '{}' to '{}' on remote."
@@ -155,7 +159,7 @@ msgstr ""
 
 #: celeste/src/launch.rs:1415 celeste/src/launch.rs:1420 celeste/src/launch.rs:1428
 msgid "File Update"
-msgstr ""
+msgstr "Filoppdatering"
 
 #: celeste/src/launch.rs:1415
 msgid "Neither the local item or remote item exists anymore. This error will now be removed."
@@ -175,27 +179,27 @@ msgstr ""
 
 #: celeste/src/launch.rs:1440
 msgid "Which item would you like to keep?"
-msgstr ""
+msgstr "Hvilket element vil du beholde?"
 
 #: celeste/src/launch.rs:1442
 msgid "Local"
-msgstr ""
+msgstr "Lokalt"
 
 #: celeste/src/launch.rs:1443
 msgid "Remote"
-msgstr ""
+msgstr "Annensteds hen"
 
 #: celeste/src/launch.rs:1492
 msgid "1 error found."
-msgstr ""
+msgstr "Fant én feil."
 
 #: celeste/src/launch.rs:1494
 msgid "{} errors found."
-msgstr ""
+msgstr "Fant {} feil."
 
 #: celeste/src/launch.rs:1626
 msgid "Checking '{}' for changes..."
-msgstr ""
+msgstr "Sjekker «{}» for endringer …"
 
 #: celeste/src/launch.rs:2042
 msgid "Checking '{}' on remote for changes..."
@@ -227,11 +231,11 @@ msgstr ""
 
 #: celeste/src/login/login_util.rs:14
 msgid "Server Name"
-msgstr ""
+msgstr "Tjenernavn"
 
 #: celeste/src/login/login_util.rs:26
 msgid "Server name already exists."
-msgstr ""
+msgstr "Tjenernavnet finnes allerede."
 
 #: celeste/src/login/login_util.rs:28
 msgid "Invalid server name. Server names must:\n"
@@ -242,19 +246,19 @@ msgstr ""
 
 #: celeste/src/login/login_util.rs:42
 msgid "Server URL"
-msgstr ""
+msgstr "Tjenernettadresse"
 
 #: celeste/src/login/login_util.rs:48
 msgid "Invalid server URL ({})."
-msgstr ""
+msgstr "Ugyldig tjenernettadresse ({})."
 
 #: celeste/src/login/login_util.rs:57
 msgid "Invalid server URL (no domain specified)."
-msgstr ""
+msgstr "Ugyldig tjenernettadresse. (Ingen domenenavn angitt)."
 
 #: celeste/src/login/login_util.rs:61
 msgid "Invalid server URL (password was specified)."
-msgstr ""
+msgstr "Ugyldig tjenernettadresse. (Passord ble angitt)."
 
 #: celeste/src/login/login_util.rs:65
 msgid "Invalid server URL(unknown server scheme {})."
@@ -266,15 +270,15 @@ msgstr ""
 
 #: celeste/src/login/login_util.rs:90
 msgid "Username"
-msgstr ""
+msgstr "Brukernavn"
 
 #: celeste/src/login/login_util.rs:96
 msgid "Password"
-msgstr ""
+msgstr "Passord"
 
 #: celeste/src/login/login_util.rs:102
 msgid "Log in"
-msgstr ""
+msgstr "Logg inn"
 
 #: celeste/src/login/mod.rs:72
 msgid "Unable to connect to the server. Check your internet connection and try again."
@@ -286,16 +290,16 @@ msgstr ""
 
 #: celeste/src/login/mod.rs:80
 msgid "Unable to log in"
-msgstr ""
+msgstr "Kan ikke logge inn"
 
 #. The dropdown for selecting the server type.
 #: celeste/src/login/mod.rs:116
 msgid "Server Type"
-msgstr ""
+msgstr "Tjenertype"
 
 #: celeste/src/main.rs:187
 msgid "Unknown Error"
-msgstr ""
+msgstr "Ukjent feil"
 
 #: celeste/src/main.rs:194
 msgid "An unknown error has occurred while running. This is an internal issue with Celeste and should be reported.\n"
@@ -305,12 +309,12 @@ msgstr ""
 
 #: celeste-tray/src/main.rs:54
 msgid "Open"
-msgstr ""
+msgstr "Åpne"
 
 #: celeste-tray/src/main.rs:55
 msgid "Quit"
-msgstr ""
+msgstr "Avslutt"
 
 #: celeste-tray/src/main.rs:116
 msgid "Quitting..."
-msgstr ""
+msgstr "Avslutter …"
