@@ -56,4 +56,4 @@ sudo apt install celeste
 Instructions still largely need to be written up - if you'd like to help with that, feel free to submit a PR!
 
 ### Translating
-Celeste uses [Weblate](https://weblate.org) to manage translations. See <https://hosted.weblate.org/projects/hwittenborn/celeste> if you'd like to assist in translating.
+Celeste uses [Weblate](https://weblate.org) to manage translations. See <https://hosted.weblate.org/projects/celeste/celeste> if you'd like to assist in translating.
