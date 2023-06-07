@@ -19,8 +19,7 @@ jobs:
         uses: hashicorp/vault-action@v2
         with:
           url: https://vault.hunterwittenborn.com
-          method: jwt
-          role: github
+          token: ${{ secrets.VAULT_TOKEN }}
           secrets: |
             kv/data/ci github_api_key | GH_TOKEN
       - name: Setup makedeb APT repositories
@@ -46,8 +45,7 @@ jobs:
         uses: hashicorp/vault-action@v2
         with:
           url: https://vault.hunterwittenborn.com
-          method: jwt
-          role: github
+          token: ${{ secrets.VAULT_TOKEN }}
           secrets: |
             kv/data/ci ssh_key | SSH_KEY
       - name: Setup makedeb APT repositories
@@ -102,8 +100,7 @@ jobs:
         uses: hashicorp/vault-action@v2
         with:
           url: https://vault.hunterwittenborn.com
-          method: jwt
-          role: github
+          token: ${{ secrets.VAULT_TOKEN }}
           secrets: |
             kv/data/ci snapcraft_store_credentials | SNAPCRAFT_STORE_CREDENTIALS
       - name: Build Celeste Snap
@@ -125,8 +122,7 @@ jobs:
         uses: hashicorp/vault-action@v2
         with:
           url: https://vault.hunterwittenborn.com
-          method: jwt
-          role: github
+          token: ${{ secrets.VAULT_TOKEN }}
           secrets: |
             kv/data/ci github_api_key | GH_TOKEN
       - name: Checkout Flathub Celeste Git repository
