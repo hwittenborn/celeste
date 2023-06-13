@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Celeste 0.5.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-01 18:51+0000\n"
-"PO-Revision-Date: 2023-06-12 21:53+0000\n"
+"PO-Revision-Date: 2023-06-14 08:52+0000\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/celeste/celeste/"
 "tr/>\n"
@@ -25,51 +25,52 @@ msgstr "Tamam."
 
 #: celeste/src/launch.rs:102
 msgid "Both '{}' and '{}' are more recent than at last sync."
-msgstr ""
+msgstr "Hem '{}' hem de '{}' son eşzamanlamadan daha yeni."
 
 #: celeste/src/launch.rs:214
 msgid "Unable to create Celeste's config directory [{}]."
-msgstr ""
+msgstr "Celeste'nin yapılandırma dizini oluşturulamıyor [{}]."
 
 #: celeste/src/launch.rs:226
 msgid "Unable to create Celeste's database file [{}]."
-msgstr ""
+msgstr "Celeste'nin veri tabanı dosyası oluşturulamıyor [{}]."
 
 #: celeste/src/launch.rs:236
 msgid "Unable to connect to database [{}]."
-msgstr ""
+msgstr "Veri tabanına bağlanılamıyor [{}]."
 
 #: celeste/src/launch.rs:244
 msgid "Unable to run database migrations [{}]"
-msgstr ""
+msgstr "Veri tabanı geçişleri çalıştırılamıyor [{}]"
 
 #: celeste/src/launch.rs:351
 msgid "Awaiting sync check..."
-msgstr ""
+msgstr "Eşzamanlama denetimi bekleniyor..."
 
 #: celeste/src/launch.rs:387
 msgid "Sync Errors"
-msgstr ""
+msgstr "Eşzamanlama Hataları"
 
 #: celeste/src/launch.rs:402
 msgid "File/Folder Exclusions"
-msgstr ""
+msgstr "Dosya/Klasör Dışlamaları"
 
 #: celeste/src/launch.rs:521
 msgid "Stop syncing this directory"
-msgstr ""
+msgstr "Bu dizini eşzamanlamayı durdur"
 
 #: celeste/src/launch.rs:538
 msgid "Are you sure you want to stop syncing '{}' to '{}'?"
 msgstr ""
+"'{}' ile '{}' arasında eşzamanlamayı durdurmak istediğinizden emin misiniz?"
 
 #: celeste/src/launch.rs:547
 msgid "This directory is currently being processed to no longer be synced."
-msgstr ""
+msgstr "Bu dizin şu anda artık eşzamanlanmamak üzere işlenmektedir."
 
 #: celeste/src/launch.rs:638
 msgid "Directories"
-msgstr ""
+msgstr "Dizinler"
 
 #. Get the local folder to sync with.
 #: celeste/src/launch.rs:661
