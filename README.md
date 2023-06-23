@@ -52,6 +52,9 @@ If you're on Ubuntu 22.10 or later, you can install Celeste from the Prebuilt-MP
 sudo apt install celeste
 ```
 
+## Support
+For anything that isn't an issue in Celeste's functionality, visit the project's [Discord server](https://discord.gg/FtNhPepvj7), where you can obtain support and chat with fellow users. If you have a bug/feature request for Celeste, then make a new issue in the project's [issue tracker](https://github.com/hwittenborn/celeste/issues).
+
 ## Contributing
 Instructions still largely need to be written up - if you'd like to help with that, feel free to submit a PR!
 
