@@ -41,6 +41,22 @@
         </screenshot>
     </screenshots>
     <releases>
+        <release date="2023-07-24" version="0.5.4">
+            <description>
+                <p>
+                    Fixes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Updated
+                        <code>
+                            Cargo.lock
+                        </code>
+                        to fix compile error.
+                    </li>
+                </ul>
+            </description>
+        </release>
         <release date="2023-06-07" version="0.5.3">
             <description>
                 <p>
