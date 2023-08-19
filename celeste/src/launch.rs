@@ -1329,7 +1329,7 @@ pub fn launch(app: &Application, background: bool) {
                                 item.status_text.set_label(&label_text);
 
                             } else {
-                                let error_string = tr::tr!("{} errors found. ", new_num_errors);
+                                let error_string = tr::tr!("{} errors found.", new_num_errors);
                                 item.error_status_text.set_label(&error_string);
                             }
 
