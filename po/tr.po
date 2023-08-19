@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Celeste 0.5.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-01 18:51+0000\n"
-"PO-Revision-Date: 2023-06-14 08:52+0000\n"
+"PO-Revision-Date: 2023-08-19 15:40+0000\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/celeste/celeste/"
 "tr/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.0-dev\n"
 
 #: celeste/src/gtk_util.rs:20 celeste/src/gtk_util.rs:43 celeste/src/launch.rs:678 celeste/src/launch.rs:840
 msgid "Ok"
@@ -75,11 +75,11 @@ msgstr "Dizinler"
 #. Get the local folder to sync with.
 #: celeste/src/launch.rs:661
 msgid "Local folder:"
-msgstr ""
+msgstr "Yerel klasör:"
 
 #: celeste/src/launch.rs:677 celeste/src/launch.rs:839 celeste/src/login/gdrive.rs:207
 msgid "Cancel"
-msgstr ""
+msgstr "İptal"
 
 #. Get the remote folder to sync with, and add it.
 #. The entry completion code is largely inspired by https://github.com/gtk-rs/gtk4-rs/blob/master/examples/entry_completion/main.rs. I honestly have no clue what half the code for that is doing, I just know the current code is working well enough, and it can be fixed later if it breaks.
