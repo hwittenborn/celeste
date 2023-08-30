@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: Celeste 0.5.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-01 18:51+0000\n"
-"PO-Revision-Date: 2023-05-11 16:49+0000\n"
-"Last-Translator: ahskur <luiscpinto2@hotmail.com>\n"
+"PO-Revision-Date: 2023-08-31 03:58+0000\n"
+"Last-Translator: Fernando Lopes <118869201+plasmus777@users.noreply.github."
+"com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "celeste/celeste/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.0.1-dev\n"
 
 #: celeste/src/gtk_util.rs:20 celeste/src/gtk_util.rs:43 celeste/src/launch.rs:678 celeste/src/launch.rs:840
 msgid "Ok"
@@ -107,17 +108,18 @@ msgid "The specified local path isn't a directory"
 msgstr "O caminho local especificado não é um diretório"
 
 #: celeste/src/launch.rs:912
-#, fuzzy
 msgid "The specified local directory needs to be an absolute path"
-msgstr "O diretório local especificado precisa ser um 'caminho absoluto'"
+msgstr "O diretório local especificado precisa ser um caminho absoluto"
 
 #: celeste/src/launch.rs:940
 msgid "Are you sure you want to delete this remote?"
-msgstr ""
+msgstr "Tem certeza de que deseja excluir esse remoto?"
 
 #: celeste/src/launch.rs:941
 msgid "All the directories associated with this remote will also stop syncing."
 msgstr ""
+"Todos os diretórios associados a esse remoto também interromperão a "
+"sincronização."
 
 #: celeste/src/launch.rs:1167 celeste-tray/src/main.rs:51
 msgid "Awaiting sync checks..."
@@ -142,21 +144,20 @@ msgid "{} errors found. "
 msgstr "{} erros encontrados. "
 
 #: celeste/src/launch.rs:1346
-#, fuzzy
 msgid "Would you like to dismiss this error?"
-msgstr "Gostaria de descartar/ignorar esse erro?"
+msgstr "Gostaria de ignorar esse erro?"
 
 #: celeste/src/launch.rs:1373
 msgid "Failed to sync '{}' to '{}' on remote."
-msgstr ""
+msgstr "Falha ao sincronizar '{}' com '{}' no remoto."
 
 #: celeste/src/launch.rs:1381
 msgid "Failed to sync '{}' on remote to '{}'."
-msgstr ""
+msgstr "Falha ao sincronizar '{}' no remoto para '{}'."
 
 #: celeste/src/launch.rs:1406
 msgid "Unable to fetch data for '{}' from the remote."
-msgstr ""
+msgstr "Não é possível buscar dados para '{}' do remoto."
 
 #: celeste/src/launch.rs:1415 celeste/src/launch.rs:1420 celeste/src/launch.rs:1428
 msgid "File Update"
@@ -168,9 +169,10 @@ msgstr ""
 "Item local e item remoto não existem mais. Esse erro será removido agora."
 
 #: celeste/src/launch.rs:1420
-#, fuzzy
 msgid "Only the local item exists now, so it will be synced to the remote."
-msgstr "Apenas o item local existe. Ele será sincronizado com o servidor."
+msgstr ""
+"Somente o item local existe agora, portanto, ele será sincronizado com o "
+"remoto."
 
 #: celeste/src/launch.rs:1428
 msgid "Only the remote item exists now, so it will be synced to the local machine."
@@ -317,7 +319,6 @@ msgid "Unknown Error"
 msgstr "Erro desconhecido"
 
 #: celeste/src/main.rs:194
-#, fuzzy
 msgid "An unknown error has occurred while running. This is an internal issue with Celeste and should be reported.\n"
 "\n"
 "The following backtrace may help with debugging the issue - note that it may contain information such as login tokens/keys, so avoid posting the information publicly:"
@@ -325,9 +326,9 @@ msgstr ""
 "Ocorreu um erro desconhecido durante a execução. Esse é um problema interno "
 "do Celeste e deve ser relatado.\n"
 "\n"
-"O backtrace/log a seguir pode ajudar a depurar o problema - observe que ele "
-"pode conter informações como tokens/chaves de login, portanto, evite "
-"publicar as informações publicamente:"
+"O backtrace a seguir pode ajudar na depuração do problema - observe que ele "
+"pode conter informações como tokens/chaves de login, portanto, evite postar "
+"as informações publicamente:"
 
 #: celeste-tray/src/main.rs:54
 msgid "Open"
