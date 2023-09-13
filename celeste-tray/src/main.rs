@@ -90,9 +90,7 @@ fn main() {
 
     loop {
         #[allow(clippy::if_same_then_else)]
-        if gtk3::main_iteration_do(false) {
-        } else {
-        };
+        gtk3::main_iteration_do(false);
 
         let status = (*(*CURRENT_STATUS).lock().unwrap()).clone();
         indicator.set_title(&status);

@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Celeste 0.5.2\n"
+"Project-Id-Version: Celeste 0.5.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-01 18:51+0000\n"
+"POT-Creation-Date: 2023-09-13 18:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: celeste/src/about.rs:17
+msgid "App icons by"
+msgstr ""
 
 #: celeste/src/gtk_util.rs:20 celeste/src/gtk_util.rs:43 celeste/src/launch.rs:678 celeste/src/launch.rs:840
 msgid "Ok"
@@ -312,6 +316,6 @@ msgstr ""
 msgid "Quit"
 msgstr ""
 
-#: celeste-tray/src/main.rs:116
+#: celeste-tray/src/main.rs:114
 msgid "Quitting..."
 msgstr ""
