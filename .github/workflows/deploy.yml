@@ -132,7 +132,7 @@ jobs:
 
           # Create the PR and wait until we can merge it.
           gh pr create --title "Update package version" --body ''
-          pr_id="$(gh pr list | grep "version/${snap_revision}")"
+          pr_id="$(gh pr list --json headRefName,number -q ".[] | select(.headRefName==\"version/${snap_revision}\").number")"
 
           while true; do
             comments="$(gh pr view -c)"
