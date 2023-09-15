@@ -8,6 +8,7 @@ on:
 permissions:
   id-token: write
   contents: read
+
 jobs:
   create-release:
     runs-on: ubuntu-latest
@@ -15,13 +16,6 @@ jobs:
     steps:
       - name: Checkout Git repository
         uses: actions/checkout@v3
-      - name: Import Vault secrets
-        uses: hashicorp/vault-action@v2
-        with:
-          url: https://vault.hunterwittenborn.com
-          token: ${{ secrets.VAULT_TOKEN }}
-          secrets: |
-            kv/data/ci github_api_key | GH_TOKEN
       - name: Setup makedeb APT repositories
         uses: makedeb/setup-makedeb@main
         with:
@@ -34,6 +28,8 @@ jobs:
           version="$(just get-version)"
           release_notes="$(parse-changelog CHANGELOG.md "${version}")"
           gh release create "v${version}" --title "v${version}" --target "${GITHUB_SHA}" -n "${release_notes}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_CUSTOM }}
   deploy-mpr:
     runs-on: ubuntu-latest
     needs: [create-release]
@@ -41,13 +37,6 @@ jobs:
     steps:
       - name: Checkout Git repository
         uses: actions/checkout@v3
-      - name: Import Vault secrets
-        uses: hashicorp/vault-action@v2
-        with:
-          url: https://vault.hunterwittenborn.com
-          token: ${{ secrets.VAULT_TOKEN }}
-          secrets: |
-            kv/data/ci ssh_key | SSH_KEY
       - name: Setup makedeb APT repositories
         uses: makedeb/setup-makedeb@main
       - name: Publish MPR package
@@ -85,6 +74,8 @@ jobs:
           git add .
           git commit -m "Bump version to '${pkgver}-${pkgrel}'"
           git push
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
   deploy-snap:
     runs-on: ubuntu-latest
     needs: [create-release]
@@ -96,13 +87,6 @@ jobs:
         uses: makedeb/setup-makedeb@main
         with:
           pbmpr-repo: true
-      - name: Import Vault secrets
-        uses: hashicorp/vault-action@v2
-        with:
-          url: https://vault.hunterwittenborn.com
-          token: ${{ secrets.VAULT_TOKEN }}
-          secrets: |
-            kv/data/ci snapcraft_store_credentials | SNAPCRAFT_STORE_CREDENTIALS
       - name: Build Celeste Snap
         uses: snapcore/action-build@v1
         id: snapcraft-build
@@ -113,24 +97,19 @@ jobs:
         with:
           snap: ${{ steps.snapcraft-build.outputs.snap }}
           release: stable
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
   deploy-flathub:
     runs-on: ubuntu-latest
     needs: [deploy-snap]
     if: "!failure() && !contains(github.event.head_commit.message, 'skip-ci: deply-flathub')"
     steps:
-      - name: Import Vault secrets
-        uses: hashicorp/vault-action@v2
-        with:
-          url: https://vault.hunterwittenborn.com
-          token: ${{ secrets.VAULT_TOKEN }}
-          secrets: |
-            kv/data/ci github_api_key | GH_TOKEN
       - name: Checkout Flathub Celeste Git repository
         uses: actions/checkout@v3
         with:
           repository: flathub/com.hunterwittenborn.Celeste
           path: com.hunterwittenborn.Celeste
-          token: "${{ env.GH_TOKEN }}"
+          token: ${{ secrets.GH_TOKEN_CUSTOM }}
       - name: Setup makedeb APT repositories
         uses: makedeb/setup-makedeb@main
       - name: Update Flathub package
@@ -169,3 +148,5 @@ jobs:
 
             echo "Waiting for @flathubbot to report status checks..."
           done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_CUSTOM }}
