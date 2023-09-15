@@ -41,6 +41,85 @@
         </screenshot>
     </screenshots>
     <releases>
+        <release date="2023-09-14" version="0.5.6">
+            <description>
+                <p>
+                    Changes made in this release:
+                </p>
+                <ul>
+                    <li>
+                        Changed to new application icons
+                    </li>
+                    <li>
+                        Added credits to about page
+                    </li>
+                </ul>
+            </description>
+        </release>
+        <release date="2023-08-09" version="0.5.5">
+            <description>
+                <p>
+                    Fixes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Update
+                        <code>
+                            Cargo.toml
+                        </code>
+                        and
+                        <code>
+                            Cargo.lock
+                        </code>
+                        to fix
+                        <code>
+                            arm64
+                        </code>
+                        compile error.
+                    </li>
+                </ul>
+            </description>
+        </release>
+        <release date="2023-08-09" version="0.5.5">
+            <description>
+                <p>
+                    Fixes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Update
+                        <code>
+                            Cargo.toml
+                        </code>
+                        and
+                        <code>
+                            Cargo.lock
+                        </code>
+                        to fix
+                        <code>
+                            arm64
+                        </code>
+                        compile error.
+                    </li>
+                </ul>
+            </description>
+        </release>
+        <release date="2023-07-24" version="0.5.4">
+            <description>
+                <p>
+                    Fixes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Updated
+                        <code>
+                            Cargo.lock
+                        </code>
+                        to fix compile error.
+                    </li>
+                </ul>
+            </description>
+        </release>
         <release date="2023-06-07" version="0.5.3">
             <description>
                 <p>

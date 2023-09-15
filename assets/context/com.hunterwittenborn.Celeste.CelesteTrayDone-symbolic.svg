@@ -1,21 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg height="16px" viewBox="0 0 16 16" width="16px" xmlns="http://www.w3.org/2000/svg">
-    <g fill="#808080">
-        <path d="m 2 12.25 h 12 v 1 h -12 z m 0 0" fill-opacity="0.6"/>
-        <path d="m 5 2.75 h 6 c 0.550781 0 1 0.449219 1 1 v 8.5 h -8 v -8.5 c 0 -0.550781 0.449219 -1 1 -1 z m 0 0" fill-opacity="0.294118"/>
-        <path d="m 5 9.75 h 4 v 1 h -4 z m 0 0" fill-opacity="0.290196"/>
-        <path d="m 2 11.25 h 2 v 1 h -2 z m 0 0" fill-opacity="0.6"/>
-        <path d="m 12 11.25 h 2 v 1 h -2 z m 0 0" fill-opacity="0.6"/>
-        <path d="m 10 9.75 h 1 v 1 h -1 z m 0 0" fill-opacity="0.290196"/>
-        <path d="m 8 5.75 h 3 v 1 h -3 z m 0 0" fill-opacity="0.290196"/>
-        <path d="m 7 7.75 h 4 v 1 h -4 z m 0 0" fill-opacity="0.290196"/>
-        <path d="m 2 8.25 h 2 v 1 h -2 z m 0 0" fill-opacity="0.6"/>
-        <path d="m 2 9.25 h 2 v 1 h -2 z m 0 0" fill-opacity="0.6"/>
-        <path d="m 12 9.25 h 2 v 1 h -2 z m 0 0" fill-opacity="0.6"/>
-        <path d="m 12 8.25 h 2 v 1 h -2 z m 0 0" fill-opacity="0.6"/>
-        <path d="m 5 5.75 h 2 v 1 h -2 z m 0 0" fill-opacity="0.290196"/>
-        <path d="m 5 3.75 h 6 v 1 h -6 z m 0 0" fill-opacity="0.290196"/>
-        <path d="m 5 7.75 h 1 v 1 h -1 z m 0 0" fill-opacity="0.290196"/>
+<svg height="16px" viewBox="0 0 16 16" width="16px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <filter id="a" height="100%" width="100%" x="0%" y="0%">
+        <feColorMatrix color-interpolation-filters="sRGB" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"/>
+    </filter>
+    <mask id="b">
+        <g filter="url(#a)">
+            <path d="m -1.6 -1.6 h 19.2 v 19.2 h -19.2 z" fill-opacity="0.8"/>
+        </g>
+    </mask>
+    <clipPath id="c">
+        <path d="m 0 0 h 800 v 800 h -800 z"/>
+    </clipPath>
+    <mask id="d">
+        <g filter="url(#a)">
+            <path d="m -1.6 -1.6 h 19.2 v 19.2 h -19.2 z" fill-opacity="0.8"/>
+        </g>
+    </mask>
+    <clipPath id="e">
+        <path d="m 0 0 h 800 v 800 h -800 z"/>
+    </clipPath>
+    <mask id="f">
+        <g filter="url(#a)">
+            <path d="m -1.6 -1.6 h 19.2 v 19.2 h -19.2 z" fill-opacity="0.8"/>
+        </g>
+    </mask>
+    <clipPath id="g">
+        <path d="m 0 0 h 800 v 800 h -800 z"/>
+    </clipPath>
+    <mask id="h">
+        <g filter="url(#a)">
+            <path d="m -1.6 -1.6 h 19.2 v 19.2 h -19.2 z" fill-opacity="0.8"/>
+        </g>
+    </mask>
+    <clipPath id="i">
+        <path d="m 0 0 h 800 v 800 h -800 z"/>
+    </clipPath>
+    <mask id="j">
+        <g filter="url(#a)">
+            <path d="m -1.6 -1.6 h 19.2 v 19.2 h -19.2 z" fill-opacity="0.6"/>
+        </g>
+    </mask>
+    <clipPath id="k">
+        <path d="m 0 0 h 800 v 800 h -800 z"/>
+    </clipPath>
+    <mask id="l">
+        <g filter="url(#a)">
+            <path d="m -1.6 -1.6 h 19.2 v 19.2 h -19.2 z" fill-opacity="0.6"/>
+        </g>
+    </mask>
+    <clipPath id="m">
+        <path d="m 0 0 h 800 v 800 h -800 z"/>
+    </clipPath>
+    <mask id="n">
+        <g filter="url(#a)">
+            <path d="m -1.6 -1.6 h 19.2 v 19.2 h -19.2 z" fill-opacity="0.6"/>
+        </g>
+    </mask>
+    <clipPath id="o">
+        <path d="m 0 0 h 800 v 800 h -800 z"/>
+    </clipPath>
+    <g mask="url(#b)">
+        <g clip-path="url(#c)" transform="matrix(1 0 0 1 -144 -280)">
+            <path d="m 166 369 l 12 -0.5 v 5.5 h -12 z m 0 0" fill="#587b7f"/>
+        </g>
     </g>
-    <path d="m 14.777344 9.75 l -2.539063 2.542969 l -1.015625 -1.015625 l -1.222656 1.226562 l 0.359375 0.359375 l 1.878906 1.886719 l 3.761719 -3.773438 z m 0 0"/>
+    <g mask="url(#d)">
+        <g clip-path="url(#e)" transform="matrix(1 0 0 1 -144 -280)">
+            <path d="m 127 369.5 h 10 l 2.5 4 h -15 z m 0 0" fill="#587b7f"/>
+        </g>
+    </g>
+    <g mask="url(#f)">
+        <g clip-path="url(#g)" transform="matrix(1 0 0 1 -144 -280)">
+            <path d="m 104.5 361 h 2 l 10 14 h -2 z m 0 0" fill="#587b7f"/>
+        </g>
+    </g>
+    <g mask="url(#h)">
+        <g clip-path="url(#i)" transform="matrix(1 0 0 1 -144 -280)">
+            <path d="m 88 370.5 h 8 l 2 3 h -12 z m 0 0" fill="#587b7f"/>
+        </g>
+    </g>
+    <g mask="url(#j)">
+        <g clip-path="url(#k)" transform="matrix(1 0 0 1 -144 -280)">
+            <path d="m 70 322.5 c 2.484375 0 4.5 2.015625 4.5 4.5 v 1 c 0 2.484375 -2.015625 4.5 -4.5 4.5 s -4.5 -2.015625 -4.5 -4.5 v -1 c 0 -2.484375 2.015625 -4.5 4.5 -4.5 z m 0 0" fill="none" stroke="#000000" stroke-width="2" transform="matrix(1 0 0 1 2 39.5)"/>
+        </g>
+    </g>
+    <g mask="url(#l)">
+        <g clip-path="url(#m)" transform="matrix(1 0 0 1 -144 -280)">
+            <path d="m 66 326.5 h 3 c 1.65625 0 3 1.34375 3 3 s -1.34375 3 -3 3 h -3 c -1.65625 0 -3 -1.34375 -3 -3 s 1.34375 -3 3 -3 z m 0 0" fill="none" stroke="#000000" stroke-width="1.99997" transform="matrix(1 0 0 1 2 39.5)"/>
+        </g>
+    </g>
+    <g mask="url(#n)">
+        <g clip-path="url(#o)" transform="matrix(1 0 0 1 -144 -280)">
+            <path d="m 71.78125 325.5 h 1.21875 c 2.210938 0 4 1.566406 4 3.5 s -1.789062 3.5 -4 3.5 h -1.21875 c -2.207031 0 -4 -1.566406 -4 -3.5 s 1.792969 -3.5 4 -3.5 z m 0 0" fill="none" stroke="#000000" stroke-width="2" transform="matrix(1 0 0 1 2 39.5)"/>
+        </g>
+    </g>
+    <path d="m 9.9375 15 l 5.75 -5.75 c 0.417969 -0.414062 0.417969 -1.085938 0 -1.5 c -0.414062 -0.414062 -1.082031 -0.414062 -1.5 0 l -4.25 4.25 l -1.71875 -1.722656 c -0.429688 -0.429688 -1.128906 -0.429688 -1.558594 0 c -0.398437 0.429687 -0.371094 1.101562 0.058594 1.5 z m -1.9375 -14 c -2.59375 0 -4.777344 1.8125 -5.351562 4.238281 c -1.539063 0.558594 -2.648438 2.035157 -2.648438 3.761719 c 0 2.199219 1.800781 4 4 4 h 1.9375 l -2 -2 l 0.003906 -0.003906 c -1.097656 -0.027344 -1.941406 -0.890625 -1.941406 -1.996094 c 0 -1.125 0.875 -2 2 -2 h 0.5 v -0.5 c 0 -1.957031 1.542969 -3.5 3.5 -3.5 c 1.796875 0 3.246094 1.304688 3.46875 3.03125 c 0.679688 0.085938 1.261719 0.359375 1.699219 0.738281 l 1.410156 -1.410156 c -0.429687 -0.390625 -0.933594 -0.714844 -1.492187 -0.949219 c -0.824219 -1.996094 -2.796876 -3.410156 -5.085938 -3.410156 z m 0 0"/>
 </svg>
