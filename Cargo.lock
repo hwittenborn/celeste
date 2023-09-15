@@ -683,7 +683,7 @@ dependencies = [
 
 [[package]]
 name = "celeste"
-version = "0.5.5"
+version = "0.5.6"
 dependencies = [
  "base64 0.20.0",
  "blocking",
@@ -722,7 +722,7 @@ dependencies = [
 
 [[package]]
 name = "celeste-tray"
-version = "0.5.5"
+version = "0.5.6"
 dependencies = [
  "gtk",
  "hw-msg",
@@ -2380,7 +2380,7 @@ checksum = "b4668fb0ea861c1df094127ac5f1da3409a82116a4ba74fca2e58ef927159bb3"
 
 [[package]]
 name = "libceleste"
-version = "0.5.5"
+version = "0.5.6"
 dependencies = [
  "blocking",
  "futures",

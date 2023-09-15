@@ -1,6 +1,6 @@
 # Maintainer: Hunter Wittenborn <hunter@hunterwittenborn.com>
 pkgname=celeste
-pkgver=0.5.5
+pkgver=0.5.6
 pkgrel=1
 pkgdesc='Sync your cloud files'
 arch=('any')
