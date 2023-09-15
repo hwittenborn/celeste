@@ -147,7 +147,7 @@ fn main() {
         let _stdout = stdout_thread.join().unwrap();
         let stderr = stderr_thread.join().unwrap();
 
-        let backtrace = {
+        let maybe_backtrace = {
             let mut backtrace = String::new();
             let mut backtrace_found = false;
 
@@ -172,7 +172,7 @@ fn main() {
         };
 
         // Show the backtrace in the GUI if one was found.
-        if backtrace.is_some() {
+        if let Some(backtrace) = maybe_backtrace {
             app.connect_activate(move |app| {
                 let window = ApplicationWindow::builder()
                     .application(app)
@@ -198,7 +198,7 @@ fn main() {
                     .yalign(0.0)
                     .build();
                 sections.append(&error_text);
-                sections.append(&gtk_util::codeblock(backtrace.as_ref().unwrap()));
+                sections.append(&gtk_util::codeblock(&backtrace));
 
                 window.set_content(Some(&sections));
                 window.show();
