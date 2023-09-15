@@ -6,10 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.7] - 2023-09-15
+### Fixed
+- Removed duplicate releases in AppStream metadata file.
+
 ## [0.5.6] - 2023-09-14
 ### Changed
-- Changed to new application icons
-- Added credits to about page
+- Changed to new application icons.
+- Added credits to about page.
 
 ## [0.5.5] - 2023-08-09
 ### Fixed
