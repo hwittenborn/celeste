@@ -32,49 +32,81 @@ update-versions:
 
     date="$(cat CHANGELOG.md | grep "^## \[${version}\]" | grep -o '[^ ]*$')"
     notes="$(parse-changelog CHANGELOG.md "${version}")"
-    just update-metainfo "${version}" "${date}" "${notes}"
+    just update-metainfo
 
-update-metainfo version date notes:
+update-metainfo:
     #!/usr/bin/env python3
     import sys
     import markdown
     import bs4
+    import re
+
     from bs4 import BeautifulSoup, NavigableString
-    
+    from bs4.formatter import HTMLFormatter
+
+    # Parse the metainfo and Changelog into BeautifulSoup objects. 
     metainfo_path = "assets/com.hunterwittenborn.Celeste.metainfo.xml"
-    version = sys.argv[1]
-    date = sys.argv[2]
-    notes = markdown.markdown(sys.argv[3])
+    changelog_path = "CHANGELOG.md"
     
     text = open(metainfo_path).read()
+    changelog_md = open(changelog_path).read()
+    changelog_html = markdown.markdown(changelog_md)
     
     soup = BeautifulSoup(text, features="xml")
-    release = soup.new_tag("release")
-    release["version"] = version
-    release["date"] = date
-    description = soup.new_tag("description")
-    description.append(BeautifulSoup(notes, "html.parser"))
+    changelog_soup = BeautifulSoup(changelog_html, "html.parser")
+    releases = []
     
-    for h3 in description.find_all("h3"):
-        changed_header_str = ""
-    
-        if h3.contents[0] == "Fixed":
-            changed_header_str = "Fixes in this release:"
-        elif h3.contents[0] == "Changed":
-            changed_header_str = "Changes made in this release:"
-        elif h3.contents[0] == "Added":
-            changed_header_str = "Feature additions in this release:"
-        else:
-            raise Exception("Unknown header: " + str(h3))
+    # The changelog is in a flat list of HTML tags. Group them into dicts of
+    # `version: [html-elements]` for easier usage.
+    versions = {}
+    current_version = None
 
-        header = soup.new_tag("p")
-        header.insert(0, NavigableString(changed_header_str))
-        h3.insert_before(header)
-        h3.extract()
+    for tag in changelog_soup:
+        # We don't need empty lines, so ignore them.
+        if tag.text == "\n":
+            continue
+        # Version tags are '##' in markdown (i.e. an '<h2>').
+        elif tag.name == "h2" and tag.text != "[Unreleased]":
+            print(tag.text)
+            version = re.search("[^[][0-9.]*", tag.text).group(0)
+            date = re.search("[^ ]*$", tag.text).group(0)
+
+            release_soup = BeautifulSoup("<release></release>", "html.parser").release
+            release_soup["date"] = date
+            release_soup["version"] = version
+
+            versions[version] = release_soup
+            current_version = version
+        # If we aren't on a version tag and haven't gotten any version yet,
+        # we're dealing with content before the first version tag and we
+        # should ignore it.
+        elif len(versions) == 0:
+            continue
+        # Appstream doesn't support headers in descriptions, so format them as `<p>` tags.
+        elif tag.name == "h3":
+            match tag.text:
+                case "Added":
+                    header = "New features in this release:"
+                case "Changed":
+                    header = "Changes in this release:"
+                case "Fixed":
+                    header = "Fixes in this release:"
+                case _:
+                    raise Exception(f"Unknown change type: `{tag.text}`")
+            
+            versions[version].append(BeautifulSoup(f"<p>{header}</p>", "html.parser"))
+        # Otherwise we're adding to the existing version.
+        else:
+            versions[version].append(tag)
+
+    # Clear out the existing versions and write the new ones.
+    soup.component.releases.clear()
     
-    release.append(description)
-    soup.component.releases.findAll()[0].insert_before(release)
-    open(metainfo_path, "w").write(soup.prettify(formatter=bs4.formatter.HTMLFormatter(indent=4)))
+    for release in versions.values():
+        soup.component.releases.append(release)
+
+    output = soup.prettify(formatter=HTMLFormatter(indent=4))
+    open(metainfo_path, "w").write(output)
 
 update-translations:
     xtr celeste/src/main.rs celeste-tray/src/main.rs libceleste/src/lib.rs --copyright-holder 'Hunter Wittenborn <hunter@hunterwittenborn.com>' -o /dev/stdout --package-name 'Celeste' --package-version "$(just get-version)" > po/com.hunterwittenborn.Celeste.pot
