@@ -22,11 +22,13 @@ futures = "0.3.25"
 lazy_static = "1.4.0"
 libappindicator = "0.7.1"
 librclone = { version = "0.5.0" }
+nipper = "0.1.9"
 nix = "0.26.2"
 quit = "1.1.4"
 rand = "0.8.5"
 regex = "1.6.0"
 rocket = "0.5.0-rc.2"
+roxmltree = "0.18.0"
 sea-orm = { version = "0.10.3", features = ["sqlx-sqlite", "runtime-async-std-rustls", "macros"] }
 sea-orm-migration = "0.10.0"
 serde = { version = "1.0.143", features = ["derive"] }
