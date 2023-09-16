@@ -41,13 +41,23 @@
         </screenshot>
     </screenshots>
     <releases>
+        <release date="2023-09-16" version="0.5.8">
+            <p>
+                New features in this release:
+            </p>
+            <ul>
+                <li>
+                    Added release notes to about page.
+                </li>
+            </ul>
+        </release>
         <release date="2023-09-15" version="0.5.7">
             <p>
                 Fixes in this release:
             </p>
             <ul>
                 <li>
-                    Fixed duplicate releases in AppStream metadata file.
+                    Removed duplicate releases in AppStream metadata file.
                 </li>
             </ul>
         </release>
