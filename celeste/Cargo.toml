@@ -39,3 +39,4 @@ zbus.workspace = true
 
 [build-dependencies]
 grass.workspace = true
+nipper.workspace = true
