@@ -142,7 +142,7 @@ jobs:
               exit 1
             elif echo "${comments}" | grep -q successful; then
               echo "The build succeeded! Merging the PR..."
-              gh pr merge "${pr_id}"
+              gh pr merge "${pr_id}" --auto
               exit
             fi
 
