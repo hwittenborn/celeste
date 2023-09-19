@@ -67,11 +67,10 @@ update-metainfo:
             continue
         # Version tags are '##' in markdown (i.e. an '<h2>').
         elif tag.name == "h2" and tag.text != "[Unreleased]":
-            print(tag.text)
             version = re.search("[^[][0-9.]*", tag.text).group(0)
             date = re.search("[^ ]*$", tag.text).group(0)
 
-            release_soup = BeautifulSoup("<release></release>", "html.parser").release
+            release_soup = BeautifulSoup("<release><description></description></release>", "html.parser").release
             release_soup["date"] = date
             release_soup["version"] = version
 
@@ -94,10 +93,10 @@ update-metainfo:
                 case _:
                     raise Exception(f"Unknown change type: `{tag.text}`")
             
-            versions[version].append(BeautifulSoup(f"<p>{header}</p>", "html.parser"))
+            versions[version].description.append(BeautifulSoup(f"<p>{header}</p>", "html.parser"))
         # Otherwise we're adding to the existing version.
         else:
-            versions[version].append(tag)
+            versions[version].description.append(tag)
 
     # Clear out the existing versions and write the new ones.
     soup.component.releases.clear()
