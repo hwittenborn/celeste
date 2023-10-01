@@ -4,7 +4,9 @@ grade: stable
 confinement: strict
 adopt-info: celeste
 compression: lzo
-
+architectures:
+  #- build-on: amd64
+  - build-on: arm64
 
 
 parts:
@@ -29,12 +31,18 @@ parts:
   celeste:
     plugin: dump
     source: .
-    parse-info: [ usr/share/metainfo/com.hunterwittenborn.Celeste.metainfo.xml ]
+    parse-info: [ "usr/share/metainfo/com.hunterwittenborn.Celeste.metainfo.xml" ]
+    build-environment:
+      - RUSTUP_HOME: $CRAFT_STAGE/usr/share/rust
+      - CARGO_HOME: $CRAFT_STAGE/usr/share/rust
+      - CARGO_BUILD_JOBS: $CRAFT_PARALLEL_BUILD_COUNT
     build-packages:
       - libclang-15-dev
     build-snaps:
       - go
     override-build: |
+      cargo install just
+      export PATH=$PATH:$HOME/.dotnet:$HOME/.dotnet/tools:$HOME/.cargo/bin
       just build
       DESTDIR=$CRAFT_PART_INSTALL just install
 
