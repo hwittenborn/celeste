@@ -5,21 +5,32 @@ confinement: strict
 adopt-info: celeste
 compression: lzo
 
-package-repositories:
-  - type: apt
-    components: [jammy]
-    suites: [prebuilt-mpr]
-    key-id: B70EAE798718E0FE2972DD0C4FE9F2C43D9428A0
-    url: https://proget.makedeb.org
+
 
 parts:
+  rustup:
+    plugin: nil
+    build-packages: [wget]
+    build-environment:
+      - RUSTUP_HOME: $CRAFT_PART_INSTALL/usr/share/rust
+      - CARGO_HOME: $CRAFT_PART_INSTALL/usr/share/rust
+      - CARGO_BUILD_JOBS: $CRAFT_PARALLEL_BUILD_COUNT
+    override-pull: |
+      wget https://sh.rustup.rs -O $CRAFT_PART_SRC/rustup-init.sh
+      chmod +x $CRAFT_PART_SRC/rustup-init.sh
+    override-build: |
+      $CRAFT_PART_SRC/rustup-init.sh -y --no-modify-path
+      mkdir -p $CRAFT_PART_INSTALL/usr/bin
+      for i in `ls $RUSTUP_HOME/bin/`; do
+        ln -s ../share/rust/bin/$i $CRAFT_PART_INSTALL/usr/bin/$i
+      done
+    override-prime: ''
+
   celeste:
     plugin: dump
     source: .
     parse-info: [ usr/share/metainfo/com.hunterwittenborn.Celeste.metainfo.xml ]
     build-packages:
-      - rustup
-      - just
       - libclang-15-dev
     build-snaps:
       - go
