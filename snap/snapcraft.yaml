@@ -5,7 +5,7 @@ confinement: strict
 adopt-info: celeste
 compression: lzo
 architectures:
-  #- build-on: amd64
+  - build-on: amd64
   - build-on: arm64
 
 
