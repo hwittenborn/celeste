@@ -1,57 +1,60 @@
 name: celeste
 base: core22
-version: '0.5.8'
-summary: Sync your cloud files
-description: |
-  Celeste is a GUI file synchronization client that can connect to almost any cloud provider you'd like. It provides a streamlined experience to back up your files, and integrates directly into your desktop system.
-icon: assets/com.hunterwittenborn.Celeste-regular.svg
 grade: stable
 confinement: strict
+adopt-info: celeste
+compression: lzo
+architectures:
+  - build-on: amd64
+  - build-on: arm64
 
-package-repositories:
-  - type: apt
-    components: [main, multiverse, restricted, universe]
-    suites: [lunar, lunar-backports, lunar-security, lunar-updates]
-    key-id: F6ECB3762474EDA9D21B7022871920D1991BC93C
-    url: http://security.ubuntu.com/ubuntu
-  - type: apt
-    components: [lunar]
-    suites: [prebuilt-mpr]
-    key-id: B70EAE798718E0FE2972DD0C4FE9F2C43D9428A0
-    url: https://proget.makedeb.org
 
 parts:
+  rustup:
+    plugin: nil
+    build-packages: [wget]
+    build-environment:
+      - RUSTUP_HOME: $CRAFT_PART_INSTALL/usr/share/rust
+      - CARGO_HOME: $CRAFT_PART_INSTALL/usr/share/rust
+      - CARGO_BUILD_JOBS: $CRAFT_PARALLEL_BUILD_COUNT
+    override-pull: |
+      wget https://sh.rustup.rs -O $CRAFT_PART_SRC/rustup-init.sh
+      chmod +x $CRAFT_PART_SRC/rustup-init.sh
+    override-build: |
+      $CRAFT_PART_SRC/rustup-init.sh -y --no-modify-path
+      mkdir -p $CRAFT_PART_INSTALL/usr/bin
+      for i in `ls $RUSTUP_HOME/bin/`; do
+        ln -s ../share/rust/bin/$i $CRAFT_PART_INSTALL/usr/bin/$i
+      done
+    override-prime: ''
+
   celeste:
+    after: [ rustup ]
     plugin: dump
     source: .
-    source-type: git
+    parse-info: [ "usr/share/metainfo/com.hunterwittenborn.Celeste.metainfo.xml" ]
+    build-environment:
+      - RUSTUP_HOME: $CRAFT_STAGE/usr/share/rust
+      - CARGO_HOME: $CRAFT_STAGE/usr/share/rust
+      - CARGO_BUILD_JOBS: $CRAFT_PARALLEL_BUILD_COUNT
+      - PATH: $RUSTUP_HOME/bin:$PATH
     build-packages:
-      - golang-go
-      - just
-      - libadwaita-1-dev
-      - libatk1.0-dev
-      - libcairo2-dev
       - libclang-15-dev
-      - libgdk-pixbuf-2.0-dev
-      - libglib2.0-dev
-      - libgraphene-1.0-dev
-      - libgtk-3-dev
-      - libgtk-4-dev
-      - libpango1.0-dev
-      - pkg-config
-      - rustup
-    stage-packages:
-      - libadwaita-1-0
-      - libayatana-appindicator3-1
-      - libgtk-3-0
-      - rclone
+    build-snaps:
+      - go
     override-build: |
+      cargo install just
       just build
-    override-prime: |
-      craftctl default
-      cd ~/parts/celeste/build
-      DESTDIR=~/prime just install
-      sed -i 's|Icon=.*|Icon=${SNAP}/usr/share/icons/hicolor/scalable/apps/com.hunterwittenborn.Celeste.svg|' ~/prime/usr/share/applications/com.hunterwittenborn.Celeste.desktop
+      DESTDIR=$CRAFT_PART_INSTALL just install
+
+  deps:
+    after:
+      - celeste
+    plugin: nil
+    stage-packages:
+      - rclone
+    prime:
+      - usr/bin/rclone
 
 slots:
   celeste:
