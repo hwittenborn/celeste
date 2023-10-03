@@ -21,7 +21,7 @@ indexmap = "1.9.2"
 futures = "0.3.25"
 lazy_static = "1.4.0"
 libappindicator = "0.7.1"
-librclone = { version = "0.5.0" }
+librclone = { version = "0.6.0" }
 nipper = "0.1.9"
 nix = "0.26.2"
 quit = "1.1.4"

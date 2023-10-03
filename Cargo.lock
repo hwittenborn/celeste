@@ -453,9 +453,9 @@ checksum = "383d29d513d8764dcdc42ea295d979eb99c3c9f00607b3692cf68a431f7dca72"
 
 [[package]]
 name = "bindgen"
-version = "0.66.1"
+version = "0.68.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f2b84e06fc203107bfbad243f4aba2af864eb7db3b1cf46ea0a023b0b433d2a7"
+checksum = "726e4313eb6ec35d2730258ad4e15b547ee75d6afaa1361a922e78e59b7d8078"
 dependencies = [
  "bitflags 2.3.3",
  "cexpr",
@@ -2518,18 +2518,18 @@ checksum = "f7012b1bbb0719e1097c47611d3898568c546d597c2e74d66f6087edd5233ff4"
 
 [[package]]
 name = "librclone"
-version = "0.5.0"
+version = "0.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "457a3a8bf3a55565fcec83e1b5cf909cc10ccace2e2bdb8910f629d6d4d7a3fb"
+checksum = "975d45820e1f2a554ce4f0fc7021dd3f6c53c6bfc25fb43c856b8b2f532efb40"
 dependencies = [
  "librclone-sys",
 ]
 
 [[package]]
 name = "librclone-sys"
-version = "0.5.0+rclone-v1.63.1"
+version = "0.6.0+rclone-v1.64.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3520b1c98b800662b7822542d5fe6c693da34b71f2ac007c95a5bf004fb4b782"
+checksum = "f074d5668bb0f07c69b5f844282d0f97b5ab487ae300685df692c8bf25fb8b1e"
 dependencies = [
  "bindgen",
 ]
