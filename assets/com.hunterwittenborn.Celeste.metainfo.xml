@@ -41,6 +41,34 @@
         </screenshot>
     </screenshots>
     <releases>
+        <release date="2023-10-05" version="0.6.0">
+            <description>
+                <p>
+                    New features in this release:
+                </p>
+                <ul>
+                    <li>
+                        Added Proton Drive support.
+                    </li>
+                </ul>
+                <p>
+                    Fixes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Fixed missing
+                        <code>
+                            description
+                        </code>
+                        tags in metainfo's
+                        <code>
+                            releases
+                        </code>
+                        section.
+                    </li>
+                </ul>
+            </description>
+        </release>
         <release date="2023-09-16" version="0.5.8">
             <description>
                 <p>

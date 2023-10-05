@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Celeste 0.5.5\n"
+"Project-Id-Version: Celeste 0.5.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-13 18:06+0000\n"
+"POT-Creation-Date: 2023-10-05 21:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: celeste/src/about.rs:17
+#: celeste/src/about.rs:20
 msgid "App icons by"
 msgstr ""
 
@@ -230,71 +230,87 @@ msgstr ""
 msgid "There was an issue authenticating to {}"
 msgstr ""
 
-#: celeste/src/login/login_util.rs:14
+#: celeste/src/login/login_util.rs:15
 msgid "Server Name"
 msgstr ""
 
-#: celeste/src/login/login_util.rs:26
+#: celeste/src/login/login_util.rs:27
 msgid "Server name already exists."
 msgstr ""
 
-#: celeste/src/login/login_util.rs:28
+#: celeste/src/login/login_util.rs:29
 msgid "Invalid server name. Server names must:\n"
 "- Only contain numbers, letters, '_', '-', '.', and spaces\n"
 "- Not start with '-' or a space\n"
 "- Not end with a space"
 msgstr ""
 
-#: celeste/src/login/login_util.rs:42
+#: celeste/src/login/login_util.rs:43
 msgid "Server URL"
 msgstr ""
 
-#: celeste/src/login/login_util.rs:48
+#: celeste/src/login/login_util.rs:49
 msgid "Invalid server URL ({})."
 msgstr ""
 
-#: celeste/src/login/login_util.rs:57
+#: celeste/src/login/login_util.rs:58
 msgid "Invalid server URL (no domain specified)."
 msgstr ""
 
-#: celeste/src/login/login_util.rs:61
+#: celeste/src/login/login_util.rs:62
 msgid "Invalid server URL (password was specified)."
 msgstr ""
 
-#: celeste/src/login/login_util.rs:65
+#: celeste/src/login/login_util.rs:66
 msgid "Invalid server URL(unknown server scheme {})."
 msgstr ""
 
-#: celeste/src/login/login_util.rs:77
+#: celeste/src/login/login_util.rs:78
 msgid "Don't specify '{}' as part of the URL."
 msgstr ""
 
-#: celeste/src/login/login_util.rs:90
+#: celeste/src/login/login_util.rs:91
 msgid "Username"
 msgstr ""
 
-#: celeste/src/login/login_util.rs:96
+#: celeste/src/login/login_util.rs:97
 msgid "Password"
 msgstr ""
 
-#: celeste/src/login/login_util.rs:102
+#: celeste/src/login/login_util.rs:104
+msgid "2FA Code"
+msgstr ""
+
+#: celeste/src/login/login_util.rs:113
+msgid "The provided 2FA code is invalid (should only contain digits)."
+msgstr ""
+
+#: celeste/src/login/login_util.rs:118
+msgid "The provided 2FA code is invalid (should be 6 digits long)."
+msgstr ""
+
+#: celeste/src/login/login_util.rs:142
 msgid "Log in"
 msgstr ""
 
-#: celeste/src/login/mod.rs:72
+#: celeste/src/login/mod.rs:76
 msgid "Unable to connect to the server. Check your internet connection and try again."
 msgstr ""
 
-#: celeste/src/login/mod.rs:76
+#: celeste/src/login/mod.rs:79
+msgid "A 2FA code is required to log in to this account. Provide one and try again."
+msgstr ""
+
+#: celeste/src/login/mod.rs:82
 msgid "Unable to authenticate to the server. Check your login credentials and try again."
 msgstr ""
 
-#: celeste/src/login/mod.rs:80
+#: celeste/src/login/mod.rs:86
 msgid "Unable to log in"
 msgstr ""
 
 #. The dropdown for selecting the server type.
-#: celeste/src/login/mod.rs:116
+#: celeste/src/login/mod.rs:123
 msgid "Server Type"
 msgstr ""
 
