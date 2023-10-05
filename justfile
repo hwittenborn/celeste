@@ -28,7 +28,6 @@ update-versions:
     set -euo pipefail
     version="$(just get-version)"
     sed -i "s|version = .*|version = \"${version}\"|" celeste/Cargo.toml celeste-tray/Cargo.toml libceleste/Cargo.toml
-    sed -i "s|version: .*|version: '${version}'|" snap/snapcraft.yaml
 
     date="$(cat CHANGELOG.md | grep "^## \[${version}\]" | grep -o '[^ ]*$')"
     notes="$(parse-changelog CHANGELOG.md "${version}")"

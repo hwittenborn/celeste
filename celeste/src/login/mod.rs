@@ -75,6 +75,8 @@ pub fn can_login(_app: &Application, config_name: &str) -> bool {
             tr::tr!(
                 "Unable to connect to the server. Check your internet connection and try again."
             )
+        } else if err.error.contains("this account requires a 2FA code") {
+            tr::tr!("A 2FA code is required to log in to this account. Provide one and try again.")
         } else {
             tr::tr!(
                 "Unable to authenticate to the server. Check your login credentials and try again."
@@ -290,6 +292,7 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
                 "parameters": {
                     "username": config.username,
                     "password": config.password,
+                    "2fa": config.totp
                 },
                 "type": "protondrive",
                 "opt": {

@@ -1,7 +1,8 @@
 //! A collection of helper functions for generating login UIs.
 use crate::rclone::{self};
 use adw::{
-    gtk::{Align, Button, Label},
+    glib,
+    gtk::{Align, Button, CheckButton, Label},
     prelude::*,
     EntryRow, PasswordEntryRow,
 };
@@ -97,6 +98,45 @@ pub fn password_input() -> PasswordEntryRow {
         .build()
 }
 
+/// Get the input for TOTP/2FA codes.
+pub fn totp_input() -> EntryRow {
+    let input = EntryRow::builder()
+        .title(&tr::tr!("2FA Code"))
+        .editable(false)
+        .build();
+    input.connect_changed(move |input| {
+        let text = input.text();
+
+        if text.chars().any(|c| !c.is_numeric()) {
+            input.add_css_class("error");
+            input.set_tooltip_text(Some(&tr::tr!(
+                "The provided 2FA code is invalid (should only contain digits)."
+            )));
+        } else if text.len() != 6 {
+            input.add_css_class("error");
+            input.set_tooltip_text(Some(&tr::tr!(
+                "The provided 2FA code is invalid (should be 6 digits long)."
+            )));
+        } else {
+            input.remove_css_class("error");
+            input.set_tooltip_text(None);
+        }
+    });
+    let check = CheckButton::new();
+    check.connect_toggled(glib::clone!(@weak input => move |check| {
+        let active = check.is_active();
+        input.set_editable(active);
+
+        if !active {
+            input.set_text("");
+            input.remove_css_class("error");
+            input.set_tooltip_text(None);
+        }
+    }));
+    input.add_prefix(&check);
+    input
+}
+
 /// Get the login button.
 pub fn submit_button() -> Button {
     let label = Label::builder().label(&tr::tr!("Log in")).build();
@@ -117,7 +157,7 @@ pub fn check_responses(responses: &[&EntryRow], submit_button: &Button) {
     let mut no_errors = true;
 
     for resp in responses {
-        if resp.is_sensitive() && (resp.has_css_class("error") || resp.text().is_empty()) {
+        if resp.is_editable() && (resp.has_css_class("error") || resp.text().is_empty()) {
             no_errors = false;
         }
     }
