@@ -14,8 +14,8 @@ pub mod migrations;
 pub mod mpsc;
 pub mod rclone;
 pub mod traits;
-pub mod util;
 pub mod tray;
+pub mod util;
 
 use adw::{
     gtk::{self, gdk::Display, Align, Box, CssProvider, Label, Orientation, StyleContext},

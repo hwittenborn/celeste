@@ -1,9 +1,9 @@
-use ksni::{Tray as KsniTray, MenuItem, menu::StandardItem};
 use crate::{launch, util};
+use ksni::{menu::StandardItem, MenuItem, Tray as KsniTray};
 
 pub struct Tray {
     status: String,
-    pub icon: String
+    pub icon: String,
 }
 
 impl Tray {
@@ -11,7 +11,7 @@ impl Tray {
     pub fn new() -> Self {
         Self {
             status: tr::tr!("Awaiting sync checks..."),
-            icon: "com.hunterwittenborn.Celeste.CelesteTrayLoading-symbolic".to_owned()
+            icon: "com.hunterwittenborn.Celeste.CelesteTrayLoading-symbolic".to_owned(),
         }
     }
 
@@ -66,7 +66,7 @@ impl KsniTray for Tray {
                     *(*launch::CLOSE_REQUEST).lock().unwrap() = true;
                 }),
                 ..Default::default()
-            })
+            }),
         ]
     }
 }

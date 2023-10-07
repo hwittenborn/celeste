@@ -1157,9 +1157,7 @@ pub fn launch(app: &Application, background: bool) {
             }
 
             // Notify the tray app that we're syncing this remote now.
-            handle.update(|tray| tray.set_msg(
-                tr::tr!("Syncing '{}'...", remote.name)
-            ));
+            handle.update(|tray| tray.set_msg(tr::tr!("Syncing '{}'...", remote.name)));
 
             let sync_dirs = util::await_future(
                 SyncDirsEntity::find()
