@@ -4,9 +4,10 @@ use crate::{
     gtk_util,
     login::{dropbox, login_util, pcloud},
     mpsc::Sender,
+    traits::prelude::*,
+    util,
 };
 use adw::{glib, gtk::Button, prelude::*, ApplicationWindow, EntryRow, MessageDialog};
-use libceleste::traits::prelude::*;
 use nix::{
     sys::signal::{self, Signal},
     unistd::Pid,
@@ -181,7 +182,7 @@ impl GDriveConfig {
                     break
                 }
 
-                libceleste::run_in_background(|| thread::sleep(Duration::from_millis(500)));
+                util::run_in_background(|| thread::sleep(Duration::from_millis(500)));
             }
 
             hw_msg::warningln!("STATE URL: {}", STATE_URL.lock().unwrap());
@@ -218,7 +219,7 @@ impl GDriveConfig {
             // Run until the process exits or the user clicks 'Cancel'.
             loop {
                 // Sleep a little so the UI has a chance to process.
-                libceleste::run_in_background(|| thread::sleep(Duration::from_millis(500)));
+                util::run_in_background(|| thread::sleep(Duration::from_millis(500)));
 
                 // Check if the user clicked cancel.
                 if *kill_request.get_ref() {
@@ -228,7 +229,7 @@ impl GDriveConfig {
                     break;
                 // Otherwise if the temporary webserver has died off, report it.
                 } else if handle.is_finished() {
-                    let error_string = libceleste::await_future(handle).unwrap().unwrap_err().to_string();
+                    let error_string = util::await_future(handle).unwrap().unwrap_err().to_string();
                     gtk_util::show_codeblock_error(&tr::tr!("There was an issue while running the webserver for authentication"), &error_string);
                     window.set_sensitive(true);
                     break;

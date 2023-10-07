@@ -1,7 +1,5 @@
-pub mod traits;
-
+use adw::glib::{self, MainContext};
 use futures::future::Future;
-use glib::{self, MainContext};
 use std::path::PathBuf;
 
 /// The ID of the app.
@@ -70,3 +68,5 @@ macro_rules! get_title {
         tr::tr!($($arg)*) + " - Celeste"
     }
 }
+
+pub use crate::get_title;

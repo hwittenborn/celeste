@@ -1,4 +1,5 @@
 //! Structs and functions for use with Rclone RPC calls.
+use crate::util;
 use adw::glib;
 use serde::Deserialize;
 use serde_json::json;
@@ -9,7 +10,7 @@ use time::OffsetDateTime;
 pub fn get_remote<T: ToString>(remote: T) -> Option<Remote> {
     let remote = remote.to_string();
 
-    let config_str = libceleste::run_in_background(
+    let config_str = util::run_in_background(
         glib::clone!(@strong remote => move || librclone::rpc("config/get", json!({
             "name": remote
         }).to_string()).unwrap()),
@@ -58,7 +59,7 @@ pub fn get_remote<T: ToString>(remote: T) -> Option<Remote> {
 
 /// Get all the remotes from the config file.
 pub fn get_remotes() -> Vec<Remote> {
-    let configs_str = libceleste::run_in_background(move || {
+    let configs_str = util::run_in_background(move || {
         librclone::rpc("config/listremotes", json!({}).to_string())
             .unwrap_or_else(|_| unreachable!())
     });
@@ -224,10 +225,11 @@ pub enum RcloneListFilter {
 
 /// Functions for syncing to a remote.
 /// All functions in this module automatically run under
-/// [`libceleste::run_in_background`], so they don't need to be wrapped around
+/// [`util::run_in_background`], so they don't need to be wrapped around
 /// such to be ran during UI execution.
 pub mod sync {
     use super::{RcloneError, RcloneList, RcloneListFilter, RcloneRemoteItem, RcloneStat};
+    use crate::util;
     use serde_json::json;
 
     /// Get a remote name.
@@ -242,7 +244,7 @@ pub mod sync {
     fn run<T: ToString>(method: T, input: T) -> Result<String, String> {
         let method = method.to_string();
         let input = input.to_string();
-        libceleste::run_in_background(|| librclone::rpc(method, input))
+        util::run_in_background(|| librclone::rpc(method, input))
     }
 
     /// Common function for some of the below command.
@@ -251,7 +253,7 @@ pub mod sync {
             command,
             &json!({
                 "fs": get_remote_name(remote_name),
-                "remote": libceleste::strip_slashes(path),
+                "remote": util::strip_slashes(path),
             })
             .to_string(),
         );
@@ -278,7 +280,7 @@ pub mod sync {
             "operations/stat",
             &json!({
                 "fs": get_remote_name(remote_name),
-                "remote": libceleste::strip_slashes(path)
+                "remote": util::strip_slashes(path)
             })
             .to_string(),
         );
@@ -306,7 +308,7 @@ pub mod sync {
             "operations/list",
             &json!({
                 "fs": get_remote_name(remote_name),
-                "remote": libceleste::strip_slashes(path),
+                "remote": util::strip_slashes(path),
                 "opt": opts
             })
             .to_string(),
@@ -343,9 +345,9 @@ pub mod sync {
             "operations/copyfile",
             &json!({
                 "srcFs": src_fs,
-                "srcRemote": libceleste::strip_slashes(src_remote),
+                "srcRemote": util::strip_slashes(src_remote),
                 "dstFs": dst_fs,
-                "dstRemote": libceleste::strip_slashes(dst_remote)
+                "dstRemote": util::strip_slashes(dst_remote)
             })
             .to_string(),
         );

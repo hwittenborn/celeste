@@ -692,13 +692,16 @@ dependencies = [
  "exitcode",
  "file-lock",
  "futures",
+ "glib 0.16.9",
  "glob",
  "grass",
+ "gtk",
  "hw-msg",
  "indexmap 1.9.3",
+ "ksni",
  "lazy_static",
  "libadwaita",
- "libceleste",
+ "libappindicator",
  "librclone",
  "nipper",
  "nix",
@@ -718,19 +721,6 @@ dependencies = [
  "tr",
  "url",
  "users",
- "zbus",
-]
-
-[[package]]
-name = "celeste-tray"
-version = "0.6.0"
-dependencies = [
- "gtk",
- "hw-msg",
- "lazy_static",
- "libappindicator",
- "libceleste",
- "tr",
  "zbus",
 ]
 
@@ -1043,6 +1033,37 @@ checksum = "13b588ba4ac1a99f7f2964d24b3d896ddc6bf847ee3855dbd4366f058cfcd331"
 dependencies = [
  "quote",
  "syn 2.0.28",
+]
+
+[[package]]
+name = "dbus"
+version = "0.9.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1bb21987b9fb1613058ba3843121dd18b163b254d8a6e797e144cbac14d96d1b"
+dependencies = [
+ "libc",
+ "libdbus-sys",
+ "winapi",
+]
+
+[[package]]
+name = "dbus-codegen"
+version = "0.9.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a49da9fdfbe872d4841d56605dc42efa5e6ca3291299b87f44e1cde91a28617c"
+dependencies = [
+ "clap 2.34.0",
+ "dbus",
+ "xml-rs",
+]
+
+[[package]]
+name = "dbus-tree"
+version = "0.9.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f456e698ae8e54575e19ddb1f9b7bce2298568524f215496b248eb9498b4f508"
+dependencies = [
+ "dbus",
 ]
 
 [[package]]
@@ -2396,6 +2417,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "ksni"
+version = "0.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b31b9cf486bcd22bcd09900b44538cf87b00f526fcd087d671a632dc0d271d0c"
+dependencies = [
+ "dbus",
+ "dbus-codegen",
+ "dbus-tree",
+ "thiserror",
+]
+
+[[package]]
 name = "kv-log-macro"
 version = "1.0.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2491,13 +2524,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b4668fb0ea861c1df094127ac5f1da3409a82116a4ba74fca2e58ef927159bb3"
 
 [[package]]
-name = "libceleste"
-version = "0.6.0"
+name = "libdbus-sys"
+version = "0.2.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "06085512b750d640299b79be4bad3d2fa90a9c00b1fd9e1b46364f66f0485c72"
 dependencies = [
- "blocking",
- "futures",
- "glib 0.16.9",
- "tr",
+ "pkg-config",
 ]
 
 [[package]]
@@ -5347,6 +5379,12 @@ dependencies = [
  "nix",
  "winapi",
 ]
+
+[[package]]
+name = "xml-rs"
+version = "0.8.19"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0fcb9cbac069e033553e8bb871be2fbdffcab578eb25bd0f7c508cedc6dcd75a"
 
 [[package]]
 name = "yansi"

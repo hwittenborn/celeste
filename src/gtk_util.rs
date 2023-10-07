@@ -1,4 +1,4 @@
-use crate::mpsc;
+use crate::{mpsc, util};
 use adw::{
     glib,
     gtk::{Orientation, ScrolledWindow, Separator, TextBuffer, TextView},
@@ -35,7 +35,7 @@ pub fn show_error(primary_text: &str, secondary_text: Option<&str>) {
 pub fn show_codeblock_error(primary_text: &str, code: &str) {
     let (sender, mut receiver) = mpsc::channel::<()>();
     let dialog = MessageDialog::builder()
-        .title(&libceleste::get_title!("{title}"))
+        .title(&util::get_title!("{title}"))
         .heading(primary_text)
         .extra_child(&codeblock(code))
         .resizable(true)
