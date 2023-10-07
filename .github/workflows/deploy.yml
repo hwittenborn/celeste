@@ -141,12 +141,23 @@ jobs:
               echo "The build failed! Please investigate manually."
               exit 1
             elif echo "${comments}" | grep -q successful; then
+              # Even after a successful build, we have to wait
+              # a bit longer for Buildbot to allow us to merge.
+              status='BLOCKED'
+
+              while [[ "${status}" == 'BLOCKED' ]]; do
+                echo 'Waiting for @flathubbot to allow merging...'
+                sleep 1
+                status="$(gh pr list --json number,mergeStateStatus -q ".[] | select(.number==${pr_id}).mergeStateStatus")"
+              done
+
               echo "The build succeeded! Merging the PR..."
-              gh pr merge "${pr_id}" --auto --merge
+              gh pr merge "${pr_id}" --merge
               exit
             fi
 
             echo "Waiting for @flathubbot to report status checks..."
+            sleep 1
           done
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN_CUSTOM }}
