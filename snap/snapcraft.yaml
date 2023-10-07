@@ -3,7 +3,8 @@ base: core22
 grade: stable
 confinement: strict
 adopt-info: celeste
-compression: lzo
+# TODO: Re-enable this once the Flatpak doesn't rely on the Snap for building.
+#compression: lzo
 architectures:
   - build-on: amd64
   - build-on: arm64
