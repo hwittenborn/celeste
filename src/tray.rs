@@ -46,7 +46,6 @@ impl KsniTray for Tray {
     }
 
     fn menu(&self) -> Vec<MenuItem<Self>> {
-        println!("MENU!! -> {}", self.icon);
         vec![
             MenuItem::Standard(StandardItem {
                 label: self.status.clone(),
