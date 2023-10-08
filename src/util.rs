@@ -5,22 +5,6 @@ use std::path::PathBuf;
 /// The ID of the app.
 pub static APP_ID: &str = "com.hunterwittenborn.Celeste";
 
-/// The ID of the DBus app.
-/// We have to have a separate ID because our GTK application registers the DBus
-/// connection for `APP_ID`. See the conversation at
-/// https://matrix.to/#/!CxdTjqASmMdXwTeLsR:matrix.org/$16727498910mwIiT:hunterwittenborn.com?via=gnome.org&via=matrix.org&via=tchncs.de
-/// for more info.
-pub static DBUS_APP_ID: &str = "com.hunterwittenborn.Celeste.App";
-
-/// The DBus object of the DBus app.
-pub static DBUS_APP_OBJECT: &str = "/com/hunterwittenborn/Celeste/App";
-
-/// The ID of the tray icon.
-pub static TRAY_ID: &str = "com.hunterwittenborn.Celeste.Tray";
-
-/// The DBus object of the tray icon.
-pub static DBUS_TRAY_OBJECT: &str = "/com/hunterwittenborn/Celeste/Tray";
-
 /// Get the value out of a future.
 pub fn await_future<F: Future>(future: F) -> F::Output {
     futures::executor::block_on(future)

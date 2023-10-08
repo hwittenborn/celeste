@@ -62,14 +62,6 @@ slots:
     interface: dbus
     bus: session
     name: com.hunterwittenborn.Celeste
-  celeste-app:
-    interface: dbus
-    bus: session
-    name: com.hunterwittenborn.Celeste.App
-  celeste-tray:
-    interface: dbus
-    bus: session
-    name: com.hunterwittenborn.Celeste.Tray
 
 apps:
   celeste:
