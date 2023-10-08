@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0] - 2023-10-07
+### Changed
+- Remove reliance on GTK3 and libappindicator.
+- Make tray functionality part of main application, instead of being a separate app.
+- Combine all application functionality into a singular crate.
+
+### Fixed
+- Fixed incorrect number of errors being reported in tray.
+- Fixed bug where tray icons would never change.
+
 ## [0.6.0] - 2023-10-05
 ### Added
 - Added Proton Drive support.

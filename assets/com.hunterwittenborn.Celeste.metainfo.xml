@@ -41,6 +41,35 @@
         </screenshot>
     </screenshots>
     <releases>
+        <release date="2023-10-07" version="0.7.0">
+            <description>
+                <p>
+                    Changes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Remove reliance on GTK3 and libappindicator.
+                    </li>
+                    <li>
+                        Make tray functionality part of main application, instead of being a separate app.
+                    </li>
+                    <li>
+                        Combine all application functionality into a singular crate.
+                    </li>
+                </ul>
+                <p>
+                    Fixes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Fixed incorrect number of errors being reported in tray.
+                    </li>
+                    <li>
+                        Fixed bug where tray icons would never change.
+                    </li>
+                </ul>
+            </description>
+        </release>
         <release date="2023-10-05" version="0.6.0">
             <description>
                 <p>
