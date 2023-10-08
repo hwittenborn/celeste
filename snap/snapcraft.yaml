@@ -77,5 +77,3 @@ apps:
       - unity7
     slots:
       - celeste
-      - celeste-app
-      - celeste-tray
