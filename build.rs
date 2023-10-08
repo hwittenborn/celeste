@@ -1,7 +1,7 @@
 use nipper::Document;
 use std::{env, fs, path::Path};
 
-static METAINFO: &str = include_str!("../assets/com.hunterwittenborn.Celeste.metainfo.xml");
+static METAINFO: &str = include_str!("assets/com.hunterwittenborn.Celeste.metainfo.xml");
 
 fn main() {
     let out_dir = env::var("OUT_DIR").unwrap();

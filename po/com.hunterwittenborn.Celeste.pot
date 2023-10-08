@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Celeste 0.5.8\n"
+"Project-Id-Version: Celeste 0.7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-05 21:34+0000\n"
+"POT-Creation-Date: 2023-10-08 00:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,321 +17,321 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: celeste/src/about.rs:20
+#: src/about.rs:20
 msgid "App icons by"
 msgstr ""
 
-#: celeste/src/gtk_util.rs:20 celeste/src/gtk_util.rs:43 celeste/src/launch.rs:678 celeste/src/launch.rs:840
+#: src/gtk_util.rs:20 src/gtk_util.rs:43 src/launch.rs:614 src/launch.rs:776
 msgid "Ok"
 msgstr ""
 
-#: celeste/src/launch.rs:102
+#: src/launch.rs:99
 msgid "Both '{}' and '{}' are more recent than at last sync."
 msgstr ""
 
-#: celeste/src/launch.rs:214
+#: src/launch.rs:158
 msgid "Unable to create Celeste's config directory [{}]."
 msgstr ""
 
-#: celeste/src/launch.rs:226
+#: src/launch.rs:170
 msgid "Unable to create Celeste's database file [{}]."
 msgstr ""
 
-#: celeste/src/launch.rs:236
+#: src/launch.rs:180
 msgid "Unable to connect to database [{}]."
 msgstr ""
 
-#: celeste/src/launch.rs:244
+#: src/launch.rs:188
 msgid "Unable to run database migrations [{}]"
 msgstr ""
 
-#: celeste/src/launch.rs:351
+#: src/launch.rs:288
 msgid "Awaiting sync check..."
 msgstr ""
 
-#: celeste/src/launch.rs:387
+#: src/launch.rs:324
 msgid "Sync Errors"
 msgstr ""
 
-#: celeste/src/launch.rs:402
+#: src/launch.rs:339
 msgid "File/Folder Exclusions"
 msgstr ""
 
-#: celeste/src/launch.rs:521
+#: src/launch.rs:458
 msgid "Stop syncing this directory"
 msgstr ""
 
-#: celeste/src/launch.rs:538
+#: src/launch.rs:475
 msgid "Are you sure you want to stop syncing '{}' to '{}'?"
 msgstr ""
 
-#: celeste/src/launch.rs:547
+#: src/launch.rs:484
 msgid "This directory is currently being processed to no longer be synced."
 msgstr ""
 
-#: celeste/src/launch.rs:638
+#: src/launch.rs:574
 msgid "Directories"
 msgstr ""
 
 #. Get the local folder to sync with.
-#: celeste/src/launch.rs:661
+#: src/launch.rs:597
 msgid "Local folder:"
 msgstr ""
 
-#: celeste/src/launch.rs:677 celeste/src/launch.rs:839 celeste/src/login/gdrive.rs:207
+#: src/launch.rs:613 src/launch.rs:775 src/login/gdrive.rs:208
 msgid "Cancel"
 msgstr ""
 
 #. Get the remote folder to sync with, and add it.
 #. The entry completion code is largely inspired by https://github.com/gtk-rs/gtk4-rs/blob/master/examples/entry_completion/main.rs. I honestly have no clue what half the code for that is doing, I just know the current code is working well enough, and it can be fixed later if it breaks.
-#: celeste/src/launch.rs:697
+#: src/launch.rs:633
 msgid "Remote folder:"
 msgstr ""
 
-#: celeste/src/launch.rs:884
+#: src/launch.rs:820
 msgid "The specified remote directory doesn't exist"
 msgstr ""
 
-#: celeste/src/launch.rs:892
+#: src/launch.rs:828
 msgid "Failed to check if the specified remote directory exists"
 msgstr ""
 
-#: celeste/src/launch.rs:903
+#: src/launch.rs:839
 msgid "The specified directory pair is already being synced"
 msgstr ""
 
-#: celeste/src/launch.rs:906
+#: src/launch.rs:842
 msgid "The specified local directory doesn't exist"
 msgstr ""
 
-#: celeste/src/launch.rs:909
+#: src/launch.rs:845
 msgid "The specified local path isn't a directory"
 msgstr ""
 
-#: celeste/src/launch.rs:912
+#: src/launch.rs:848
 msgid "The specified local directory needs to be an absolute path"
 msgstr ""
 
-#: celeste/src/launch.rs:940
+#: src/launch.rs:876
 msgid "Are you sure you want to delete this remote?"
 msgstr ""
 
-#: celeste/src/launch.rs:941
+#: src/launch.rs:877
 msgid "All the directories associated with this remote will also stop syncing."
 msgstr ""
 
-#: celeste/src/launch.rs:1167 celeste-tray/src/main.rs:51
-msgid "Awaiting sync checks..."
-msgstr ""
-
 #. Notify the tray app that we're syncing this remote now.
-#: celeste/src/launch.rs:1263
+#: src/launch.rs:1160
 msgid "Syncing '{}'..."
 msgstr ""
 
-#: celeste/src/launch.rs:1298
+#: src/launch.rs:1194
 msgid "Checking for changes..."
 msgstr ""
 
 #. Add an error for reporting in the UI.
-#: celeste/src/launch.rs:1305
+#: src/launch.rs:1201
 msgid "Please resolve the reported syncing issues."
 msgstr ""
 
-#: celeste/src/launch.rs:1332
+#: src/launch.rs:1228
 msgid "{} errors found. "
 msgstr ""
 
-#: celeste/src/launch.rs:1346
+#: src/launch.rs:1242
 msgid "Would you like to dismiss this error?"
 msgstr ""
 
-#: celeste/src/launch.rs:1373
+#: src/launch.rs:1269
 msgid "Failed to sync '{}' to '{}' on remote."
 msgstr ""
 
-#: celeste/src/launch.rs:1381
+#: src/launch.rs:1277
 msgid "Failed to sync '{}' on remote to '{}'."
 msgstr ""
 
-#: celeste/src/launch.rs:1406
+#: src/launch.rs:1302
 msgid "Unable to fetch data for '{}' from the remote."
 msgstr ""
 
-#: celeste/src/launch.rs:1415 celeste/src/launch.rs:1420 celeste/src/launch.rs:1428
+#: src/launch.rs:1311 src/launch.rs:1316 src/launch.rs:1324
 msgid "File Update"
 msgstr ""
 
-#: celeste/src/launch.rs:1415
+#: src/launch.rs:1311
 msgid "Neither the local item or remote item exists anymore. This error will now be removed."
 msgstr ""
 
-#: celeste/src/launch.rs:1420
+#: src/launch.rs:1316
 msgid "Only the local item exists now, so it will be synced to the remote."
 msgstr ""
 
-#: celeste/src/launch.rs:1428
+#: src/launch.rs:1324
 msgid "Only the remote item exists now, so it will be synced to the local machine."
 msgstr ""
 
-#: celeste/src/launch.rs:1438
+#: src/launch.rs:1334
 msgid "Both the local item '{}' and remote item '{}' have been updated since the last sync."
 msgstr ""
 
-#: celeste/src/launch.rs:1440
+#: src/launch.rs:1336
 msgid "Which item would you like to keep?"
 msgstr ""
 
-#: celeste/src/launch.rs:1442
+#: src/launch.rs:1338
 msgid "Local"
 msgstr ""
 
-#: celeste/src/launch.rs:1443
+#: src/launch.rs:1339
 msgid "Remote"
 msgstr ""
 
-#: celeste/src/launch.rs:1492
+#: src/launch.rs:1388
 msgid "1 error found."
 msgstr ""
 
-#: celeste/src/launch.rs:1494
+#: src/launch.rs:1390
 msgid "{} errors found."
 msgstr ""
 
-#: celeste/src/launch.rs:1626
+#: src/launch.rs:1522
 msgid "Checking '{}' for changes..."
 msgstr ""
 
-#: celeste/src/launch.rs:2042
+#: src/launch.rs:1938
 msgid "Checking '{}' on remote for changes..."
 msgstr ""
 
-#: celeste/src/launch.rs:2433
+#: src/launch.rs:2329
 msgid "Directory has finished sync checks."
 msgstr ""
 
-#: celeste/src/launch.rs:2454
+#: src/launch.rs:2350
 msgid "Finished sync checks with {} errors."
 msgstr ""
 
-#: celeste/src/login/gdrive.rs:204
+#: src/launch.rs:2355
+msgid "Finished sync checks."
+msgstr ""
+
+#: src/login/gdrive.rs:205
 msgid "Authenticating to {}..."
 msgstr ""
 
-#: celeste/src/login/gdrive.rs:205
+#: src/login/gdrive.rs:206
 msgid "Follow the link that opened in your browser, and come back once you've finished."
 msgstr ""
 
-#: celeste/src/login/gdrive.rs:232
+#: src/login/gdrive.rs:233
 msgid "There was an issue while running the webserver for authentication"
 msgstr ""
 
-#: celeste/src/login/gdrive.rs:241
+#: src/login/gdrive.rs:242
 msgid "There was an issue authenticating to {}"
 msgstr ""
 
-#: celeste/src/login/login_util.rs:15
+#: src/login/login_util.rs:15
 msgid "Server Name"
 msgstr ""
 
-#: celeste/src/login/login_util.rs:27
+#: src/login/login_util.rs:27
 msgid "Server name already exists."
 msgstr ""
 
-#: celeste/src/login/login_util.rs:29
+#: src/login/login_util.rs:29
 msgid "Invalid server name. Server names must:\n"
 "- Only contain numbers, letters, '_', '-', '.', and spaces\n"
 "- Not start with '-' or a space\n"
 "- Not end with a space"
 msgstr ""
 
-#: celeste/src/login/login_util.rs:43
+#: src/login/login_util.rs:43
 msgid "Server URL"
 msgstr ""
 
-#: celeste/src/login/login_util.rs:49
+#: src/login/login_util.rs:49
 msgid "Invalid server URL ({})."
 msgstr ""
 
-#: celeste/src/login/login_util.rs:58
+#: src/login/login_util.rs:58
 msgid "Invalid server URL (no domain specified)."
 msgstr ""
 
-#: celeste/src/login/login_util.rs:62
+#: src/login/login_util.rs:62
 msgid "Invalid server URL (password was specified)."
 msgstr ""
 
-#: celeste/src/login/login_util.rs:66
+#: src/login/login_util.rs:66
 msgid "Invalid server URL(unknown server scheme {})."
 msgstr ""
 
-#: celeste/src/login/login_util.rs:78
+#: src/login/login_util.rs:78
 msgid "Don't specify '{}' as part of the URL."
 msgstr ""
 
-#: celeste/src/login/login_util.rs:91
+#: src/login/login_util.rs:91
 msgid "Username"
 msgstr ""
 
-#: celeste/src/login/login_util.rs:97
+#: src/login/login_util.rs:97
 msgid "Password"
 msgstr ""
 
-#: celeste/src/login/login_util.rs:104
+#: src/login/login_util.rs:104
 msgid "2FA Code"
 msgstr ""
 
-#: celeste/src/login/login_util.rs:113
+#: src/login/login_util.rs:113
 msgid "The provided 2FA code is invalid (should only contain digits)."
 msgstr ""
 
-#: celeste/src/login/login_util.rs:118
+#: src/login/login_util.rs:118
 msgid "The provided 2FA code is invalid (should be 6 digits long)."
 msgstr ""
 
-#: celeste/src/login/login_util.rs:142
+#: src/login/login_util.rs:142
 msgid "Log in"
 msgstr ""
 
-#: celeste/src/login/mod.rs:76
+#: src/login/mod.rs:77
 msgid "Unable to connect to the server. Check your internet connection and try again."
 msgstr ""
 
-#: celeste/src/login/mod.rs:79
+#: src/login/mod.rs:80
 msgid "A 2FA code is required to log in to this account. Provide one and try again."
 msgstr ""
 
-#: celeste/src/login/mod.rs:82
+#: src/login/mod.rs:83
 msgid "Unable to authenticate to the server. Check your login credentials and try again."
 msgstr ""
 
-#: celeste/src/login/mod.rs:86
+#: src/login/mod.rs:87
 msgid "Unable to log in"
 msgstr ""
 
 #. The dropdown for selecting the server type.
-#: celeste/src/login/mod.rs:123
+#: src/login/mod.rs:124
 msgid "Server Type"
 msgstr ""
 
-#: celeste/src/main.rs:187
-msgid "Unknown Error"
+#: src/tray.rs:13
+msgid "Awaiting sync checks..."
 msgstr ""
 
-#: celeste/src/main.rs:194
-msgid "An unknown error has occurred while running. This is an internal issue with Celeste and should be reported.\n"
-"\n"
-"The following backtrace may help with debugging the issue - note that it may contain information such as login tokens/keys, so avoid posting the information publicly:"
-msgstr ""
-
-#: celeste-tray/src/main.rs:54
+#: src/tray.rs:57
 msgid "Open"
 msgstr ""
 
-#: celeste-tray/src/main.rs:55
-msgid "Quit"
+#: src/tray.rs:64
+msgid "Close"
 msgstr ""
 
-#: celeste-tray/src/main.rs:114
-msgid "Quitting..."
+#: src/main.rs:188
+msgid "Unknown Error"
+msgstr ""
+
+#: src/main.rs:195
+msgid "An unknown error has occurred while running. This is an internal issue with Celeste and should be reported.\n"
+"\n"
+"The following backtrace may help with debugging the issue - note that it may contain information such as login tokens/keys, so avoid posting the information publicly:"
 msgstr ""

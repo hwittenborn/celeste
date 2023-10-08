@@ -4,8 +4,9 @@ use crate::{
     gtk_util,
     mpsc::{self, Sender},
     rclone,
+    traits::prelude::*,
+    util,
 };
-use libceleste::traits::prelude::*;
 mod dropbox;
 mod gdrive;
 pub mod login_util;
@@ -101,7 +102,7 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
     // The window.
     let window = ApplicationWindow::builder()
         .application(app)
-        .title(&libceleste::get_title!("Log in"))
+        .title(&util::get_title!("Log in"))
         .width_request(400)
         .build();
     window.add_css_class("celeste-global-padding");
@@ -314,21 +315,21 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
             }),
         };
 
-        libceleste::run_in_background(move || {
+        util::run_in_background(move || {
             librclone::rpc("config/create", config_query.to_string()).unwrap()
         });
 
         // If we can't connect to the server, assume invalid credentials were given,
         // remote the config, and try asking for input again.
         if !can_login(app, &config_name) {
-            libceleste::run_in_background(move || {
+            util::run_in_background(move || {
                 librclone::rpc("config/delete", json!({ "name": config_name }).to_string()).unwrap()
             });
             window.set_sensitive(true);
         // We've passed validation otherwise, so add the remote to the db, close
         // the window and return the config.
         } else {
-            let model = libceleste::await_future(
+            let model = util::await_future(
                 RemotesActiveModel {
                     name: ActiveValue::Set(config_name),
                     ..Default::default()

@@ -13,6 +13,9 @@ pub mod login;
 pub mod migrations;
 pub mod mpsc;
 pub mod rclone;
+pub mod traits;
+pub mod tray;
+pub mod util;
 
 use adw::{
     gtk::{self, gdk::Display, Align, Box, CssProvider, Label, Orientation, StyleContext},
@@ -53,7 +56,7 @@ fn main() {
     gtk::init().unwrap();
 
     // Configure Rclone.
-    let mut config = libceleste::get_config_dir();
+    let mut config = util::get_config_dir();
     config.push("rclone.conf");
     librclone::initialize();
     librclone::rpc("config/setpath", json!({ "path": config }).to_string()).unwrap();
@@ -69,9 +72,7 @@ fn main() {
     );
 
     // Get the application.
-    let app = Application::builder()
-        .application_id(libceleste::APP_ID)
-        .build();
+    let app = Application::builder().application_id(util::APP_ID).build();
 
     // Due to GTK working in Rust via Rust's FFI, panics don't appear to be able to
     // be captured (this hasn't been confirmed behavior, it's just what I've
@@ -176,7 +177,7 @@ fn main() {
             app.connect_activate(move |app| {
                 let window = ApplicationWindow::builder()
                     .application(app)
-                    .title(&libceleste::get_title!("Unknown Error"))
+                    .title(&util::get_title!("Unknown Error"))
                     .build();
                 window.add_css_class("celeste-global-padding");
                 let sections = Box::builder()

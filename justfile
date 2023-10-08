@@ -1,8 +1,7 @@
 set positional-arguments
 
 build:
-	cargo build --release --bin celeste-tray
-	cargo build --release --bin celeste
+	cargo build --release
 
 install:
 	install -Dm 755 target/release/celeste "{{ env_var('DESTDIR') }}/usr/bin/celeste"
@@ -15,7 +14,6 @@ install:
 	install -Dm 644 assets/com.hunterwittenborn.Celeste.metainfo.xml "{{ env_var('DESTDIR') }}/usr/share/metainfo/com.hunterwittenborn.Celeste.metainfo.xml"
 
 clippy:
-	cargo build --bin celeste-tray
 	cargo clippy -- -D warnings
 
 get-version:
@@ -27,7 +25,7 @@ update-versions:
     #!/usr/bin/env bash
     set -euo pipefail
     version="$(just get-version)"
-    sed -i "s|version = .*|version = \"${version}\"|" celeste/Cargo.toml celeste-tray/Cargo.toml libceleste/Cargo.toml
+    sed -i "s|^version = .*|version = \"${version}\"|" Cargo.toml
 
     date="$(cat CHANGELOG.md | grep "^## \[${version}\]" | grep -o '[^ ]*$')"
     notes="$(parse-changelog CHANGELOG.md "${version}")"
@@ -107,7 +105,7 @@ update-metainfo:
     open(metainfo_path, "w").write(output)
 
 update-translations:
-    xtr celeste/src/main.rs celeste-tray/src/main.rs libceleste/src/lib.rs --copyright-holder 'Hunter Wittenborn <hunter@hunterwittenborn.com>' -o /dev/stdout --package-name 'Celeste' --package-version "$(just get-version)" > po/com.hunterwittenborn.Celeste.pot
+    xtr src/main.rs --copyright-holder 'Hunter Wittenborn <hunter@hunterwittenborn.com>' -o /dev/stdout --package-name 'Celeste' --package-version "$(just get-version)" > po/com.hunterwittenborn.Celeste.pot
 
 # Create the Snap using an already build copy of Celeste. This currently requires you to be running on Ubuntu 22.10 or newer.
 create-host-snap:
