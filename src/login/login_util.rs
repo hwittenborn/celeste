@@ -12,7 +12,7 @@ use url::Url;
 
 /// Get the input for the server name.
 pub fn server_name_input() -> EntryRow {
-    let input = EntryRow::builder().title(&tr::tr!("Server Name")).build();
+    let input = EntryRow::builder().title(&tr::tr!("Name")).build();
     input.connect_changed(|input| {
         let text = input.text();
 
@@ -24,9 +24,9 @@ pub fn server_name_input() -> EntryRow {
 
         if existing_remotes.contains(&text.to_string()) {
             input.add_css_class("error");
-            input.set_tooltip_text(Some(&tr::tr!("Server name already exists.")));
+            input.set_tooltip_text(Some(&tr::tr!("Name already exists.")));
         } else if !Regex::new(r"^[0-9a-zA-Z_.][0-9a-zA-Z_. -]*[0-9a-zA-Z_.-]$").unwrap().is_match(&text) {
-            let err_msg = tr::tr!("Invalid server name. Server names must:\n- Only contain numbers, letters, '_', '-', '.', and spaces\n- Not start with '-' or a space\n- Not end with a space");
+            let err_msg = tr::tr!("Invalid name. Names must:\n- Only contain numbers, letters, '_', '-', '.', and spaces\n- Not start with '-' or a space\n- Not end with a space");
             input.add_css_class("error");
             input.set_tooltip_text(Some(&err_msg));
         } else {
