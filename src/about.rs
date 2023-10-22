@@ -1,4 +1,4 @@
-use adw::{gtk::License, prelude::*, AboutWindow, Application};
+use relm4::adw::{gtk::License, prelude::*, AboutWindow, Application};
 
 static METADATA: &str = include_str!(concat!(env!("OUT_DIR"), "/release.xml"));
 

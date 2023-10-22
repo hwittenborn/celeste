@@ -1,5 +1,5 @@
 use crate::{mpsc, util};
-use adw::{
+use relm4::adw::{
     glib,
     gtk::{Orientation, ScrolledWindow, Separator, TextBuffer, TextView},
     prelude::*,

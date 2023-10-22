@@ -7,11 +7,11 @@ use crate::{
     traits::prelude::*,
     util,
 };
-use relm4::adw::{glib, gtk::Button, prelude::*, ApplicationWindow, EntryRow, MessageDialog};
 use nix::{
     sys::signal::{self, Signal},
     unistd::Pid,
 };
+use relm4::adw::{glib, gtk::Button, prelude::*, ApplicationWindow, EntryRow, MessageDialog};
 use rocket::response::{content::RawHtml, Responder};
 use std::{
     cell::RefCell,
