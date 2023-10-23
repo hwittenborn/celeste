@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Celeste 0.7.0\n"
+"Project-Id-Version: Celeste 0.8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-08 00:55+0000\n"
+"POT-Creation-Date: 2023-10-23 20:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -120,97 +120,96 @@ msgstr ""
 msgid "All the directories associated with this remote will also stop syncing."
 msgstr ""
 
-#. Notify the tray app that we're syncing this remote now.
-#: src/launch.rs:1160
+#: src/launch.rs:1342 src/launch.rs:2509
+msgid "Files are synced."
+msgstr ""
+
+#: src/launch.rs:1352
 msgid "Syncing '{}'..."
 msgstr ""
 
-#: src/launch.rs:1194
+#: src/launch.rs:1373
 msgid "Checking for changes..."
 msgstr ""
 
 #. Add an error for reporting in the UI.
-#: src/launch.rs:1201
+#: src/launch.rs:1380
 msgid "Please resolve the reported syncing issues."
 msgstr ""
 
-#: src/launch.rs:1228
+#: src/launch.rs:1407
 msgid "{} errors found. "
 msgstr ""
 
-#: src/launch.rs:1242
+#: src/launch.rs:1421
 msgid "Would you like to dismiss this error?"
 msgstr ""
 
-#: src/launch.rs:1269
+#: src/launch.rs:1448
 msgid "Failed to sync '{}' to '{}' on remote."
 msgstr ""
 
-#: src/launch.rs:1277
+#: src/launch.rs:1456
 msgid "Failed to sync '{}' on remote to '{}'."
 msgstr ""
 
-#: src/launch.rs:1302
+#: src/launch.rs:1481
 msgid "Unable to fetch data for '{}' from the remote."
 msgstr ""
 
-#: src/launch.rs:1311 src/launch.rs:1316 src/launch.rs:1324
+#: src/launch.rs:1490 src/launch.rs:1495 src/launch.rs:1503
 msgid "File Update"
 msgstr ""
 
-#: src/launch.rs:1311
+#: src/launch.rs:1490
 msgid "Neither the local item or remote item exists anymore. This error will now be removed."
 msgstr ""
 
-#: src/launch.rs:1316
+#: src/launch.rs:1495
 msgid "Only the local item exists now, so it will be synced to the remote."
 msgstr ""
 
-#: src/launch.rs:1324
+#: src/launch.rs:1503
 msgid "Only the remote item exists now, so it will be synced to the local machine."
 msgstr ""
 
-#: src/launch.rs:1334
+#: src/launch.rs:1513
 msgid "Both the local item '{}' and remote item '{}' have been updated since the last sync."
 msgstr ""
 
-#: src/launch.rs:1336
+#: src/launch.rs:1515
 msgid "Which item would you like to keep?"
 msgstr ""
 
-#: src/launch.rs:1338
+#: src/launch.rs:1517
 msgid "Local"
 msgstr ""
 
-#: src/launch.rs:1339
+#: src/launch.rs:1518
 msgid "Remote"
 msgstr ""
 
-#: src/launch.rs:1388
+#: src/launch.rs:1567
 msgid "1 error found."
 msgstr ""
 
-#: src/launch.rs:1390
+#: src/launch.rs:1569
 msgid "{} errors found."
 msgstr ""
 
-#: src/launch.rs:1522
+#: src/launch.rs:1701
 msgid "Checking '{}' for changes..."
 msgstr ""
 
-#: src/launch.rs:1938
+#: src/launch.rs:2117
 msgid "Checking '{}' on remote for changes..."
 msgstr ""
 
-#: src/launch.rs:2329
-msgid "Directory has finished sync checks."
-msgstr ""
-
-#: src/launch.rs:2350
+#: src/launch.rs:2530
 msgid "Finished sync checks with {} errors."
 msgstr ""
 
-#: src/launch.rs:2355
+#: src/launch.rs:2535
 msgid "Finished sync checks."
 msgstr ""
 
@@ -318,11 +317,11 @@ msgstr ""
 msgid "Awaiting sync checks..."
 msgstr ""
 
-#: src/tray.rs:57
+#: src/tray.rs:60
 msgid "Open"
 msgstr ""
 
-#: src/tray.rs:64
+#: src/tray.rs:67
 msgid "Close"
 msgstr ""
 

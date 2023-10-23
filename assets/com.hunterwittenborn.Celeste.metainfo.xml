@@ -41,6 +41,18 @@
         </screenshot>
     </screenshots>
     <releases>
+        <release date="2023-10-23" version="0.8.0">
+            <description>
+                <p>
+                    Changes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Added functionality to only run sync checks when files are changed.
+                    </li>
+                </ul>
+            </description>
+        </release>
         <release date="2023-10-07" version="0.7.0">
             <description>
                 <p>
