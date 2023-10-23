@@ -30,6 +30,10 @@ impl Tray {
     pub fn set_done(&mut self) {
         self.icon = "com.hunterwittenborn.Celeste.CelesteTrayDone-symbolic".to_owned();
     }
+
+    pub fn set_disconnected(&mut self) {
+        self.icon = "com.hunterwittenborn.Celeste.CelesteTrayDisconnected-symbolic".to_owned();
+    }
 }
 
 impl KsniTray for Tray {
