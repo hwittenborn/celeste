@@ -27,6 +27,7 @@ sea-orm = { version = "0.10.3", features = ["sqlx-sqlite", "runtime-async-std-ru
 sea-orm-migration = "0.10.0"
 serde = { version = "1.0.143", features = ["derive"] }
 serde_json = "1.0.83"
+strum = { version = "0.25.0", features = ["derive"] }
 tempfile = "3.3.0"
 tera = "1.17.1"
 time = { version = "0.3.17", features = ["serde-well-known"] }

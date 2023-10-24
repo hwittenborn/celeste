@@ -1,7 +1,13 @@
 use std::convert::identity;
 
 use adw::prelude::*;
-use relm4::{component::{AsyncComponent, SimpleAsyncComponent, AsyncComponentSender, AsyncComponentParts, AsyncController, AsyncComponentController}, prelude::*};
+use relm4::{
+    component::{
+        AsyncComponent, AsyncComponentController, AsyncComponentParts, AsyncComponentSender,
+        AsyncController, SimpleAsyncComponent,
+    },
+    prelude::*,
+};
 
 use crate::login::{LoginModel, LoginMsg};
 
@@ -39,9 +45,6 @@ impl SimpleAsyncComponent for LaunchModel {
         root: Self::Root,
         sender: AsyncComponentSender<Self>,
     ) -> AsyncComponentParts<Self> {
-        println!("INITTED!");
-        relm4::tokio::time::sleep(std::time::Duration::from_secs(5)).await;
-
         let login = LoginModel::builder()
             .transient_for(root.clone())
             .launch(())
@@ -54,7 +57,6 @@ impl SimpleAsyncComponent for LaunchModel {
         let widgets = view_output!();
 
         model.login.emit(LoginMsg::Open);
-
         AsyncComponentParts { model, widgets }
     }
 }

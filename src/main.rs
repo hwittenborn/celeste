@@ -30,5 +30,5 @@ fn main() {
     // Setup our CSS and run the App.
     let app = RelmApp::new(util::APP_ID);
     relm4::set_global_css(include_str!(concat!(env!("OUT_DIR"), "/style.css")));
-    app.run_async::<launch::LaunchModel>(());
+    app.set_visible(false).run_async::<launch::LaunchModel>(());
 }
