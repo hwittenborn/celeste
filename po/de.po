@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Celeste 0.8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-23 20:35+0000\n"
-"PO-Revision-Date: 2023-10-26 10:01+0000\n"
-"Last-Translator: Alexander Linder <alexander.linder@mondcarion.group>\n"
+"PO-Revision-Date: 2023-10-30 18:02+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/celeste/celeste/"
 "de/>\n"
 "Language: de\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.1.1\n"
+"X-Generator: Weblate 5.2-dev\n"
 
 #: src/about.rs:20
 msgid "App icons by"
-msgstr "App Symbole von"
+msgstr "App-Symbole von"
 
 #: src/gtk_util.rs:20 src/gtk_util.rs:43 src/launch.rs:614 src/launch.rs:776
 msgid "Ok"
@@ -29,15 +29,16 @@ msgstr "Ok"
 
 #: src/launch.rs:99
 msgid "Both '{}' and '{}' are more recent than at last sync."
-msgstr "Sowohl '{}' als auch '{}' sind neuer als zur letzten Synchronisation."
+msgstr ""
+"Sowohl '{}' als auch '{}' sind neuer als bei der letzten Synchronisation."
 
 #: src/launch.rs:158
 msgid "Unable to create Celeste's config directory [{}]."
-msgstr "Celeste's Konfigurationsverzeichnis [{}] kann nicht erstellt werden."
+msgstr "Konfigurationsverzeichnis von Celeste [{}] kann nicht erstellt werden."
 
 #: src/launch.rs:170
 msgid "Unable to create Celeste's database file [{}]."
-msgstr "Celeste's Datenbank [{}] kann nicht erstellt werden."
+msgstr "Datenbankdatei von Celeste [{}] kann nicht erstellt werden."
 
 #: src/launch.rs:180
 msgid "Unable to connect to database [{}]."
@@ -49,7 +50,7 @@ msgstr "Datenbank-Migrationen können nicht ausgeführt werden [{}]"
 
 #: src/launch.rs:288
 msgid "Awaiting sync check..."
-msgstr "Warte auf Synchronisations-Check..."
+msgstr "Warte auf Synchronisationsprüfung..."
 
 #: src/launch.rs:324
 msgid "Sync Errors"
@@ -57,7 +58,7 @@ msgstr "Synchronisationsfehler"
 
 #: src/launch.rs:339
 msgid "File/Folder Exclusions"
-msgstr "Datei/Verzeichnis Ausschlüsse"
+msgstr "Datei-/Ordnerausschlüsse"
 
 #: src/launch.rs:458
 msgid "Stop syncing this directory"
@@ -70,7 +71,7 @@ msgstr "Soll '{}' wirklich nicht mehr zu '{}' synchronisiert werden?"
 #: src/launch.rs:484
 msgid "This directory is currently being processed to no longer be synced."
 msgstr ""
-"Dieses Verzeichnis wird im Moment verarbeitet sodass es künftig nicht mehr "
+"Dieses Verzeichnis wird im Moment verarbeitet, sodass es künftig nicht mehr "
 "synchronisiert wird."
 
 #: src/launch.rs:574
@@ -80,7 +81,7 @@ msgstr "Verzeichnisse"
 #. Get the local folder to sync with.
 #: src/launch.rs:597
 msgid "Local folder:"
-msgstr "Lokales Verzeichnis:"
+msgstr "Lokaler Ordner:"
 
 #: src/launch.rs:613 src/launch.rs:775 src/login/gdrive.rs:208
 msgid "Cancel"
@@ -90,17 +91,17 @@ msgstr "Abbrechen"
 #. The entry completion code is largely inspired by https://github.com/gtk-rs/gtk4-rs/blob/master/examples/entry_completion/main.rs. I honestly have no clue what half the code for that is doing, I just know the current code is working well enough, and it can be fixed later if it breaks.
 #: src/launch.rs:633
 msgid "Remote folder:"
-msgstr "Remote Verzeichnis:"
+msgstr "Remote-Ordner:"
 
 #: src/launch.rs:820
 msgid "The specified remote directory doesn't exist"
-msgstr "Das gewählte Remote-Verzeichnis existiert nicht"
+msgstr "Das angegebene Remote-Verzeichnis existiert nicht"
 
 #: src/launch.rs:828
 msgid "Failed to check if the specified remote directory exists"
 msgstr ""
 "Es konnte nicht überprüft werden, ob das angegebene Remote-Verzeichnis "
-"vorhanden ist"
+"existiert"
 
 #: src/launch.rs:839
 msgid "The specified directory pair is already being synced"
@@ -120,13 +121,13 @@ msgstr "Das angegebene lokale Verzeichnis muss ein absoluter Pfad sein"
 
 #: src/launch.rs:876
 msgid "Are you sure you want to delete this remote?"
-msgstr "Soll dieser Remote wirklich gelöscht werden?"
+msgstr "Soll diese Gegenstelle wirklich gelöscht werden?"
 
 #: src/launch.rs:877
 msgid "All the directories associated with this remote will also stop syncing."
 msgstr ""
-"Die Synchronisierung aller mit diesem Remote verknüpften Verzeichnisse wird "
-"ebenfalls beendet."
+"Die Synchronisierung aller mit dieser Gegenstelle verknüpften Verzeichnisse "
+"wird ebenfalls beendet."
 
 #: src/launch.rs:1342 src/launch.rs:2509
 msgid "Files are synced."
@@ -143,7 +144,7 @@ msgstr "Prüfe auf Änderungen..."
 #. Add an error for reporting in the UI.
 #: src/launch.rs:1380
 msgid "Please resolve the reported syncing issues."
-msgstr "Die gemeldeten Synchronisierungsprobleme müssen behoben werden."
+msgstr "Bitte die gemeldeten Synchronisierungsprobleme beheben."
 
 #: src/launch.rs:1407
 msgid "{} errors found. "
@@ -151,50 +152,50 @@ msgstr "{} Fehler gefunden. "
 
 #: src/launch.rs:1421
 msgid "Would you like to dismiss this error?"
-msgstr "Soll dieser Fehler bestätigt werden?"
+msgstr "Soll dieser Fehler verworfen werden?"
 
 #: src/launch.rs:1448
 msgid "Failed to sync '{}' to '{}' on remote."
 msgstr ""
-"Es ist ein Fehler bei der Synchronisierung von '{}' zu '{}' auf dem Remote "
-"aufgetreten."
+"Die Synchronisierung von „{}“ mit „{}“ auf der Gegenstelle ist "
+"fehlgeschlagen."
 
 #: src/launch.rs:1456
 msgid "Failed to sync '{}' on remote to '{}'."
 msgstr ""
-"Es ist ein Fehler bei der Synchronisierung von '{}' vom Remote zu '{}' "
-"aufgetreten."
+"Die Synchronisierung von „{}“ auf der Gegenstelle mit „{}“ ist "
+"fehlgeschlagen."
 
 #: src/launch.rs:1481
 msgid "Unable to fetch data for '{}' from the remote."
-msgstr "Daten für '{}' können nicht vom Remote geladen werden."
+msgstr "Daten für '{}' können nicht von der Gegenstelle abgerufen werden."
 
 #: src/launch.rs:1490 src/launch.rs:1495 src/launch.rs:1503
 msgid "File Update"
-msgstr "Datei Update"
+msgstr "Dateiaktualisierung"
 
 #: src/launch.rs:1490
 msgid "Neither the local item or remote item exists anymore. This error will now be removed."
 msgstr ""
-"Weder das lokale noch das remote Element existieren noch. Dieser Fehler wird "
+"Weder das lokale noch das Remote-Element existieren noch. Dieser Fehler wird "
 "nun entfernt."
 
 #: src/launch.rs:1495
 msgid "Only the local item exists now, so it will be synced to the remote."
 msgstr ""
-"Nur das lokale Element existiert nun und wird damit zum Remote "
+"Nur das lokale Element existiert nun und wird damit zur Gegenstelle "
 "synchronisiert."
 
 #: src/launch.rs:1503
 msgid "Only the remote item exists now, so it will be synced to the local machine."
 msgstr ""
-"Nur das remote Element existiert nun und wird damit zur lokalen Maschine "
+"Nur das Remote-Element existiert nun und wird damit zur lokalen Maschine "
 "synchronisiert."
 
 #: src/launch.rs:1513
 msgid "Both the local item '{}' and remote item '{}' have been updated since the last sync."
 msgstr ""
-"Sowohl das lokale Element '{}' als auch das remote Element '{}' wurden seit "
+"Sowohl das lokale Element '{}' als auch das Remote-Element '{}' wurden seit "
 "der letzten Synchronisation aktualisiert."
 
 #: src/launch.rs:1515
@@ -223,15 +224,15 @@ msgstr "Prüfe '{}' auf Änderungen..."
 
 #: src/launch.rs:2117
 msgid "Checking '{}' on remote for changes..."
-msgstr "Prüfe '{}' auf dem Remote auf Änderungen..."
+msgstr "Prüfe '{}' auf der Gegenstelle auf Änderungen..."
 
 #: src/launch.rs:2530
 msgid "Finished sync checks with {} errors."
-msgstr "Synchronisations-Checks mit {} Fehlern abgeschlossen."
+msgstr "Synchronisationsprüfungen mit {} Fehlern abgeschlossen."
 
 #: src/launch.rs:2535
 msgid "Finished sync checks."
-msgstr "Synchronisations-Checks abgeschlossen."
+msgstr "Synchronisationsprüfungen abgeschlossen."
 
 #: src/login/gdrive.rs:205
 msgid "Authenticating to {}..."
@@ -241,7 +242,7 @@ msgstr "Authentifiziere bei {}..."
 msgid "Follow the link that opened in your browser, and come back once you've finished."
 msgstr ""
 "Folgen Sie dem Link, der in Ihrem Browser geöffnet wurde, und kehren Sie "
-"zurück wenn Sie fertig sind."
+"zurück, wenn Sie fertig sind."
 
 #: src/login/gdrive.rs:233
 msgid "There was an issue while running the webserver for authentication"
@@ -255,11 +256,11 @@ msgstr "Es gab ein Problem bei der Authentifizierung bei {}"
 
 #: src/login/login_util.rs:15
 msgid "Server Name"
-msgstr "Server-Name"
+msgstr "Servername"
 
 #: src/login/login_util.rs:27
 msgid "Server name already exists."
-msgstr "Server-Name existiert bereits."
+msgstr "Servername existiert bereits."
 
 #: src/login/login_util.rs:29
 msgid "Invalid server name. Server names must:\n"
@@ -267,7 +268,7 @@ msgid "Invalid server name. Server names must:\n"
 "- Not start with '-' or a space\n"
 "- Not end with a space"
 msgstr ""
-"Ungültiger Server-Name. Server-Namen dürfen:\n"
+"Ungültiger Servername. Servernamen dürfen:\n"
 "- Ausschließlich aus Zahlen, Buchstaben, '_', '-', '.', und Leerzeichen "
 "bestehen\n"
 "- Nicht mit einem '-' oder Leerzeichen beginnen\n"
@@ -291,7 +292,7 @@ msgstr "Ungültige Server-URL (Password wurde angegeben)."
 
 #: src/login/login_util.rs:66
 msgid "Invalid server URL(unknown server scheme {})."
-msgstr "Ungültige Server-URL (Unbekanntes Server-Schema {})."
+msgstr "Ungültige Server-URL (unbekanntes Serverschema {})."
 
 #: src/login/login_util.rs:78
 msgid "Don't specify '{}' as part of the URL."
@@ -311,15 +312,17 @@ msgstr "2FA-Code"
 
 #: src/login/login_util.rs:113
 msgid "The provided 2FA code is invalid (should only contain digits)."
-msgstr "Der angegebene 2FA-Code ist ungültig (Er sollte nur Ziffern enthalten)."
+msgstr ""
+"Der bereitgestellte 2FA-Code ist ungültig (er sollte nur Ziffern enthalten)."
 
 #: src/login/login_util.rs:118
 msgid "The provided 2FA code is invalid (should be 6 digits long)."
-msgstr "Der angegebene 2FA-Code ist ungütlig (Er sollte 6 Ziffern lang sein)."
+msgstr ""
+"Der bereitgestellte 2FA-Code ist ungültig (er sollte 6 Ziffern lang sein)."
 
 #: src/login/login_util.rs:142
 msgid "Log in"
-msgstr "Einloggen"
+msgstr "Anmelden"
 
 #: src/login/mod.rs:77
 msgid "Unable to connect to the server. Check your internet connection and try again."
@@ -346,11 +349,11 @@ msgstr "Anmeldung nicht möglich"
 #. The dropdown for selecting the server type.
 #: src/login/mod.rs:124
 msgid "Server Type"
-msgstr "Server-Typ"
+msgstr "Servertyp"
 
 #: src/tray.rs:13
 msgid "Awaiting sync checks..."
-msgstr "Warte auf Synchronisations-Checks..."
+msgstr "Warte auf Synchronisationsprüfungen..."
 
 #: src/tray.rs:60
 msgid "Open"
@@ -372,7 +375,6 @@ msgstr ""
 "Bei der Ausführung ist ein unbekannter Fehler aufgetreten. Dies ist ein "
 "internes Problem mit Celeste und sollte gemeldet werden.\n"
 "\n"
-"Das folgende Backtrace kann beim Debuggen des Problems hilfreich sein. "
-"Beachten Sie, dass es möglicherweise Informationen wie Anmeldetokens/-"
-"schlüssel enthält. Vermeiden Sie daher, diese Informationen öffentlich zu "
-"machen:"
+"Die folgende Rückverfolgung kann bei der Fehlersuche helfen. Beachten Sie, "
+"dass sie Informationen wie Anmeldetoken/-schlüssel enthalten kann, und "
+"vermeiden Sie es daher, die Informationen öffentlich zu verbreiten:"
