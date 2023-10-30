@@ -1057,9 +1057,9 @@ pub fn launch(app: &Application, background: bool) {
         window.show();
     }
 
-    let service = ksni::TrayService::new(crate::tray::Tray::new());
-    let handle = service.handle();
-    service.spawn();
+    //let service = ksni::TrayService::new(crate::tray::Tray::new());
+    //let handle = service.handle();
+    //service.spawn();
 
     let sync_errors_count = glib::clone!(@strong directory_map => move || {
         let dmap = directory_map.get_ref();
@@ -1348,10 +1348,10 @@ pub fn launch(app: &Application, background: bool) {
                 // Notify the tray app that we're syncing this remote now. We
                 // do this here instead for each remote, because the above
                 // sync dir check might make us not change anything on this remote.
-                handle.update(|tray| {
-                    tray.set_msg(tr::tr!("Syncing '{}'...", remote.name));
-                    tray.set_syncing();
-                });
+                //handle.update(|tray| {
+                    //tray.set_msg(tr::tr!("Syncing '{}'...", remote.name));
+                    //tray.set_syncing();
+                //});
 
                 // If we have pending errors that need resolved, don't sync this directory.
                 if item.error_status_text.text().len() != 0 {
@@ -1379,7 +1379,7 @@ pub fn launch(app: &Application, background: bool) {
                 // Add an error for reporting in the UI.
                 let please_resolve_msg_tr = tr::tr!("Please resolve the reported syncing issues.");
                 let please_resolve_msg = " ".to_owned() + &please_resolve_msg_tr;
-                let add_error = glib::clone!(@strong db, @strong directory_map, @strong remote, @strong sync_dir, @strong sync_errors_count, @strong please_resolve_msg, @strong handle => move |error: SyncError| {
+                let add_error = glib::clone!(@strong db, @strong directory_map, @strong remote, @strong sync_dir, @strong sync_errors_count, @strong please_resolve_msg => move |error: SyncError| {
                     let path_pair = (sync_dir.local_path.clone(), sync_dir.remote_path.clone());
                     let ui_item = error.generate_ui();
                     let ui_item_listbox = ListBoxRow::builder().child(&ui_item).build();
@@ -1549,7 +1549,7 @@ pub fn launch(app: &Application, background: bool) {
 
                     // If we have zero errors now, remove the warning icon.
                     if sync_errors_count() == 0 {
-                        handle.update(|tray| tray.set_syncing());
+                        //handle.update(|tray| tray.set_syncing());
                     }
 
                     // Report the brief on the number of errors.
@@ -1576,7 +1576,7 @@ pub fn launch(app: &Application, background: bool) {
                     (item.update_error_ui)();
 
                     // Set the tray icon to show the warning icon.
-                    handle.update(|tray| tray.set_warning());
+                    //handle.update(|tray| tray.set_warning());
                 });
 
                 // A vector of local/remote sync item pairs to make sure we don't sync anything
@@ -2529,12 +2529,12 @@ pub fn launch(app: &Application, background: bool) {
             } else {
                 tr::tr!("Finished sync checks with {} errors.", error_count)
             };
-            handle.update(|tray| tray.set_msg(error_msg));
+            //handle.update(|tray| tray.set_msg(error_msg));
         } else {
-            handle.update(|tray| {
-                tray.set_msg(tr::tr!("Finished sync checks."));
-                tray.set_done();
-            });
+            //handle.update(|tray| {
+                //tray.set_msg(tr::tr!("Finished sync checks."));
+                //tray.set_done();
+            //});
         }
     }
 

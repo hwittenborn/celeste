@@ -14,7 +14,7 @@ pub mod migrations;
 pub mod mpsc;
 pub mod rclone;
 pub mod traits;
-pub mod tray;
+//pub mod tray;
 pub mod util;
 
 use adw::{
