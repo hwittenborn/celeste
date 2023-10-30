@@ -10,9 +10,11 @@ use time::OffsetDateTime;
 pub fn get_remote<T: ToString>(remote: T) -> Option<Remote> {
     let remote = remote.to_string();
 
-    let config_str = librclone::rpc("config/get", json!({
+    let config_str = util::run_in_background(
+        glib::clone!(@strong remote => move || librclone::rpc("config/get", json!({
             "name": remote
-        }).to_string()).unwrap();
+        }).to_string()).unwrap()),
+    );
     let config: HashMap<String, String> = serde_json::from_str(&config_str).unwrap();
 
     match config["type"].as_str() {
@@ -57,8 +59,10 @@ pub fn get_remote<T: ToString>(remote: T) -> Option<Remote> {
 
 /// Get all the remotes from the config file.
 pub fn get_remotes() -> Vec<Remote> {
-    let configs_str = librclone::rpc("config/listremotes", json!({}).to_string())
-            .unwrap_or_else(|_| unreachable!());
+    let configs_str = util::run_in_background(move || {
+        librclone::rpc("config/listremotes", json!({}).to_string())
+            .unwrap_or_else(|_| unreachable!())
+    });
     let configs = {
         let config: HashMap<String, Vec<String>> = serde_json::from_str(&configs_str).unwrap();
         config.get(&"remotes".to_string()).unwrap().to_owned()
@@ -220,6 +224,9 @@ pub enum RcloneListFilter {
 }
 
 /// Functions for syncing to a remote.
+/// All functions in this module automatically run under
+/// [`util::run_in_background`], so they don't need to be wrapped around
+/// such to be ran during UI execution.
 pub mod sync {
     use super::{RcloneError, RcloneList, RcloneListFilter, RcloneRemoteItem, RcloneStat};
     use crate::util;
@@ -233,9 +240,16 @@ pub mod sync {
         format!("{remote}:")
     }
 
+    /// Run an Rclone command without blocking the GUI.
+    fn run<T: ToString>(method: T, input: T) -> Result<String, String> {
+        let method = method.to_string();
+        let input = input.to_string();
+        util::run_in_background(|| librclone::rpc(method, input))
+    }
+
     /// Common function for some of the below command.
     fn common(command: &str, remote_name: &str, path: &str) -> Result<(), RcloneError> {
-        let resp = librclone::rpc(
+        let resp = run(
             command,
             &json!({
                 "fs": get_remote_name(remote_name),
@@ -252,7 +266,7 @@ pub mod sync {
 
     /// Delete a config.
     pub fn delete_config(remote_name: &str) -> Result<(), RcloneError> {
-        let resp = librclone::rpc("config/delete", &json!({ "name": remote_name }).to_string());
+        let resp = run("config/delete", &json!({ "name": remote_name }).to_string());
 
         match resp {
             Ok(_) => Ok(()),
@@ -262,7 +276,7 @@ pub mod sync {
 
     /// Get statistics about a file or folder.
     pub fn stat(remote_name: &str, path: &str) -> Result<Option<RcloneRemoteItem>, RcloneError> {
-        let resp = librclone::rpc(
+        let resp = run(
             "operations/stat",
             &json!({
                 "fs": get_remote_name(remote_name),
@@ -290,7 +304,7 @@ pub mod sync {
             RcloneListFilter::Files => json!({"filesOnly": true, "recurse": recursive}),
         };
 
-        let resp = librclone::rpc(
+        let resp = run(
             "operations/list",
             &json!({
                 "fs": get_remote_name(remote_name),
@@ -327,7 +341,7 @@ pub mod sync {
         dst_fs: &str,
         dst_remote: &str,
     ) -> Result<(), RcloneError> {
-        let resp = librclone::rpc(
+        let resp = run(
             "operations/copyfile",
             &json!({
                 "srcFs": src_fs,

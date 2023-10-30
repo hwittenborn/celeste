@@ -51,10 +51,10 @@ impl SimpleAsyncComponent for LoginModel {
             add_css_class: "celeste-global-padding",
             #[watch]
             set_visible: model.visible,
-            #[watch]
             // When hiding/showing different entry widgets, we may end up with
             // extra padding on the bottom of the window. This resets the
             // window height to our widget size on each render.
+            #[watch]
             set_default_size: (window.width(), -1),
 
              gtk::Box {

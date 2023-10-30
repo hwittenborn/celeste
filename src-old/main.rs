@@ -4,11 +4,18 @@
 #![feature(async_closure)]
 #![feature(trait_alias)]
 #![feature(exit_status_error)]
-#![feature(lazy_cell)]
-pub mod login;
+
+pub mod about;
+pub mod entities;
+pub mod gtk_util;
 pub mod launch;
-pub mod util;
+pub mod login;
+pub mod migrations;
+pub mod mpsc;
 pub mod rclone;
+pub mod traits;
+// pub mod tray;
+pub mod util;
 
 use relm4::prelude::*;
 use serde_json::json;
@@ -22,7 +29,6 @@ fn main() {
 
     // Setup our CSS and run the App.
     let app = RelmApp::new(util::APP_ID);
-    relm4_icons::initialize_icons();
     relm4::set_global_css(include_str!(concat!(env!("OUT_DIR"), "/style.css")));
     app.set_visible(false).run_async::<launch::LaunchModel>(());
 }

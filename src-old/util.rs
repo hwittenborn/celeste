@@ -1,13 +1,29 @@
+use futures::future::Future;
+use relm4::adw::glib::{self, MainContext};
 use std::path::PathBuf;
-
-/// CSS classes we use in the app.
-pub mod css {
-    /// The 'error' css class.
-    pub static ERROR: &str = "error";
-}
 
 /// The ID of the app.
 pub static APP_ID: &str = "com.hunterwittenborn.Celeste";
+
+/// Get the value out of a future.
+pub fn await_future<F: Future>(future: F) -> F::Output {
+    futures::executor::block_on(future)
+}
+
+/// Run a closure in the background so that the UI can keep running.
+pub fn run_in_background<T: Send + 'static, F: FnOnce() -> T + Send + 'static>(f: F) -> T {
+    MainContext::default().block_on(blocking::unblock(f))
+}
+
+/// Format a directory with the user's home directory replaced with '~'.
+pub fn fmt_home(dir: &str) -> String {
+    let home_dir = glib::home_dir().into_os_string().into_string().unwrap();
+
+    match dir.strip_prefix(&home_dir) {
+        Some(string) => "~".to_string() + string,
+        None => dir.to_string(),
+    }
+}
 
 /// Get the user's config directory.
 pub fn get_config_dir() -> PathBuf {
