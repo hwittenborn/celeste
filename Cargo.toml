@@ -16,7 +16,8 @@ hw-msg = "0.3.1"
 indexmap = "1.9.2"
 #ksni = "0.2.1"
 lazy_static = "1.4.0"
-librclone = { version = "0.6.0" }
+#librclone = { version = "0.6.0" }
+librclone = { git = "https://github.com/hwittenborn/librclone" }
 nix = "0.26.2"
 rand = "0.8.5"
 regex = "1.6.0"
