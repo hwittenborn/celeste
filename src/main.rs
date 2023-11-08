@@ -5,10 +5,10 @@
 #![feature(trait_alias)]
 #![feature(exit_status_error)]
 #![feature(lazy_cell)]
-pub mod login;
 pub mod launch;
-pub mod util;
+pub mod login;
 pub mod rclone;
+pub mod util;
 
 use relm4::prelude::*;
 use serde_json::json;

@@ -10,9 +10,14 @@ use time::OffsetDateTime;
 pub fn get_remote<T: ToString>(remote: T) -> Option<Remote> {
     let remote = remote.to_string();
 
-    let config_str = librclone::rpc("config/get", json!({
+    let config_str = librclone::rpc(
+        "config/get",
+        json!({
             "name": remote
-        }).to_string()).unwrap();
+        })
+        .to_string(),
+    )
+    .unwrap();
     let config: HashMap<String, String> = serde_json::from_str(&config_str).unwrap();
 
     match config["type"].as_str() {
@@ -58,7 +63,7 @@ pub fn get_remote<T: ToString>(remote: T) -> Option<Remote> {
 /// Get all the remotes from the config file.
 pub fn get_remotes() -> Vec<Remote> {
     let configs_str = librclone::rpc("config/listremotes", json!({}).to_string())
-            .unwrap_or_else(|_| unreachable!());
+        .unwrap_or_else(|_| unreachable!());
     let configs = {
         let config: HashMap<String, Vec<String>> = serde_json::from_str(&configs_str).unwrap();
         config.get(&"remotes".to_string()).unwrap().to_owned()

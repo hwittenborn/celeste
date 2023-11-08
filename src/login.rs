@@ -1,15 +1,34 @@
 //! Functionality for logging into a server.
-use crate::{util, rclone};
+use crate::{rclone, util};
 use adw::{prelude::*, Application, ApplicationWindow};
 use regex::Regex;
 use relm4::{
     component::{AsyncComponentParts, AsyncComponentSender, SimpleAsyncComponent},
     prelude::*,
 };
+use relm4_components::alert::{Alert, AlertSettings, AlertMsg};
 use sea_orm::DatabaseConnection;
-use strum::{EnumIter, IntoEnumIterator, IntoStaticStr, EnumString};
+use std::{
+    cell::{LazyCell, RefCell},
+    collections::HashMap,
+    rc::Rc,
+    str::FromStr,
+    sync::LazyLock,
+};
+use strum::{EnumIter, EnumString, IntoEnumIterator, IntoStaticStr};
 use url::Url;
-use std::{str::FromStr, cell::LazyCell, sync::LazyLock};
+
+fn show_error(model: &LoginModel, field: &LoginField) {
+    let mut borrow = model.errors.borrow_mut();
+    let items = borrow.get_mut(field).unwrap();
+
+    // TODO: We should use `Alert` from `relm4_components` for this.
+    adw::MessageDialog::builder()
+        .heading(&items.0)
+        .body(&items.1)
+        .build()
+        .show();
+}
 
 #[relm4::widget_template]
 impl WidgetTemplate for WarningButton {
@@ -46,13 +65,24 @@ pub enum LoginMsg {
     CheckInputs,
 }
 
+/// The login fields that we need to check. We use this in [`LoginModel`] below.
+#[derive(Clone, Debug, EnumIter, Eq, Hash, PartialEq)]
+enum LoginField {
+    Name,
+    Url,
+    Username,
+    Password,
+    Totp,
+}
+
+/// The type we use to store errors. The values are a tuple of, (title, subtitle) messages to pass to a message window.
+type Errors = HashMap<LoginField, (String, String)>;
+
 #[derive(Clone, Default)]
 pub struct LoginModel {
     visible: bool,
     provider: Provider,
-    // TODO: Store errors in here somehow. Current idea before I head to bed:
-    // Store a HashMap of <EntryFieldType, ErrorMsg> structs. We can choose
-    // to look at the ones that are relevant for the current remote type.
+    errors: Rc<RefCell<Errors>>,
 }
 
 #[relm4::component(async, pub)]
@@ -105,9 +135,13 @@ impl SimpleAsyncComponent for LoginModel {
                     adw::EntryRow {
                         set_title: &tr::tr!("Name"),
                         #[template]
-                        add_suffix = &WarningButton,
+                        add_suffix = &WarningButton {
+                            #[watch]
+                            set_visible: !model.errors.borrow().get(&LoginField::Name).unwrap().0.is_empty(),
+                            connect_clicked[model] => move |_| show_error(&model, &LoginField::Name)
+                        },
 
-                        connect_changed[sender] => move |name_input| {
+                        connect_changed[model, sender] => move |name_input| {
                             let name = name_input.text().to_string();
 
                             // Get a list of already existing config names.
@@ -121,19 +155,28 @@ impl SimpleAsyncComponent for LoginModel {
 
                             let mut err_msg = None;
                             if existing_remotes.contains(&name) {
-                                err_msg = tr::tr!("Name already exists.").into();
+                                err_msg = (tr::tr!("Name already exists"), String::new()).into();
                             } else if !NAME_REGEX.is_match(&name) {
-                                err_msg = tr::tr!(
-                                    "Invalid server name. Server names must:\
-                                    - Only contain numbers, letters, '_', '-', '.', and spaces\n\
-                                    - Not start with '-' or a space\n\
-                                    - Not end with a space"
-                                ).into()
+                                err_msg = (
+                                    tr::tr!("Invalid server name"),
+                                    format!(
+                                        "{}\n{}\n{}\n{}",
+                                        tr::tr!("Server names must:"),
+                                        tr::tr!("Only contain numbers, letters, underscores, hyphens, periods, and spaces"),
+                                        tr::tr!("Not start with a hyphen/space"),
+                                        tr::tr!("Not end with a space")
+                                    )
+                                ).into();
                             }
 
                             if let Some(msg) = err_msg {
+                                *model.errors.borrow_mut().get_mut(&LoginField::Name).unwrap() = msg;
                                 name_input.add_css_class(util::css::ERROR);
                             } else {
+                                let mut borrow = model.errors.borrow_mut();
+                                let items = borrow.get_mut(&LoginField::Name).unwrap();
+                                items.0.clear();
+                                items.1.clear();
                                 name_input.remove_css_class(util::css::ERROR);
                             }
 
@@ -147,7 +190,11 @@ impl SimpleAsyncComponent for LoginModel {
                         #[watch]
                         set_visible: matches!(model.provider, Provider::Nextcloud | Provider::Owncloud | Provider::WebDav),
                         #[template]
-                        add_suffix = &WarningButton,
+                        add_suffix = &WarningButton {
+                            #[watch]
+                            set_visible: !model.errors.borrow().get(&LoginField::Url).unwrap().0.is_empty(),
+                            connect_clicked[model] => move |_| show_error(&model, &LoginField::Url)
+                        },
                         connect_changed[model, sender] => move |url_input| {
                             let mut err_msg = None;
                             let maybe_url = Url::parse(&url_input.text());
@@ -159,15 +206,26 @@ impl SimpleAsyncComponent for LoginModel {
                                         .unwrap()
                                         .as_str()
                                         .to_string();
-                                    err_msg = tr::tr!("Don't specify '{invalid_url_segment}' as part of the URL.").into();
+                                    err_msg = (
+                                        tr::tr!("Invalid server URL"),
+                                        tr::tr!("Don't specify '{invalid_url_segment}' as part of the URL."),
+                                    ).into();
                                 }
                             } else {
-                                err_msg = tr::tr!("Invalid server URL ({}).", maybe_url.unwrap_err()).into();
+                                err_msg = (
+                                    tr::tr!("Invalid server URL"),
+                                    tr::tr!("Error: {}", maybe_url.unwrap_err())
+                                ).into();
                             }
 
                             if let Some(msg) = err_msg {
+                                *model.errors.borrow_mut().get_mut(&LoginField::Url).unwrap() = msg;
                                 url_input.add_css_class(util::css::ERROR);
                             } else {
+                                let mut borrow = model.errors.borrow_mut();
+                                let items = borrow.get_mut(&LoginField::Url).unwrap();
+                                items.0.clear();
+                                items.1.clear();
                                 url_input.remove_css_class(util::css::ERROR);
                             }
 
@@ -182,7 +240,11 @@ impl SimpleAsyncComponent for LoginModel {
                         set_visible: matches!(model.provider, Provider::Nextcloud | Provider::Owncloud | Provider::ProtonDrive | Provider::WebDav),
                         connect_changed => LoginMsg::CheckInputs,
                         #[template]
-                        add_suffix = &WarningButton,
+                        add_suffix = &WarningButton {
+                            #[watch]
+                            set_visible: !model.errors.borrow().get(&LoginField::Username).unwrap().0.is_empty(),
+                            connect_clicked[model] => move |_| show_error(&model, &LoginField::Username)
+                        },
                     },
 
                     #[name(password_input)]
@@ -192,7 +254,11 @@ impl SimpleAsyncComponent for LoginModel {
                         set_visible: matches!(model.provider, Provider::Nextcloud | Provider::Owncloud | Provider::ProtonDrive | Provider::WebDav),
                         connect_changed => LoginMsg::CheckInputs,
                         #[template]
-                        add_suffix = &WarningButton,
+                        add_suffix = &WarningButton {
+                            #[watch]
+                            set_visible: !model.errors.borrow().get(&LoginField::Password).unwrap().0.is_empty(),
+                            connect_clicked[model] => move |_| show_error(&model, &LoginField::Password)
+                        },
                     },
 
                     #[name(totp_input)]
@@ -202,7 +268,11 @@ impl SimpleAsyncComponent for LoginModel {
                         #[watch]
                         set_visible: matches!(model.provider, Provider::ProtonDrive),
                         #[template]
-                        add_suffix = &WarningButton,
+                        add_suffix = &WarningButton {
+                            #[watch]
+                            set_visible: !model.errors.borrow().get(&LoginField::Totp).unwrap().0.is_empty(),
+                            connect_clicked[model] => move |_| show_error(&model, &LoginField::Totp)
+                        },
                         connect_changed[sender] => move |totp_input| {
                             let totp = totp_input.text().to_string();
                             let mut err_msg = None;
@@ -254,13 +324,19 @@ impl SimpleAsyncComponent for LoginModel {
         root: Self::Root,
         sender: AsyncComponentSender<Self>,
     ) -> AsyncComponentParts<Self> {
-        let model = Self::default();
+        let mut model = Self::default();
+        for field in LoginField::iter() {
+            model.errors.borrow_mut().insert(field, Default::default());
+        }
+
         let widgets = view_output!();
+
         AsyncComponentParts { model, widgets }
     }
 
     fn post_view() {
-        // Disable the login button if any current input fields are empty or contain errors.
+        // Disable the login button if any current input fields are empty or contain
+        // errors.
         let mut sensitive = true;
 
         let inputs: Vec<adw::EntryRow> = vec![
@@ -278,9 +354,12 @@ impl SimpleAsyncComponent for LoginModel {
             }
         }
 
-        // We have to check the TOTP field separately, as it contains a checkmark toggle.
+        // We have to check the TOTP field separately, as it contains a checkmark
+        // toggle.
         if widgets.totp_input.is_visible() && widgets.totp_input_checkmark.is_active() {
-            if widgets.totp_input.text().is_empty() || widgets.totp_input.has_css_class(util::css::ERROR) {
+            if widgets.totp_input.text().is_empty()
+                || widgets.totp_input.has_css_class(util::css::ERROR)
+            {
                 sensitive = false;
             }
         }
@@ -294,7 +373,7 @@ impl SimpleAsyncComponent for LoginModel {
             LoginMsg::SetProvider(provider) => self.provider = provider,
             // This is handled in `pre_view` above. Preferrably it would be
             // done here, but we can't access the struct's widgets here.
-            LoginMsg::CheckInputs => ()
+            LoginMsg::CheckInputs => (),
         }
     }
 }

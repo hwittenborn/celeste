@@ -655,6 +655,7 @@ dependencies = [
  "rand 0.8.5",
  "regex",
  "relm4",
+ "relm4-components",
  "relm4-icons",
  "rocket",
  "sea-orm",
@@ -3498,6 +3499,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "relm4-components"
+version = "0.7.0-beta.2"
+source = "git+https://github.com/Relm4/Relm4?branch=fix-set-visible#631806a26ff2d3ebb64990a6aba18f52d9697b4a"
+dependencies = [
+ "once_cell",
+ "relm4",
+ "tracker",
+]
+
+[[package]]
 name = "relm4-icons"
 version = "0.7.0-alpha.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4749,6 +4760,26 @@ dependencies = [
  "tracing",
  "tracing-core",
  "tracing-log",
+]
+
+[[package]]
+name = "tracker"
+version = "0.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ff9636d15e370187f6bf55b79ce62ebf4221998bc0ba1774d7fa208b007f6bf8"
+dependencies = [
+ "tracker-macros",
+]
+
+[[package]]
+name = "tracker-macros"
+version = "0.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ca029746fbe0efda3298205de77bf759d7fef23ac97902641e0b49a623b0455f"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.38",
 ]
 
 [[package]]
