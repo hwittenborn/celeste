@@ -176,7 +176,15 @@ impl GDriveConfig {
                 }
 
                 // Otherwise check if the URL line has been printed, by checking for the auth URL.
-                if let Some(line) = process_stderr.lock().unwrap().lines().find(|line| line.contains("http://127.0.0.1:53682/auth")) {
+                //
+                // We check on both stdout and stderr, as rclone seems to report the authentication
+                // URL differently depending on the version we're using.
+                let process_output = format!(
+                    "{}\n{}",
+                    process_stdout.lock().unwrap(),
+                    process_stderr.lock().unwrap(),
+                );
+                if let Some(line) = process_output.lines().find(|line| line.contains("http://127.0.0.1:53682/auth")) {
                  // The URL will be the last space-separated item on the line.
                     *STATE_URL.lock().unwrap() = line.split_whitespace().last().unwrap().to_owned();
                     break
@@ -186,8 +194,6 @@ impl GDriveConfig {
             }
 
             hw_msg::warningln!("STATE URL: {}", STATE_URL.lock().unwrap());
-            hw_msg::warningln!("DEBUGGING: {}", process_stderr.lock().unwrap());
-
             let kill_request = Rc::new(RefCell::new(false));
 
             // Set up and open the temporary HTTP server.
