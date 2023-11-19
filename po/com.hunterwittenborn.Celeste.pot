@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Celeste 0.8.0\n"
+"Project-Id-Version: Celeste 0.8.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-23 20:35+0000\n"
+"POT-Creation-Date: 2023-11-19 01:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,7 +78,7 @@ msgstr ""
 msgid "Local folder:"
 msgstr ""
 
-#: src/launch.rs:613 src/launch.rs:775 src/login/gdrive.rs:208
+#: src/launch.rs:613 src/launch.rs:775 src/login/gdrive.rs:214
 msgid "Cancel"
 msgstr ""
 
@@ -213,32 +213,32 @@ msgstr ""
 msgid "Finished sync checks."
 msgstr ""
 
-#: src/login/gdrive.rs:205
+#: src/login/gdrive.rs:211
 msgid "Authenticating to {}..."
 msgstr ""
 
-#: src/login/gdrive.rs:206
+#: src/login/gdrive.rs:212
 msgid "Follow the link that opened in your browser, and come back once you've finished."
 msgstr ""
 
-#: src/login/gdrive.rs:233
+#: src/login/gdrive.rs:239
 msgid "There was an issue while running the webserver for authentication"
 msgstr ""
 
-#: src/login/gdrive.rs:242
+#: src/login/gdrive.rs:248
 msgid "There was an issue authenticating to {}"
 msgstr ""
 
 #: src/login/login_util.rs:15
-msgid "Server Name"
+msgid "Name"
 msgstr ""
 
 #: src/login/login_util.rs:27
-msgid "Server name already exists."
+msgid "Name already exists."
 msgstr ""
 
 #: src/login/login_util.rs:29
-msgid "Invalid server name. Server names must:\n"
+msgid "Invalid name. Names must:\n"
 "- Only contain numbers, letters, '_', '-', '.', and spaces\n"
 "- Not start with '-' or a space\n"
 "- Not end with a space"

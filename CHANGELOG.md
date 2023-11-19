@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.1] - 2023-11-18
+### Changed
+- Added more keywords to Celeste's desktop entry.
+
+### Fixed
+- Fixed Google Drive authentication window not showing when using older rclone versions.
+
 ## [0.8.0] - 2023-10-23
 ### Changed
 - Added functionality to only run sync checks when files are changed.
