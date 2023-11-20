@@ -12,9 +12,15 @@ use relm4::{
 use crate::login::{LoginModel, LoginMsg};
 
 pub enum LauchMsg {
+    /// The user is trying to add a new remote.
     NewLogin,
+    /// The application window is trying to be opened (i.e. from the tray).
     OpenRequest,
+    /// The application is trying to be closed (i.e. from the tray).
     CloseRequest,
+    #[doc(hidden)]
+    /// A new server has been added (from a succesful login).
+    AddServer(String),
 }
 
 pub struct LaunchModel {

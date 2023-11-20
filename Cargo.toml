@@ -17,6 +17,7 @@ ksni = "0.2.1"
 lazy_static = "1.4.0"
 librclone = { version = "0.6.0" }
 nix = "0.26.2"
+open = "5.0.0"
 rand = "0.8.5"
 regex = "1.6.0"
 # relm4 = { version = "0.6.2", features = ["gnome_43", "libadwaita"] }
@@ -24,7 +25,6 @@ relm4 = { version = "0.7.0-beta.2", features = ["gnome_43", "libadwaita"], git =
 # relm4-components = "0.6.2"
 relm4-components = { version = "0.7.0-beta.2", git = "https://github.com/Relm4/Relm4", branch = "fix-set-visible" }
 relm4-icons = { version = "0.7.0-alpha.2", features = ["icon-development-kit"] }
-rocket = "0.5.0-rc.2"
 sea-orm = { version = "0.10.3", features = ["sqlx-sqlite", "runtime-async-std-rustls", "macros"] }
 sea-orm-migration = "0.10.0"
 serde = { version = "1.0.143", features = ["derive"] }
@@ -37,6 +37,7 @@ tokio = { version = "1.21.2", features = ["macros", "rt-multi-thread", "sync"] }
 toml_edit = { version = "0.14.4", features = ["serde"] }
 tr = "0.1.6"
 url = "2.3.1"
+warp = "0.3.6"
 
 [build-dependencies]
 grass = "0.11.2"

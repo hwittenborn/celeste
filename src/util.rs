@@ -4,6 +4,8 @@ use std::path::PathBuf;
 pub mod css {
     /// The 'error' css class.
     pub static ERROR: &str = "error";
+    /// Scrollable codeblocks.
+    pub static SCROLLABLE_CODEBLOCK: &str = "celeste-scrollable-codeblock";
 }
 
 /// The ID of the app.

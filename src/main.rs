@@ -5,6 +5,8 @@
 #![feature(trait_alias)]
 #![feature(exit_status_error)]
 #![feature(lazy_cell)]
+
+pub mod gtk_util;
 pub mod launch;
 pub mod login;
 pub mod rclone;
