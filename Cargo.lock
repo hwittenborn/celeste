@@ -3383,7 +3383,6 @@ checksum = "c08c74e62047bb2de4ff487b251e4a92e24f48745648451635cec7d591162d9f"
 [[package]]
 name = "relm4"
 version = "0.7.0-beta.2"
-source = "git+https://github.com/Relm4/Relm4?branch=fix-set-visible#631806a26ff2d3ebb64990a6aba18f52d9697b4a"
 dependencies = [
  "async-trait",
  "flume 0.11.0",
@@ -3400,7 +3399,6 @@ dependencies = [
 [[package]]
 name = "relm4-components"
 version = "0.7.0-beta.2"
-source = "git+https://github.com/Relm4/Relm4?branch=fix-set-visible#631806a26ff2d3ebb64990a6aba18f52d9697b4a"
 dependencies = [
  "once_cell",
  "relm4",
@@ -3420,7 +3418,6 @@ dependencies = [
 [[package]]
 name = "relm4-macros"
 version = "0.7.0-beta.2"
-source = "git+https://github.com/Relm4/Relm4?branch=fix-set-visible#631806a26ff2d3ebb64990a6aba18f52d9697b4a"
 dependencies = [
  "proc-macro2",
  "quote",

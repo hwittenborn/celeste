@@ -54,7 +54,7 @@ impl SimpleAsyncComponent for LaunchModel {
         let login = LoginModel::builder()
             .transient_for(root.clone())
             .launch(())
-            .forward(sender.input_sender(), identity);
+            .forward(sender.input_sender(), |resp| todo!());
         let model = Self {
             hide_on_close: false,
             visible: false,

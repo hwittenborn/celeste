@@ -26,5 +26,6 @@ fn main() {
     let app = RelmApp::new(util::APP_ID);
     relm4_icons::initialize_icons();
     relm4::set_global_css(include_str!(concat!(env!("OUT_DIR"), "/style.css")));
-    app.set_visible(false).run_async::<launch::LaunchModel>(());
+    app.visible_on_activate(false)
+        .run_async::<launch::LaunchModel>(());
 }

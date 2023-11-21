@@ -1,12 +1,13 @@
 //! Functionality for logging into a server.
 use crate::{gtk_util, rclone, util};
 use adw::{prelude::*, Application, ApplicationWindow};
+use nix::{sys::signal::{self, Signal}, unistd::Pid};
 use regex::Regex;
 use relm4::{
     component::{AsyncComponentParts, AsyncComponentSender, SimpleAsyncComponent},
     prelude::*,
 };
-use relm4_components::alert::{Alert, AlertMsg, AlertSettings};
+use relm4_components::alert::{Alert, AlertMsg, AlertResponse, AlertSettings};
 use sea_orm::DatabaseConnection;
 use std::{
     cell::{LazyCell, RefCell},
@@ -17,11 +18,11 @@ use std::{
     rc::Rc,
     str::FromStr,
     sync::{Arc, LazyLock, Mutex},
-    thread,
+    thread, time::Duration,
 };
 use strum::{EnumIter, EnumString, IntoEnumIterator, IntoStaticStr};
 use tera::{Context, Tera};
-use tokio::sync::oneshot;
+use tokio::sync::mpsc::{self, Sender, Receiver};
 use url::Url;
 use warp::{
     http::{header, Response},
@@ -43,9 +44,9 @@ fn show_error(model: &LoginModel, field: &LoginField) {
 
 /// Spawn the Google Drive authentication server.
 ///
-/// Returns the server address, and a [`oneshot::Sender`] that can be used to
+/// Returns the server address, and a [`Sender`] that can be used to
 /// stop the server.
-async fn spawn_drive_auth_server(rclone_url: &str) -> (SocketAddr, oneshot::Sender<()>) {
+async fn spawn_drive_auth_server(rclone_url: &str) -> (SocketAddr, Sender<()>) {
     let rclone_url = rclone_url.to_string();
     let root = warp::path::end().map(move || {
         let mut context = Context::new();
@@ -66,18 +67,21 @@ async fn spawn_drive_auth_server(rclone_url: &str) -> (SocketAddr, oneshot::Send
 
     let routes = warp::get().and(root.or(drive_png).or(drive_signin_png));
 
-    let (tx, rx) = oneshot::channel();
+    let (tx, mut rx) = mpsc::channel(1);
     let (addr, server) = warp::serve(routes)
-        .bind_with_graceful_shutdown(SocketAddr::from_str("127.0.0.1:0").unwrap(), async {
-            rx.await.unwrap()
+        .bind_with_graceful_shutdown(SocketAddr::from_str("127.0.0.1:0").unwrap(), async move {
+            rx.recv().await.unwrap()
         });
     tokio::spawn(server);
 
     (addr, tx)
 }
 
-/// Get an authentication token for the given provider. Returns [`Err`] if unable to.
-async fn get_token(provider: Provider) -> Result<String, LoginCommandErr> {
+/// Get an authentication token for the given provider. Returns [`Err`] if
+/// unable to.
+/// 
+/// `rx` is an [`mpsc::Receiver`] to cancel authentication requests with.
+async fn get_token(provider: Provider, mut rx: mpsc::Receiver<()>) -> Result<String, LoginCommandErr> {
     let (client_id, client_secret) = match provider {
         Provider::Dropbox => ("hke0fgr43viaq03", "o4cpx8trcnneq7a"),
         Provider::GoogleDrive => (
@@ -127,44 +131,73 @@ async fn get_token(provider: Provider) -> Result<String, LoginCommandErr> {
     }));
 
     // Get the URL rclone will use for authentication.
-    let rclone_url = relm4::spawn_blocking(
-        glib::clone!(@strong rclone_stdout, @strong rclone_stderr => move || loop {
-            // If the rclone process has aborted already, then it failed before being able to get us a URL and we need to let the user know.
-            if process.try_wait().unwrap().is_some() {
-                return Err(rclone_stderr.lock().unwrap().to_string())
-            }
+    let rclone_url = loop {
+        // If the rclone process has aborted already, then it failed before being able to get us a URL and we need to let the user know.
+        if process.try_wait().unwrap().is_some() {
+            break Err(rclone_stderr.lock().unwrap().to_string())
+        }
 
-            // Otherwise check if the URL line has been printed in stdout or stderr. Currently in rclone, this involves checking for a URL at the end of a line.
-            let output = format!(
-                "{}\n{}",
-                rclone_stdout.lock().unwrap(),
-                rclone_stderr.lock().unwrap()
-            );
-            let maybe_url = output.lines()
-                .find(|line| line.contains("http://127.0.0.1:53682/auth"))
-                .map(|line| line.split_whitespace().last().unwrap().to_owned());
+        // Otherwise check if the URL line has been printed in stdout or stderr. Currently in rclone, this involves checking for a URL at the end of a line.
+        let output = format!(
+            "{}\n{}",
+            rclone_stdout.lock().unwrap(),
+            rclone_stderr.lock().unwrap()
+        );
+        let maybe_url = output.lines()
+            .find(|line| line.contains("http://127.0.0.1:53682/auth"))
+            .map(|line| line.split_whitespace().last().unwrap().to_owned());
 
-            if let Some(url) = maybe_url {
-                break Ok(url)
-            }
-        }),
-    )
-    .await
-    .unwrap()
+        if let Some(url) = maybe_url {
+            break Ok(url)
+        }
+    }
     .map_err(|err| LoginCommandErr::AuthServer(err))?;
 
     // Present the authentication request to the user.
     //
     // Google Drive has requirements for our app to show a Google Drive logo, so
     // handle that here.
-    let (addr, killer) = if provider == Provider::GoogleDrive {
+    let (addr, maybe_killer) = if provider == Provider::GoogleDrive {
         let (addr, killer) = spawn_drive_auth_server(&rclone_url).await;
-        (addr.to_string(), Some(killer))
+        (format!("http://{addr}"), Some(killer))
     } else {
-        (rclone_url, None)
+        (rclone_url.to_string(), None)
     };
-    open::that(&format!("http://{addr}")).unwrap();
-    todo!("Wait until we get a token, and then return it from this function")
+    open::that(&addr).unwrap();
+
+    // Get the token, returning an error if we couldn't get it.
+    let token = relm4::spawn_blocking(move || loop {
+        // Check if the user is cancelling the request.
+        if rx.try_recv().is_ok() {
+            // Kill the rclone process so we can use it in subsequent requests.
+            let pid = Pid::from_raw(process.id().try_into().unwrap());
+            signal::kill(pid, Signal::SIGINT).unwrap();
+            break Err(LoginCommandErr::Cancelled);
+        // Otherwise if the command finished, check if it returned a good exit code and then return the token.
+        } else if let Some(exit_status) = process.try_wait().unwrap() {
+            if !exit_status.success() {
+                break Err(LoginCommandErr::Token(rclone_stderr.lock().unwrap().to_string()))
+            } else {
+                let token = rclone_stdout.lock()
+                    .unwrap()
+                    .lines()
+                    .rev()
+                    .nth(1)
+                    .unwrap()
+                    .to_owned();
+                break Ok(token)
+            }
+        }
+    })
+    .await
+    .unwrap();
+
+    // Kill the webserver if we had started it up.
+    if let Some(killer) = maybe_killer {
+        killer.send(()).await.unwrap();
+    }
+
+    Ok(token?)
 }
 
 #[relm4::widget_template]
@@ -178,7 +211,7 @@ impl WidgetTemplate for WarningButton {
     }
 }
 
-#[derive(Clone, Debug, Default, EnumIter, EnumString, IntoStaticStr, PartialEq)]
+#[derive(Clone, Debug, Default, EnumIter, EnumString, IntoStaticStr, PartialEq, strum::Display)]
 pub enum Provider {
     #[default]
     Dropbox,
@@ -208,13 +241,31 @@ impl Provider {
 
 #[derive(Clone, Debug)]
 pub enum LoginMsg {
+    /// Open the login window.
     Open,
+    /// Set the provider we want to log in with.
     #[doc(hidden)]
     SetProvider(Provider),
+    /// Check that the inputs provided by the user are valid.
     #[doc(hidden)]
     CheckInputs,
+    /// Show an error from clicking the warning button on a login field.
+    #[doc(hidden)]
+    ShowFieldError(LoginField),
+    /// Get a token for a service that needs it.
     #[doc(hidden)]
     Authenticate,
+    /// Cancel an active authentication session from [`Self::Authenticate`].
+    #[doc(hidden)]
+    CancelAuthenticate,
+}
+
+#[derive(Debug)]
+pub enum LoginResponse {
+    // The user closed the window without logging in.
+    NoLogin,
+    // The remote name in the rclone config for the new login.
+    NewLogin(String)
 }
 
 /// The login fields that we need to check. We use this in [`LoginModel`] below.
@@ -229,25 +280,37 @@ enum LoginField {
 
 #[derive(Debug)]
 pub enum LoginCommandErr {
-    /// An error from starting up the rclone authorization server. Contains the stderr of `rclone authorize`.
+    /// The authentication request was cancelled.
+    Cancelled,
+    /// An error from starting up the rclone authorization server. Contains the
+    /// stderr of `rclone authorize`.
     AuthServer(String),
+    /// An error from obtaining a token from the rclone authorization server.
+    /// Contains the stderr of `rclone authorize`.
+    Token(String),
 }
 
 /// The type we use to store errors. The values are a tuple of (title, subtitle)
 /// messages to pass to a message window.
 type Errors = HashMap<LoginField, (String, String)>;
 
-#[derive(Clone, Default)]
 pub struct LoginModel {
     visible: bool,
     provider: Provider,
     errors: Rc<RefCell<Errors>>,
+    /// An [`Sender`] to use when cancelling authentication requests from [`Self::auth`]. It gets set to [`Some`] at the start of an authentication request from [`LoginMsg::Authenticate`].
+    auth_sender: Option<Sender<()>>,
+    /// The [`Alert`] component we use for showing errors from [`Self::errors`].
+    alert: Controller<Alert>,
+    /// The [`Alert`] component we use to notify the user of web browser
+    /// authentication.
+    auth: Controller<Alert>,
 }
 
 #[relm4::component(async, pub)]
 impl AsyncComponent for LoginModel {
     type Input = LoginMsg;
-    type Output = ();
+    type Output = LoginResponse;
     type CommandOutput = Result<String, LoginCommandErr>;
     type Init = ();
 
@@ -298,10 +361,10 @@ impl AsyncComponent for LoginModel {
                         add_suffix = &WarningButton {
                             #[watch]
                             set_visible: !model.errors.borrow().get(&LoginField::Name).unwrap().0.is_empty(),
-                            connect_clicked[model] => move |_| show_error(&model, &LoginField::Name)
+                            connect_clicked => LoginMsg::ShowFieldError(LoginField::Name)
                         },
 
-                        connect_changed[model, sender] => move |name_input| {
+                        connect_changed[errors = model.errors.clone(), sender] => move |name_input| {
                             let name = name_input.text().to_string();
 
                             // Get a list of already existing config names.
@@ -314,7 +377,10 @@ impl AsyncComponent for LoginModel {
                             static NAME_REGEX: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"^[0-9a-zA-Z_.][0-9a-zA-Z_. -]*[0-9a-zA-Z_.-]$").unwrap());
 
                             let mut err_msg = None;
-                            if existing_remotes.contains(&name) {
+
+                            if name.is_empty() {
+                                err_msg = None;
+                            } else if existing_remotes.contains(&name) {
                                 err_msg = (tr::tr!("Name already exists"), String::new()).into();
                             } else if !NAME_REGEX.is_match(&name) {
                                 err_msg = (
@@ -330,10 +396,10 @@ impl AsyncComponent for LoginModel {
                             }
 
                             if let Some(msg) = err_msg {
-                                *model.errors.borrow_mut().get_mut(&LoginField::Name).unwrap() = msg;
+                                *errors.borrow_mut().get_mut(&LoginField::Name).unwrap() = msg;
                                 name_input.add_css_class(util::css::ERROR);
                             } else {
-                                let mut borrow = model.errors.borrow_mut();
+                                let mut borrow = errors.borrow_mut();
                                 let items = borrow.get_mut(&LoginField::Name).unwrap();
                                 items.0.clear();
                                 items.1.clear();
@@ -353,14 +419,16 @@ impl AsyncComponent for LoginModel {
                         add_suffix = &WarningButton {
                             #[watch]
                             set_visible: !model.errors.borrow().get(&LoginField::Url).unwrap().0.is_empty(),
-                            connect_clicked[model] => move |_| show_error(&model, &LoginField::Url)
+                            connect_clicked => LoginMsg::ShowFieldError(LoginField::Url)
                         },
-                        connect_changed[model, sender] => move |url_input| {
+                        connect_changed[errors = model.errors.clone(), provider = model.provider.clone(), sender] => move |url_input| {
                             let mut err_msg = None;
                             let maybe_url = Url::parse(&url_input.text());
 
-                            if let Ok(url) = maybe_url {
-                                if matches!(model.provider, Provider::Nextcloud | Provider::Owncloud) && url.path().contains("/remote.php/") {
+                            if url_input.text().is_empty() {
+                                err_msg = None;
+                            } else if let Ok(url) = maybe_url {
+                                if matches!(provider, Provider::Nextcloud | Provider::Owncloud) && url.path().contains("/remote.php/") {
                                     static REMOTE_PHP_REGEX: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"/remote\.php/.*").unwrap());
                                     let invalid_url_segment = REMOTE_PHP_REGEX.find(url.path())
                                         .unwrap()
@@ -379,10 +447,10 @@ impl AsyncComponent for LoginModel {
                             }
 
                             if let Some(msg) = err_msg {
-                                *model.errors.borrow_mut().get_mut(&LoginField::Url).unwrap() = msg;
+                                *errors.borrow_mut().get_mut(&LoginField::Url).unwrap() = msg;
                                 url_input.add_css_class(util::css::ERROR);
                             } else {
-                                let mut borrow = model.errors.borrow_mut();
+                                let mut borrow = errors.borrow_mut();
                                 let items = borrow.get_mut(&LoginField::Url).unwrap();
                                 items.0.clear();
                                 items.1.clear();
@@ -419,13 +487,15 @@ impl AsyncComponent for LoginModel {
                         add_suffix = &WarningButton {
                             #[watch]
                             set_visible: totp_input_checkmark.is_active() && !model.errors.borrow().get(&LoginField::Totp).unwrap().0.is_empty(),
-                            connect_clicked[model] => move |_| show_error(&model, &LoginField::Totp)
+                            connect_clicked => LoginMsg::ShowFieldError(LoginField::Totp)
                         },
-                        connect_changed[model, sender] => move |totp_input| {
+                        connect_changed[errors = model.errors.clone(), sender] => move |totp_input| {
                             let totp = totp_input.text().to_string();
                             let mut err_msg = None;
 
-                            if totp.chars().any(|c| !c.is_numeric()) {
+                            if totp.is_empty() {
+                                err_msg = None;
+                            } else if totp.chars().any(|c| !c.is_numeric()) {
                                 err_msg = (
                                     tr::tr!("Invalid 2FA code"),
                                     tr::tr!("The 2FA code should only contain digits")
@@ -438,10 +508,10 @@ impl AsyncComponent for LoginModel {
                             }
 
                             if let Some(msg) = err_msg {
-                                *model.errors.borrow_mut().get_mut(&LoginField::Totp).unwrap() = msg;
+                                *errors.borrow_mut().get_mut(&LoginField::Totp).unwrap() = msg;
                                 totp_input.add_css_class(util::css::ERROR);
                             } else {
-                                let mut borrow = model.errors.borrow_mut();
+                                let mut borrow = errors.borrow_mut();
                                 let items = borrow.get_mut(&LoginField::Totp).unwrap();
                                 items.0.clear();
                                 items.1.clear();
@@ -485,7 +555,31 @@ impl AsyncComponent for LoginModel {
         root: Self::Root,
         sender: AsyncComponentSender<Self>,
     ) -> AsyncComponentParts<Self> {
-        let mut model = Self::default();
+        let alert = Alert::builder()
+            .transient_for(root.clone())
+            .launch(AlertSettings {
+                confirm_label: Some(tr::tr!("Ok")),
+                ..Default::default()
+            })
+            .connect_receiver(|_, _| {});
+        let auth = Alert::builder()
+            .transient_for(root.clone())
+            .launch(AlertSettings {
+                text: "".to_string(),
+                secondary_text: Some(tr::tr!("Follow the link that opened in your browser, and come back once you've finished")),
+                cancel_label: Some(tr::tr!("Cancel")),
+                ..Default::default()
+            })
+            .forward(sender.input_sender(), |_| LoginMsg::CancelAuthenticate);
+
+        let mut model = Self {
+            visible: false,
+            provider: Provider::default(),
+            errors: Rc::default(),
+            auth_sender: None,
+            alert,
+            auth,
+        };
         for field in LoginField::iter() {
             model.errors.borrow_mut().insert(field, Default::default());
         }
@@ -495,79 +589,130 @@ impl AsyncComponent for LoginModel {
         AsyncComponentParts { model, widgets }
     }
 
-    fn post_view() {
-        // Disable the login button if any current input fields are empty or contain
-        // errors.
-        let mut sensitive = true;
-
-        let inputs: Vec<adw::EntryRow> = vec![
-            widgets.name_input.clone(),
-            widgets.url_input.clone(),
-            widgets.username_input.clone(),
-            widgets.password_input.clone().into(),
-        ];
-
-        for input in inputs {
-            if input.is_visible() {
-                if input.text().is_empty() || input.has_css_class(util::css::ERROR) {
-                    sensitive = false;
-                }
-            }
-        }
-
-        // We have to check the TOTP field separately, as it contains a checkmark
-        // toggle.
-        if widgets.totp_input.is_visible() && widgets.totp_input_checkmark.is_active() {
-            if widgets.totp_input.text().is_empty()
-                || widgets.totp_input.has_css_class(util::css::ERROR)
-            {
-                sensitive = false;
-            }
-        }
-
-        widgets.login_button.set_sensitive(sensitive);
-    }
-
-    async fn update(&mut self, message: Self::Input, sender: AsyncComponentSender<Self>, _root: &Self::Root) {
-        // We have to clone the provider in order to use it in the
-        // `LoginMsg::Authenticate` match below.
-        let provider_clone = self.provider.clone();
+    async fn update_with_view(
+        &mut self,
+        widgets: &mut Self::Widgets,
+        message: Self::Input,
+        sender: AsyncComponentSender<Self>,
+        root: &Self::Root,
+    ) {
+        // Reset all the input widgets we use to be empty. We do this when
+        // opening/re-opening the window or switching providers.
+        let reset_widgets = || {
+            widgets.name_input.set_text("");
+            widgets.url_input.set_text("");
+            widgets.username_input.set_text("");
+            widgets.password_input.set_text("");
+            widgets.totp_input_checkmark.set_active(false);
+        };
 
         match message {
-            LoginMsg::Open => self.visible = true,
-            LoginMsg::SetProvider(provider) => self.provider = provider,
-            // This is handled in `pre_view` above. Preferrably it would be
-            // done here, but we can't access the struct's widgets here.
-            LoginMsg::CheckInputs => (),
-            LoginMsg::Authenticate => sender.oneshot_command(async {
-                if matches!(
-                    provider_clone,
-                    Provider::Dropbox | Provider::GoogleDrive | Provider::PCloud
-                ) {
-                    todo!("Show a window telling the user to look in their browser");
-                    let token = get_token(provider_clone).await?;
+            LoginMsg::Open => {
+                reset_widgets();
+                sender.input(LoginMsg::SetProvider(Provider::default()));
+                self.visible = true;
+            }
+            LoginMsg::SetProvider(provider) => {
+                reset_widgets();
+                self.provider = provider;
+            }
+            LoginMsg::CheckInputs => {
+                // Disable the login button if any current input fields are empty or contain
+                // errors.
+                let mut sensitive = true;
+                let inputs: Vec<adw::EntryRow> = vec![
+                    widgets.name_input.clone(),
+                    widgets.url_input.clone(),
+                    widgets.username_input.clone(),
+                    widgets.password_input.clone().into(),
+                ];
+
+                for input in inputs {
+                    if input.is_visible() {
+                        if input.text().is_empty() || input.has_css_class(util::css::ERROR) {
+                            sensitive = false;
+                        }
+                    }
                 }
 
-                todo!()
-            }),
+                // We have to check the TOTP field separately, as it contains a checkmark
+                // toggle.
+                if widgets.totp_input.is_visible() && widgets.totp_input_checkmark.is_active() {
+                    if widgets.totp_input.text().is_empty()
+                        || widgets.totp_input.has_css_class(util::css::ERROR)
+                    {
+                        sensitive = false;
+                    }
+                }
+
+                widgets.login_button.set_sensitive(sensitive);
+            }
+            LoginMsg::ShowFieldError(field) => {
+                let mut errors_ref = self.errors.borrow_mut();
+                let error_items = errors_ref.get_mut(&field).unwrap();
+
+                let mut alert_state = self.alert.state().get_mut();
+                let mut settings = &mut alert_state.model.settings;
+
+                settings.text = error_items.0.clone();
+                settings.secondary_text = Some(error_items.1.clone());
+                self.alert.emit(AlertMsg::Show);
+            }
+            LoginMsg::Authenticate => {
+                todo!("We have to make this function only start up the token server when using a required remote. I'm too tired to look at this function right now so we're out.");
+                root.set_sensitive(false);
+                let (tx, rx) = mpsc::channel(1);
+
+                self.auth.state().get_mut().model.settings.text = tr::tr!("Logging into {}...", self.provider);
+                self.auth.emit(AlertMsg::Show);
+
+                let provider = self.provider.clone();
+                sender.oneshot_command(async {
+                    let token = get_token(provider, rx).await?;
+                    todo!("Gotta set up the rclone config now. Here we go D:");
+                });
+                self.auth_sender = Some(tx);
+            }
+            LoginMsg::CancelAuthenticate => {
+                self.auth_sender.take().unwrap().send(()).await.unwrap();
+            }
         }
+
+        self.update_view(widgets, sender);
     }
 
     async fn update_cmd(
         &mut self,
         message: Self::CommandOutput,
-        _sender: AsyncComponentSender<Self>,
-        _root: &Self::Root
+        sender: AsyncComponentSender<Self>,
+        root: &Self::Root,
     ) {
+        self.auth.emit(AlertMsg::Hide);
+
         match message {
-            Ok(_) => todo!("GOTTA DO SOMETHING WITH THAT STUFF"),
+            Ok(remote_name) => sender.output(LoginResponse::NewLogin(remote_name)).unwrap(),
             Err(err) => match err {
+                // Everything that needs to be handled is done in the code above and below this `match` statement.
+                LoginCommandErr::Cancelled => (),
+                // TODO: Both of these should use Relm4 components, but we're gonna see if we can
+                // get [`Alert`] from `relm4_components` to use `adw::MessageDialog` first.
                 LoginCommandErr::AuthServer(err) => gtk_util::show_codeblock_error(
                     &tr::tr!("Unable to start authentication server"),
-                    Some(&tr::tr!("More information about the error is included below")),
-                    &err
-                )
-            }
+                    Some(&tr::tr!(
+                        "More information about the error is included below"
+                    )),
+                    &err,
+                ),
+                LoginCommandErr::Token(err) => gtk_util::show_codeblock_error(
+                    &tr::tr!("Unable to obtain token"),
+                    Some(&tr::tr!(
+                        "More information about the error is included below"
+                    )),
+                    &err,
+                ),
+            },
         }
+
+        root.set_sensitive(true);
     }
 }
