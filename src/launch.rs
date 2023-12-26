@@ -153,10 +153,12 @@ fn get_image(icon_name: &str) -> Image {
 pub fn launch(app: &Application, background: bool) {
     // Create the configuration directory if it doesn't exist.
     let config_path = util::get_config_dir();
-    if !config_path.exists() && let Err(err) = fs::create_dir_all(&config_path) {
+    if !config_path.exists()
+        && let Err(err) = fs::create_dir_all(&config_path)
+    {
         gtk_util::show_error(
             &tr::tr!("Unable to create Celeste's config directory [{}].", err),
-            None
+            None,
         );
         return;
     }
@@ -1888,11 +1890,19 @@ pub fn launch(app: &Application, background: bool) {
                                 file_type.is_dir() && remote_item.as_ref().unwrap().is_dir;
 
                             if !same_type {
-                                if file_type.is_dir() && let Err(err) = fs::remove_dir_all(item.path()) {
-                                    add_error(SyncError::General(local_path.clone(), err.to_string()));
+                                if file_type.is_dir()
+                                    && let Err(err) = fs::remove_dir_all(item.path())
+                                {
+                                    add_error(SyncError::General(
+                                        local_path.clone(),
+                                        err.to_string(),
+                                    ));
                                     return Err(());
                                 } else if let Err(err) = fs::remove_file(item.path()) {
-                                    add_error(SyncError::General(local_path.clone(), err.to_string()));
+                                    add_error(SyncError::General(
+                                        local_path.clone(),
+                                        err.to_string(),
+                                    ));
                                     return Err(());
                                 }
                             }
@@ -1953,44 +1963,79 @@ pub fn launch(app: &Application, background: bool) {
                             // let the user decide which to keep.
                             // Since `db_model.last_sync_timestamp` is an `i32`, we should be able
                             // to safely convert it to an `i64` and `u64`.
-                            if local_utc_timestamp > db_model.last_local_timestamp as u64 && let Some(remote_timestamp) = remote_utc_timestamp && remote_timestamp > db_model.last_remote_timestamp as i64 {
-                                // Only add the error if one of the items is not a directory - there's no point in saying both directories are more current, and it's probably because one of the items in the directory got updated anyway.
-                                if let Some(r_item) = remote_item && (!item.path().is_dir() || !r_item.is_dir) {
-                                    add_error(SyncError::BothMoreCurrent(local_path.clone(), remote_path.clone()));
+                            if local_utc_timestamp > db_model.last_local_timestamp as u64
+                                && let Some(remote_timestamp) = remote_utc_timestamp
+                                && remote_timestamp > db_model.last_remote_timestamp as i64
+                            {
+                                // Only add the error if one of the items is not a directory -
+                                // there's no point in saying both directories are more current, and
+                                // it's probably because one of the items in the directory got
+                                // updated anyway.
+                                if let Some(r_item) = remote_item
+                                    && (!item.path().is_dir() || !r_item.is_dir)
+                                {
+                                    add_error(SyncError::BothMoreCurrent(
+                                        local_path.clone(),
+                                        remote_path.clone(),
+                                    ));
                                 }
                             // The local item is more recent.
                             } else if local_utc_timestamp > db_model.last_local_timestamp as u64 {
                                 if let Ok(rclone_item) = push_local_to_remote() {
-                                    update_db_item(get_local_file_timestamp().try_into().unwrap(), rclone_item.mod_time.unix_timestamp().try_into().unwrap());
+                                    update_db_item(
+                                        get_local_file_timestamp().try_into().unwrap(),
+                                        rclone_item.mod_time.unix_timestamp().try_into().unwrap(),
+                                    );
                                     continue;
                                 } else {
                                     continue;
                                 }
                             // The remote item is more recent.
-                            } else if let Some(remote_timestamp) = remote_utc_timestamp && remote_timestamp > db_model.last_remote_timestamp as i64 {
+                            } else if let Some(remote_timestamp) = remote_utc_timestamp
+                                && remote_timestamp > db_model.last_remote_timestamp as i64
+                            {
                                 if pull_remote_to_local().is_err() {
                                     continue;
                                 } else {
-                                    update_db_item(get_local_file_timestamp().try_into().unwrap(), remote_timestamp.try_into().unwrap());
+                                    update_db_item(
+                                        get_local_file_timestamp().try_into().unwrap(),
+                                        remote_timestamp.try_into().unwrap(),
+                                    );
                                 }
-                            // The item is missing from the remote, but the last recorded timestamp for the local item is still the same. This means the item got deleted on the server, and we need to reflect such locally.
-                            } else if remote_item.is_none() && local_utc_timestamp == db_model.last_local_timestamp as u64 {
+                            // The item is missing from the remote, but the last
+                            // recorded timestamp for the local item is still
+                            // the same. This means the item got deleted on the
+                            // server, and we need to reflect such locally.
+                            } else if remote_item.is_none()
+                                && local_utc_timestamp == db_model.last_local_timestamp as u64
+                            {
                                 if item.path().is_dir() {
                                     if let Err(err) = fs::remove_dir_all(&local_path) {
-                                        add_error(SyncError::General(local_path.clone(), err.to_string()));
+                                        add_error(SyncError::General(
+                                            local_path.clone(),
+                                            err.to_string(),
+                                        ));
                                         continue;
                                     }
                                 } else if let Err(err) = fs::remove_file(&local_path) {
-                                    add_error(SyncError::General(local_path.clone(), err.to_string()));
+                                    add_error(SyncError::General(
+                                        local_path.clone(),
+                                        err.to_string(),
+                                    ));
                                     continue;
                                 }
 
                                 delete_db_entry();
                                 continue;
-                            // Both the local and remote item remain unchanged - do nothing.
-                            } else if local_utc_timestamp == db_model.last_local_timestamp as u64 && let Some(remote_timestamp) = remote_utc_timestamp && remote_timestamp == db_model.last_remote_timestamp as i64 {
+                            // Both the local and remote item remain unchanged -
+                            // do nothing.
+                            } else if local_utc_timestamp == db_model.last_local_timestamp as u64
+                                && let Some(remote_timestamp) = remote_utc_timestamp
+                                && remote_timestamp == db_model.last_remote_timestamp as i64
+                            {
                                 continue;
-                            // Every possible scenario should have been covered above, so panic if not.
+                            // Every possible scenario should have been covered
+                            // above, so panic if not.
                             } else {
                                 unreachable!();
                             }
@@ -2299,8 +2344,13 @@ pub fn launch(app: &Application, background: bool) {
                             }
 
                             if item.is_dir {
-                                if !local_path.exists() && let Err(err) = fs::create_dir(local_path) {
-                                    add_error(SyncError::General(local_path_string.clone(), err.to_string()));
+                                if !local_path.exists()
+                                    && let Err(err) = fs::create_dir(local_path)
+                                {
+                                    add_error(SyncError::General(
+                                        local_path_string.clone(),
+                                        err.to_string(),
+                                    ));
                                     return Err(());
                                 }
 
@@ -2364,16 +2414,30 @@ pub fn launch(app: &Application, background: bool) {
                             };
 
                             // Both items are more recent.
-                            if let Some(l_timestamp) = local_timestamp && l_timestamp > db_model.last_local_timestamp as u64 && remote_timestamp > db_model.last_remote_timestamp as i64 {
-                                // Only add the error if one of the items is not a directory - there's no point in saying both directories are more current, and it's probably because one of the items in the directory got updated anyway.
+                            if let Some(l_timestamp) = local_timestamp
+                                && l_timestamp > db_model.last_local_timestamp as u64
+                                && remote_timestamp > db_model.last_remote_timestamp as i64
+                            {
+                                // Only add the error if one of the items is not a directory -
+                                // there's no point in saying both directories are more current, and
+                                // it's probably because one of the items in the directory got
+                                // updated anyway.
                                 if !local_path.is_dir() || !item.is_dir {
-                                    add_error(SyncError::BothMoreCurrent(local_path_string.clone(), remote_path_string.clone()));
+                                    add_error(SyncError::BothMoreCurrent(
+                                        local_path_string.clone(),
+                                        remote_path_string.clone(),
+                                    ));
                                 }
                                 continue;
                             // The local item is more recent.
-                            } else if let Some(l_timestamp) = local_timestamp && l_timestamp > db_model.last_local_timestamp as u64 {
+                            } else if let Some(l_timestamp) = local_timestamp
+                                && l_timestamp > db_model.last_local_timestamp as u64
+                            {
                                 if let Ok(rclone_item) = push_local_to_remote() {
-                                    update_db_item(get_local_file_timestamp().unwrap().try_into().unwrap(), rclone_item.mod_time.unix_timestamp().try_into().unwrap());
+                                    update_db_item(
+                                        get_local_file_timestamp().unwrap().try_into().unwrap(),
+                                        rclone_item.mod_time.unix_timestamp().try_into().unwrap(),
+                                    );
                                     continue;
                                 } else {
                                     continue;
@@ -2384,24 +2448,43 @@ pub fn launch(app: &Application, background: bool) {
                                 if pull_remote_to_local().is_err() {
                                     continue;
                                 } else {
-                                    update_db_item(get_local_file_timestamp().unwrap().try_into().unwrap(), remote_timestamp.try_into().unwrap());
+                                    update_db_item(
+                                        get_local_file_timestamp().unwrap().try_into().unwrap(),
+                                        remote_timestamp.try_into().unwrap(),
+                                    );
                                 }
 
-                            // The item is missing locally, but the last recorded timestamp for the remote item is still the same. This means the item got deleted locally, and we need to reflect such on the server.
-                            } else if !local_path.exists() && remote_timestamp == db_model.last_remote_timestamp as i64 {
-                                if let Err(err) = rclone::sync::purge(&remote.name, &remote_path_string) {
-                                    add_error(SyncError::General(remote_path_string.clone(), err.error));
+                            // The item is missing locally, but the last
+                            // recorded timestamp for the remote item is still
+                            // the same. This means the item got deleted
+                            // locally, and we need to reflect such on the
+                            // server.
+                            } else if !local_path.exists()
+                                && remote_timestamp == db_model.last_remote_timestamp as i64
+                            {
+                                if let Err(err) =
+                                    rclone::sync::purge(&remote.name, &remote_path_string)
+                                {
+                                    add_error(SyncError::General(
+                                        remote_path_string.clone(),
+                                        err.error,
+                                    ));
                                     delete_db_entry();
                                     continue;
                                 } else {
                                     continue;
                                 }
 
-                            // Both the local and remote item remain unchanged - do nothing.
-                            } else if let Some(l_timestamp) = local_timestamp && l_timestamp == db_model.last_local_timestamp as u64 && remote_timestamp == db_model.last_remote_timestamp as i64 {
+                            // Both the local and remote item remain unchanged -
+                            // do nothing.
+                            } else if let Some(l_timestamp) = local_timestamp
+                                && l_timestamp == db_model.last_local_timestamp as u64
+                                && remote_timestamp == db_model.last_remote_timestamp as i64
+                            {
                                 continue;
 
-                            // Every possible scenario should have been covered above, so panic if not.
+                            // Every possible scenario should have been covered
+                            // above, so panic if not.
                             } else {
                                 unreachable!();
                             }
