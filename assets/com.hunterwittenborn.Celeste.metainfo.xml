@@ -41,6 +41,26 @@
         </screenshot>
     </screenshots>
     <releases>
+        <release date="2023-11-18" version="0.8.1">
+            <description>
+                <p>
+                    Changes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Added more keywords to Celeste's desktop entry.
+                    </li>
+                </ul>
+                <p>
+                    Fixes in this release:
+                </p>
+                <ul>
+                    <li>
+                        Fixed Google Drive authentication window not showing when using older rclone versions.
+                    </li>
+                </ul>
+            </description>
+        </release>
         <release date="2023-10-23" version="0.8.0">
             <description>
                 <p>
