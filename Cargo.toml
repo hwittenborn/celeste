@@ -21,8 +21,8 @@ nix = "0.26.2"
 rand = "0.8.5"
 regex = "1.6.0"
 rocket = "0.5.0-rc.2"
-sea-orm = { version = "0.10.3", features = ["sqlx-sqlite", "runtime-async-std-rustls", "macros"] }
-sea-orm-migration = "0.10.0"
+sea-orm = { version = "0.12.0", features = ["sqlx-sqlite", "runtime-async-std-rustls", "macros"] }
+sea-orm-migration = "0.12.0"
 serde = { version = "1.0.143", features = ["derive"] }
 serde_json = "1.0.83"
 tempfile = "3.3.0"
@@ -34,5 +34,5 @@ tr = "0.1.6"
 url = "2.3.1"
 
 [build-dependencies]
-grass = "0.11.2"
+grass = "0.13.2"
 nipper = "0.1.9"
