@@ -8,233 +8,247 @@ msgstr ""
 "Project-Id-Version: Celeste 0.8.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-19 01:22+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2024-03-22 14:01+0000\n"
+"Last-Translator: Kaleido Scope <senpai@firemail.cc>\n"
+"Language-Team: Norwegian Nynorsk <https://hosted.weblate.org/projects/"
+"celeste/celeste/nn/>\n"
 "Language: nn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: src/about.rs:20
 msgid "App icons by"
-msgstr ""
+msgstr "Appikon av"
 
 #: src/gtk_util.rs:20 src/gtk_util.rs:43 src/launch.rs:614 src/launch.rs:776
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: src/launch.rs:99
 msgid "Both '{}' and '{}' are more recent than at last sync."
-msgstr ""
+msgstr "Både '{}' og '{}' er nyare enn ved siste synkronisering."
 
 #: src/launch.rs:158
 msgid "Unable to create Celeste's config directory [{}]."
-msgstr ""
+msgstr "Kunna ikkje oppretta Celeste sin konfigurasjonsmappe [{}]."
 
 #: src/launch.rs:170
 msgid "Unable to create Celeste's database file [{}]."
-msgstr ""
+msgstr "Kunna ikkje oppretta Celeste sin databasefil [{}]."
 
 #: src/launch.rs:180
 msgid "Unable to connect to database [{}]."
-msgstr ""
+msgstr "Kunna ikkje tilkopla til databasen [{}]."
 
 #: src/launch.rs:188
 msgid "Unable to run database migrations [{}]"
-msgstr ""
+msgstr "Kunna ikkje køyra databasemigrasjonar [{}]"
 
 #: src/launch.rs:288
 msgid "Awaiting sync check..."
-msgstr ""
+msgstr "Ventar på synkroniseringssjekk..."
 
 #: src/launch.rs:324
 msgid "Sync Errors"
-msgstr ""
+msgstr "Synkroniseringsfeil"
 
 #: src/launch.rs:339
 msgid "File/Folder Exclusions"
-msgstr ""
+msgstr "Fil/Mappe-Ekskludering"
 
 #: src/launch.rs:458
 msgid "Stop syncing this directory"
-msgstr ""
+msgstr "Stopp synkroniseringen av denne mappa"
 
 #: src/launch.rs:475
 msgid "Are you sure you want to stop syncing '{}' to '{}'?"
-msgstr ""
+msgstr "Er du sikker på at du vil slutta å synkronisera '{}' til '{}'?"
 
 #: src/launch.rs:484
 msgid "This directory is currently being processed to no longer be synced."
-msgstr ""
+msgstr "Denne mappa vert behandla for å ikkje lenger synkroniserast."
 
 #: src/launch.rs:574
 msgid "Directories"
-msgstr ""
+msgstr "Mapper"
 
 #. Get the local folder to sync with.
 #: src/launch.rs:597
 msgid "Local folder:"
-msgstr ""
+msgstr "Lokal mappe:"
 
 #: src/launch.rs:613 src/launch.rs:775 src/login/gdrive.rs:214
 msgid "Cancel"
-msgstr ""
+msgstr "Avbryt"
 
 #. Get the remote folder to sync with, and add it.
 #. The entry completion code is largely inspired by https://github.com/gtk-rs/gtk4-rs/blob/master/examples/entry_completion/main.rs. I honestly have no clue what half the code for that is doing, I just know the current code is working well enough, and it can be fixed later if it breaks.
 #: src/launch.rs:633
 msgid "Remote folder:"
-msgstr ""
+msgstr "Ekstern mappe:"
 
 #: src/launch.rs:820
 msgid "The specified remote directory doesn't exist"
-msgstr ""
+msgstr "Angjeve ekstern mappe finnast ikkje der"
 
 #: src/launch.rs:828
 msgid "Failed to check if the specified remote directory exists"
-msgstr ""
+msgstr "Klarte ikkje å finna ut om angjeve mappe finnast"
 
 #: src/launch.rs:839
 msgid "The specified directory pair is already being synced"
-msgstr ""
+msgstr "Det angjeve mappeparet er allereie i synkronisering"
 
 #: src/launch.rs:842
 msgid "The specified local directory doesn't exist"
-msgstr ""
+msgstr "Den angjeve lokale mappa eksisterer ikkje"
 
 #: src/launch.rs:845
 msgid "The specified local path isn't a directory"
-msgstr ""
+msgstr "Den angjeve lokale søkestien er ikkje ei mappe"
 
 #: src/launch.rs:848
 msgid "The specified local directory needs to be an absolute path"
-msgstr ""
+msgstr "Den angjeve lokale katalogen må vera ein absolutt søkesti"
 
 #: src/launch.rs:876
 msgid "Are you sure you want to delete this remote?"
-msgstr ""
+msgstr "Er du sikker på at du vil fjerne denne eksterne mappa?"
 
 #: src/launch.rs:877
 msgid "All the directories associated with this remote will also stop syncing."
-msgstr ""
+msgstr "Alle katalogane knytta til denne vil au slutta å synkronisera."
 
 #: src/launch.rs:1342 src/launch.rs:2509
 msgid "Files are synced."
-msgstr ""
+msgstr "Filene er synkroniserte."
 
 #: src/launch.rs:1352
 msgid "Syncing '{}'..."
-msgstr ""
+msgstr "Synkroniserer '{}'..."
 
 #: src/launch.rs:1373
 msgid "Checking for changes..."
-msgstr ""
+msgstr "Ser etter endringar …"
 
 #. Add an error for reporting in the UI.
 #: src/launch.rs:1380
 msgid "Please resolve the reported syncing issues."
-msgstr ""
+msgstr "Ver venleg og løys dei anmeldte synkroniseringsfeilene."
 
 #: src/launch.rs:1407
 msgid "{} errors found. "
-msgstr ""
+msgstr "Fant {} feil. "
 
 #: src/launch.rs:1421
 msgid "Would you like to dismiss this error?"
-msgstr ""
+msgstr "Forkast denne feilen?"
 
 #: src/launch.rs:1448
 msgid "Failed to sync '{}' to '{}' on remote."
-msgstr ""
+msgstr "Kunna ikkje synkronisera '{}' til '{}' eksternt."
 
 #: src/launch.rs:1456
 msgid "Failed to sync '{}' on remote to '{}'."
-msgstr ""
+msgstr "Kunna ikkje synkronisera '{}' eksternt til '{}'."
 
 #: src/launch.rs:1481
 msgid "Unable to fetch data for '{}' from the remote."
-msgstr ""
+msgstr "Kunna ikkje henta ekstern data for '{}'."
 
 #: src/launch.rs:1490 src/launch.rs:1495 src/launch.rs:1503
 msgid "File Update"
-msgstr ""
+msgstr "Filoppdatering"
 
 #: src/launch.rs:1490
 msgid "Neither the local item or remote item exists anymore. This error will now be removed."
 msgstr ""
+"Verken det lokale elementet eller det eksterne elementet eksisterer lenger. "
+"Denne feilen vil no bli fjerna."
 
 #: src/launch.rs:1495
 msgid "Only the local item exists now, so it will be synced to the remote."
 msgstr ""
+"Berre det lokale elementet eksisterer no, så det vil bli synkronisert med "
+"det eksterne."
 
 #: src/launch.rs:1503
 msgid "Only the remote item exists now, so it will be synced to the local machine."
 msgstr ""
+"Berre det eksterne elementet eksisterer no, så det vil bli synkronisert til "
+"den lokale maskinen."
 
 #: src/launch.rs:1513
 msgid "Both the local item '{}' and remote item '{}' have been updated since the last sync."
 msgstr ""
+"Både det lokale elementet '{}' og det eksterne elementet '{}' har blitt "
+"oppdatert sidan siste synkronisering."
 
 #: src/launch.rs:1515
 msgid "Which item would you like to keep?"
-msgstr ""
+msgstr "Hvilket element vil du behalda?"
 
 #: src/launch.rs:1517
 msgid "Local"
-msgstr ""
+msgstr "Lokalt"
 
 #: src/launch.rs:1518
 msgid "Remote"
-msgstr ""
+msgstr "Eksternt"
 
 #: src/launch.rs:1567
 msgid "1 error found."
-msgstr ""
+msgstr "Fant ein feil."
 
 #: src/launch.rs:1569
 msgid "{} errors found."
-msgstr ""
+msgstr "Fant {} feil."
 
 #: src/launch.rs:1701
 msgid "Checking '{}' for changes..."
-msgstr ""
+msgstr "Sjekkar «{}» for endringar…"
 
 #: src/launch.rs:2117
 msgid "Checking '{}' on remote for changes..."
-msgstr ""
+msgstr "Sjekkar '{}' eksternt for endringar..."
 
 #: src/launch.rs:2530
 msgid "Finished sync checks with {} errors."
-msgstr ""
+msgstr "Fullførte synkroniseringssjekk med {} feil."
 
 #: src/launch.rs:2535
 msgid "Finished sync checks."
-msgstr ""
+msgstr "Synkroniseringssjekk er fullført."
 
 #: src/login/gdrive.rs:211
 msgid "Authenticating to {}..."
-msgstr ""
+msgstr "Autentiserer til {}..."
 
 #: src/login/gdrive.rs:212
 msgid "Follow the link that opened in your browser, and come back once you've finished."
 msgstr ""
+"Følg lenkjen som opna i nettlesaren din, og kom tilbake når du er ferdig."
 
 #: src/login/gdrive.rs:239
 msgid "There was an issue while running the webserver for authentication"
 msgstr ""
+"Det oppstod eit problem under køyringa av vebbsørvaren for "
+"autentiseringsprosessen"
 
 #: src/login/gdrive.rs:248
 msgid "There was an issue authenticating to {}"
-msgstr ""
+msgstr "Det oppstod eit problem med autentiseringen til {}"
 
 #: src/login/login_util.rs:15
 msgid "Name"
-msgstr ""
+msgstr "Namn"
 
 #: src/login/login_util.rs:27
 msgid "Name already exists."
-msgstr ""
+msgstr "Namnet er allereie i bruk."
 
 #: src/login/login_util.rs:29
 msgid "Invalid name. Names must:\n"
@@ -242,94 +256,109 @@ msgid "Invalid name. Names must:\n"
 "- Not start with '-' or a space\n"
 "- Not end with a space"
 msgstr ""
+"Ugyldig namn. Namn må:\n"
+"- Inneholda berre tall, bokstaver, '_', '-', '.' og mellomrom\n"
+"- Ikkje starta med '-' eller eit mellomrom\n"
+"- Ikkje slutta med eut mellomrom"
 
 #: src/login/login_util.rs:43
 msgid "Server URL"
-msgstr ""
+msgstr "Sørvar URL"
 
 #: src/login/login_util.rs:49
 msgid "Invalid server URL ({})."
-msgstr ""
+msgstr "Ugyldig sørvar URL ({})."
 
 #: src/login/login_util.rs:58
 msgid "Invalid server URL (no domain specified)."
-msgstr ""
+msgstr "Ugyldig sørvar URL (inkje domenenamn angjeve)."
 
 #: src/login/login_util.rs:62
 msgid "Invalid server URL (password was specified)."
-msgstr ""
+msgstr "Ugyldig sørvar URL (passord ble angjeve)."
 
 #: src/login/login_util.rs:66
 msgid "Invalid server URL(unknown server scheme {})."
-msgstr ""
+msgstr "Ugyldig sørvar URL (ukjend sørvarskjema {})."
 
 #: src/login/login_util.rs:78
 msgid "Don't specify '{}' as part of the URL."
-msgstr ""
+msgstr "Ikkje spesifiser '{}' som ein del av nettadressa."
 
 #: src/login/login_util.rs:91
 msgid "Username"
-msgstr ""
+msgstr "Brukarnamn"
 
 #: src/login/login_util.rs:97
 msgid "Password"
-msgstr ""
+msgstr "Passord"
 
 #: src/login/login_util.rs:104
 msgid "2FA Code"
-msgstr ""
+msgstr "2FA Kode"
 
 #: src/login/login_util.rs:113
 msgid "The provided 2FA code is invalid (should only contain digits)."
-msgstr ""
+msgstr "Den oppgitte 2FA-koden er ugyldig (skal berre inneholda siffer)."
 
 #: src/login/login_util.rs:118
 msgid "The provided 2FA code is invalid (should be 6 digits long)."
-msgstr ""
+msgstr "Den oppgitte 2FA-koden er ugyldig (bør vera 6 siffer lang)."
 
 #: src/login/login_util.rs:142
 msgid "Log in"
-msgstr ""
+msgstr "Logg inn"
 
 #: src/login/mod.rs:77
 msgid "Unable to connect to the server. Check your internet connection and try again."
 msgstr ""
+"Kunna ikkje kopla til sørvaren. Sjekk nett-tilkoplinga di og prøv igjen."
 
 #: src/login/mod.rs:80
 msgid "A 2FA code is required to log in to this account. Provide one and try again."
 msgstr ""
+"Ein 2FA-kode krevjast for å logge på denne kontoen. Sett inn ein og prøv "
+"igjen."
 
 #: src/login/mod.rs:83
 msgid "Unable to authenticate to the server. Check your login credentials and try again."
 msgstr ""
+"Kunna ikkje autentisera til sørvaren. Sjekk påloggingsdataane dine og prøv "
+"igjen."
 
 #: src/login/mod.rs:87
 msgid "Unable to log in"
-msgstr ""
+msgstr "Kunna ikkje logga inn"
 
 #. The dropdown for selecting the server type.
 #: src/login/mod.rs:124
 msgid "Server Type"
-msgstr ""
+msgstr "Type Sørvar"
 
 #: src/tray.rs:13
 msgid "Awaiting sync checks..."
-msgstr ""
+msgstr "Ventar på synkroniseringssjekkar..."
 
 #: src/tray.rs:60
 msgid "Open"
-msgstr ""
+msgstr "Opna"
 
 #: src/tray.rs:67
 msgid "Close"
-msgstr ""
+msgstr "Lukk"
 
 #: src/main.rs:188
 msgid "Unknown Error"
-msgstr ""
+msgstr "Ukjend Feil"
 
 #: src/main.rs:195
 msgid "An unknown error has occurred while running. This is an internal issue with Celeste and should be reported.\n"
 "\n"
 "The following backtrace may help with debugging the issue - note that it may contain information such as login tokens/keys, so avoid posting the information publicly:"
 msgstr ""
+"Det har oppstått ein ukjend feil under køyring. Dette er eit internt problem "
+"med Celeste og bør rapporterast.\n"
+"\n"
+"Følgjande tilbakesporing kan hjelpa med å feilsøkja problemet - merk at det "
+"kan innehalda informasjon som til dømes påloggingstokener/nyklar, så unngå å "
+"leggja ut informasjonen offentleg:"
