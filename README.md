@@ -1,3 +1,10 @@
+### Help support Celeste
+Hey! I'm Hunter Wittenborn, the creator and maintainer of Celeste.
+
+I've had a blast working on Celeste in the time I've had available, but I'm currently not able to put all the time I'd like into it. I'm a university student which keeps me busy at times, but I also have part-time jobs on the side that keep me quite busy, even when I'm not occupied with my school work.
+
+If you'd like to help me keep driving Celeste forward, I humbly ask that you consider [sponsoring my work](https://github.com/sponsors/hwittenborn). With your help, I can use more of my time on Celeste's development, allowing it to flourish into a program that people everywhere can use!
+
 # Celeste
 <a href="https://flathub.org/apps/details/com.hunterwittenborn.Celeste"><img width="150" src="https://flathub.org/assets/badges/flathub-badge-i-en.svg" /></a>
 <a href="https://snapcraft.io/celeste"><img width="150" src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg" /></a>
