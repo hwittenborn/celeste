@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Celeste 0.8.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-19 01:22+0000\n"
-"PO-Revision-Date: 2024-02-25 10:01+0000\n"
+"PO-Revision-Date: 2024-03-28 18:01+0000\n"
 "Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
 "Language-Team: Hindi <https://hosted.weblate.org/projects/celeste/celeste/hi/"
 ">\n"
@@ -37,7 +37,7 @@ msgstr "Celeste की कॉन्फ़िगरेशन निर्दे�
 
 #: src/launch.rs:170
 msgid "Unable to create Celeste's database file [{}]."
-msgstr "Celeste की डेटाबेस फ़ाइल [{}] बनाने में असमर्थ।"
+msgstr "Celeste की डेटाबेस फाइल [{}] बनाने में असमर्थ।"
 
 #: src/launch.rs:180
 msgid "Unable to connect to database [{}]."
@@ -57,7 +57,7 @@ msgstr "सिंक त्रुटियाँ"
 
 #: src/launch.rs:339
 msgid "File/Folder Exclusions"
-msgstr "फ़ाइल/फ़ोल्डर बहिष्करण"
+msgstr "फाइल/फोल्डर बहिष्करण"
 
 #: src/launch.rs:458
 msgid "Stop syncing this directory"
@@ -88,7 +88,7 @@ msgstr "रद्द करें"
 #. The entry completion code is largely inspired by https://github.com/gtk-rs/gtk4-rs/blob/master/examples/entry_completion/main.rs. I honestly have no clue what half the code for that is doing, I just know the current code is working well enough, and it can be fixed later if it breaks.
 #: src/launch.rs:633
 msgid "Remote folder:"
-msgstr "रिमोट फ़ोल्डर:"
+msgstr "रिमोट फोल्डर:"
 
 #: src/launch.rs:820
 msgid "The specified remote directory doesn't exist"
@@ -124,11 +124,11 @@ msgstr "इस रिमोट से जुड़ी सभी निर्द�
 
 #: src/launch.rs:1342 src/launch.rs:2509
 msgid "Files are synced."
-msgstr "फ़ाइलें समन्वयित हैं।"
+msgstr "फाइलें समन्वयित हैं।"
 
 #: src/launch.rs:1352
 msgid "Syncing '{}'..."
-msgstr "'{}' समन्वयित हो रहा है..।"
+msgstr "'{}' समन्वयित हो रही है..।"
 
 #: src/launch.rs:1373
 msgid "Checking for changes..."
@@ -161,7 +161,7 @@ msgstr "रिमोट से '{}' के लिए डेटा लाने �
 
 #: src/launch.rs:1490 src/launch.rs:1495 src/launch.rs:1503
 msgid "File Update"
-msgstr "फ़ाइल अद्यतन"
+msgstr "फाइल अपडेट"
 
 #: src/launch.rs:1490
 msgid "Neither the local item or remote item exists anymore. This error will now be removed."
