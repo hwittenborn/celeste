@@ -9,7 +9,7 @@ jobs:
       options: --user root
     steps:
       - name: Checkout Git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup makedeb APT repositories
         uses: makedeb/setup-makedeb@main
         with:

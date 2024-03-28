@@ -15,7 +15,7 @@ jobs:
     if: "!contains(github.event.head_commit.message, 'skip-ci: create-release')"
     steps:
       - name: Checkout Git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup makedeb APT repositories
         uses: makedeb/setup-makedeb@main
         with:
@@ -36,7 +36,7 @@ jobs:
     if: "!failure() && !contains(github.event.head_commit.message, 'skip-ci: deploy-mpr')"
     steps:
       - name: Checkout Git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup makedeb APT repositories
         uses: makedeb/setup-makedeb@main
       - name: Publish MPR package
@@ -82,7 +82,7 @@ jobs:
     if: "!failure() && !contains(github.event.head_commit.message, 'skip-ci: deploy-snap')"
     steps:
       - name: Checkout Git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup makedeb APT repositories
         uses: makedeb/setup-makedeb@main
         with:
@@ -105,7 +105,7 @@ jobs:
     if: "!failure() && !contains(github.event.head_commit.message, 'skip-ci: deply-flathub')"
     steps:
       - name: Checkout Flathub Celeste Git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: flathub/com.hunterwittenborn.Celeste
           path: com.hunterwittenborn.Celeste
