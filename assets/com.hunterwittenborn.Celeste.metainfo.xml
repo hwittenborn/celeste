@@ -41,6 +41,15 @@
         </screenshot>
     </screenshots>
     <releases>
+        <release date="2024-06-21" version="0.8.2">
+            <description>
+                <ul>
+                    <li>
+                        Update dependencies to fix build error.
+                    </li>
+                </ul>
+            </description>
+        </release>
         <release date="2023-11-18" version="0.8.1">
             <description>
                 <p>
