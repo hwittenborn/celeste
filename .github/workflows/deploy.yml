@@ -93,7 +93,8 @@ jobs:
         with:
           snapcraft-args: "-v"
       - name: Upload and release Celeste Snap
-        uses: snapcore/action-publish@v1
+        # Use commit ID to temporarily fix https://github.com/snapcore/action-publish/issues/28.
+        uses: snapcore/action-publish@214b86e5ca036ead1668c79afb81e550e6c54d40
         with:
           snap: ${{ steps.snapcraft-build.outputs.snap }}
           release: stable
