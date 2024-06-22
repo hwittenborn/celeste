@@ -31,6 +31,10 @@ update-versions:
     notes="$(parse-changelog CHANGELOG.md "${version}")"
     just update-metainfo
 
+    # Temporary fix for XML data not being inlined (such as with `metainfo_license` and `project_license`).
+    dasel -f assets/com.hunterwittenborn.Celeste.metainfo.xml > tmp.xml
+    mv tmp.xml assets/com.hunterwittenborn.Celeste.metainfo.xml
+
 update-metainfo:
     #!/usr/bin/env python3
     import sys

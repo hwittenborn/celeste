@@ -6,7 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.3] - 2024-06-22
+### Fixed
+- Fix parsing error in MetaInfo file.
+
 ## [0.8.2] - 2024-06-21
+### Fixed
 - Update dependencies to fix build error.
 
 ## [0.8.1] - 2023-11-18
