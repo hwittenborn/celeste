@@ -59,7 +59,7 @@ sudo apt install celeste
 
 ## Support
 Celeste has multiple communication rooms available if you need assistance, want to talk about the project, or to just hang around with some fellow users:
-- Discord: https://discord.gg/FtNhPepvj7
+- Discord: https://discord.gg/congress
 - Matrix: https://matrix.to/#/#celeste:gnome.org
 
 **Bugs and features can be discussed in the rooms if you feel like there's information that should be talked about, but such should ultimately fall into the [issue tracker](https://github.com/hwittenborn/celeste/issues).**
