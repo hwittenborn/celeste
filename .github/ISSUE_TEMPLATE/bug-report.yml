@@ -1,0 +1,46 @@
+name: Bug Report
+description: File a bug report.
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: How is this bug occurring?
+    validations:
+      required: true
+  - type: dropdown
+    id: installation-source
+    attributes:
+      label: Installation Source
+      description: Where did you install Celeste from?
+      options:
+        - Flatpak
+        - Snap
+        - Prebuilt-MPR
+        - Other (specify the source in the bug description above)
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: What version of Celeste are you using?
+      description: This can be found in Celeste's about page.
+    validations:
+      required: true
+  - type: dropdown
+    id: remote-type
+    attributes:
+      label: Storage Provider
+      description: If your issue is happening in relation to a specific cloud provider, specify it below.
+      options:
+        - Dropbox
+        - Google Drive
+        - Nextcloud
+        - Owncloud
+        - pCloud
+        - Proton Drive
+        - WebDAV
+    validations:
+      required: true

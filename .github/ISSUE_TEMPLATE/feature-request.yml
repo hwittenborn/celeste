@@ -1,0 +1,21 @@
+name: Feature Request
+description: File a feature request.
+title: "[Feature]: "
+labels: ["enhancement", "triage"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Feature Description
+      description: What kind of feature are you wanting?
+    validations:
+      required: true
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: What version of Celeste are you using?
+      description: This can be found in Celeste's about page.
+    validations:
+      required: true
