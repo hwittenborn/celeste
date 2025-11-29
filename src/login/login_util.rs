@@ -10,6 +10,11 @@ use adw::{
 use regex::Regex;
 use url::Url;
 
+/// Generic input
+pub fn generic_str_input(name: &str) -> EntryRow {
+    EntryRow::builder().title(&tr::tr!(name)).build()
+}
+
 /// Get the input for the server name.
 pub fn server_name_input() -> EntryRow {
     let input = EntryRow::builder().title(&tr::tr!("Name")).build();

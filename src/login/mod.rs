@@ -14,6 +14,7 @@ mod nextcloud;
 mod owncloud;
 mod pcloud;
 mod proton_drive;
+mod s3;
 mod webdav;
 
 use adw::{
@@ -28,6 +29,7 @@ use nextcloud::NextcloudConfig;
 use owncloud::OwncloudConfig;
 use pcloud::PCloudConfig;
 use proton_drive::ProtonDriveConfig;
+use s3::S3Config;
 use std::{cell::RefCell, rc::Rc};
 use webdav::WebDavConfig;
 
@@ -52,6 +54,7 @@ pub enum ServerType {
     PCloud(pcloud::PCloudConfig),
     ProtonDrive(proton_drive::ProtonDriveConfig),
     WebDav(webdav::WebDavConfig),
+    S3(s3::S3Config),
 }
 
 impl ToString for ServerType {
@@ -64,6 +67,7 @@ impl ToString for ServerType {
             Self::PCloud(_) => "pCloud",
             Self::ProtonDrive(_) => "Proton Drive",
             Self::WebDav(_) => "WebDAV",
+            Self::S3(_) => "S3",
         }
         .to_string()
     }
@@ -119,6 +123,7 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
     let pcloud_name = ServerType::PCloud(Default::default()).to_string();
     let proton_drive_name = ServerType::ProtonDrive(Default::default()).to_string();
     let webdav_name = ServerType::WebDav(Default::default()).to_string();
+    let s3_name = ServerType::S3(Default::default()).to_string();
 
     // The dropdown for selecting the server type.
     let server_type_dropdown = ComboRow::builder().title(&tr::tr!("Server Type")).build();
@@ -130,6 +135,7 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
         pcloud_name.as_str(),
         proton_drive_name.as_str(),
         webdav_name.as_str(),
+        s3_name.as_str(),
     ];
     let server_types = StringList::new(&server_types_array);
     server_type_dropdown.set_model(Some(&server_types));
@@ -155,7 +161,8 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
     let owncloud_items = OwncloudConfig::get_sections(&window, sender.clone());
     let pcloud_items = PCloudConfig::get_sections(&window, sender.clone());
     let proton_drive_items = ProtonDriveConfig::get_sections(&window, sender.clone());
-    let webdav_items = WebDavConfig::get_sections(&window, sender);
+    let webdav_items = WebDavConfig::get_sections(&window, sender.clone());
+    let s3_items = S3Config::get_sections(&window, sender);
 
     // Store the active items.
     let active_items: Rc<RefCell<(Vec<EntryRow>, Button)>> =
@@ -174,6 +181,7 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
             "pcloud" => pcloud_items.clone(),
             "proton drive" => proton_drive_items.clone(),
             "webdav" => webdav_items.clone(),
+            "s3" => s3_items.clone(),
             _ => unreachable!()
         };
 
@@ -226,6 +234,7 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
             ServerType::PCloud(config) => config.server_name.clone(),
             ServerType::ProtonDrive(config) => config.server_name.clone(),
             ServerType::WebDav(config) => config.server_name.clone(),
+            ServerType::S3(config) => config.server_name.clone(),
         };
 
         let config_query = match &server {
@@ -312,6 +321,19 @@ pub fn login(app: &Application, db: &DatabaseConnection) -> Option<RemotesModel>
                 "opt": {
                     "obscure": true
                 }
+            }),
+            ServerType::S3(config) => json!({
+                "name": config_name,
+                "parameters": {
+                    "endpoint": config.endpoint,
+                    "region": config.region,
+                    "access_key_id": config.access_key_id,
+                    "secret_access_key": config.secret_access_key,
+                    "provider": config.provider,
+                    "acl": config.acl,
+                    "bucket_acl": config.bucket_acl,
+                },
+                "type": "s3",
             }),
         };
 

@@ -53,6 +53,14 @@ pub fn get_remote<T: ToString>(remote: T) -> Option<Remote> {
                 vendor,
             }))
         }
+        "s3" => Some(Remote::S3(S3Remote {
+            remote_name: remote,
+            provider: config["provider"].clone(),
+            access_key_id: config["access_key_id"].clone(),
+            secret_access_key: config["secret_access_key"].clone(),
+            region: config["region"].clone(),
+            endpoint: config["endpoint"].clone(),
+        })),
         _ => None,
     }
 }
@@ -84,6 +92,7 @@ pub enum Remote {
     PCloud(PCloudRemote),
     ProtonDrive(ProtonDriveRemote),
     WebDav(WebDavRemote),
+    S3(S3Remote),
 }
 
 impl Remote {
@@ -94,6 +103,7 @@ impl Remote {
             Remote::PCloud(remote) => remote.remote_name.clone(),
             Remote::ProtonDrive(remote) => remote.remote_name.clone(),
             Remote::WebDav(remote) => remote.remote_name.clone(),
+            Remote::S3(remote) => remote.remote_name.clone(),
         }
     }
 }
@@ -138,6 +148,23 @@ pub struct ProtonDriveRemote {
     pub remote_name: String,
     /// the username.
     pub username: String,
+}
+
+// The S3 remote type
+#[derive(Clone, Debug)]
+pub struct S3Remote {
+    /// The name of the remote.
+    pub remote_name: String,
+    /// The provider of the remote
+    pub provider: String,
+    /// The access key for the remote
+    pub access_key_id: String,
+    /// The scret key for the remote
+    pub secret_access_key: String,
+    /// The region of the remote
+    pub region: String,
+    /// The address to connect to
+    pub endpoint: String,
 }
 
 // The WebDav remote type.
