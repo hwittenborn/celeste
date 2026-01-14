@@ -1,0 +1,352 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Hunter Wittenborn <hunter@hunterwittenborn.com>
+# This file is distributed under the same license as the Celeste package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Celeste 0.8.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-19 01:22+0000\n"
+"PO-Revision-Date: 2025-02-05 11:27+0000\n"
+"Last-Translator: Pedro Albuquerque <pmra@protonmail.com>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/celeste/"
+"celeste/pt/>\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.10-dev\n"
+
+#: src/about.rs:20
+msgid "App icons by"
+msgstr "Ícones por"
+
+#: src/gtk_util.rs:20 src/gtk_util.rs:43 src/launch.rs:614 src/launch.rs:776
+msgid "Ok"
+msgstr "Aceitar"
+
+#: src/launch.rs:99
+msgid "Both '{}' and '{}' are more recent than at last sync."
+msgstr "'{}' e '{}' são ambos mais recentes que a última sincronização."
+
+#: src/launch.rs:158
+msgid "Unable to create Celeste's config directory [{}]."
+msgstr "Impossível criar a pasta de configuração do Celeste [{}]."
+
+#: src/launch.rs:170
+msgid "Unable to create Celeste's database file [{}]."
+msgstr "Impossível criar a base de dados do Celeste [{}]."
+
+#: src/launch.rs:180
+msgid "Unable to connect to database [{}]."
+msgstr "Impossível ligar à base de dados [{}]."
+
+#: src/launch.rs:188
+msgid "Unable to run database migrations [{}]"
+msgstr "Impossível executar migrações de bases de dados [{}]"
+
+#: src/launch.rs:288
+msgid "Awaiting sync check..."
+msgstr "A aguardar verificação da sincronização..."
+
+#: src/launch.rs:324
+msgid "Sync Errors"
+msgstr "Erros de sincronização"
+
+#: src/launch.rs:339
+msgid "File/Folder Exclusions"
+msgstr "Pastas/Ficheiros a excluir"
+
+#: src/launch.rs:458
+msgid "Stop syncing this directory"
+msgstr "Parar sincronização desta pasta"
+
+#: src/launch.rs:475
+msgid "Are you sure you want to stop syncing '{}' to '{}'?"
+msgstr "Tem a certeza de que deseja parar a sincronização de \"{}\" com \"{}\"?"
+
+#: src/launch.rs:484
+msgid "This directory is currently being processed to no longer be synced."
+msgstr "Esta pasta está em processamento para parar a sincronização."
+
+#: src/launch.rs:574
+msgid "Directories"
+msgstr "Pastas"
+
+#. Get the local folder to sync with.
+#: src/launch.rs:597
+msgid "Local folder:"
+msgstr "Pasta local:"
+
+#: src/launch.rs:613 src/launch.rs:775 src/login/gdrive.rs:214
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. Get the remote folder to sync with, and add it.
+#. The entry completion code is largely inspired by https://github.com/gtk-rs/gtk4-rs/blob/master/examples/entry_completion/main.rs. I honestly have no clue what half the code for that is doing, I just know the current code is working well enough, and it can be fixed later if it breaks.
+#: src/launch.rs:633
+msgid "Remote folder:"
+msgstr "Pasta remota:"
+
+#: src/launch.rs:820
+msgid "The specified remote directory doesn't exist"
+msgstr "A pasta remota pedida não existe"
+
+#: src/launch.rs:828
+msgid "Failed to check if the specified remote directory exists"
+msgstr "Falha ao verificar a existência da pasta remota"
+
+#: src/launch.rs:839
+msgid "The specified directory pair is already being synced"
+msgstr "O par de pastas especificado já está sincronizado"
+
+#: src/launch.rs:842
+msgid "The specified local directory doesn't exist"
+msgstr "A pasta local especificada não existe"
+
+#: src/launch.rs:845
+msgid "The specified local path isn't a directory"
+msgstr "O caminho local especificado não é uma pasta"
+
+#: src/launch.rs:848
+msgid "The specified local directory needs to be an absolute path"
+msgstr "A pasta local especificada tem de ser um caminho absoluto"
+
+#: src/launch.rs:876
+msgid "Are you sure you want to delete this remote?"
+msgstr "Deseja realmente eliminar esta remota?"
+
+#: src/launch.rs:877
+msgid "All the directories associated with this remote will also stop syncing."
+msgstr "Todas as pastas associadas a esta remota deixam também de sincronizar."
+
+#: src/launch.rs:1342 src/launch.rs:2509
+msgid "Files are synced."
+msgstr "Os ficheiros estão sincronizados."
+
+#: src/launch.rs:1352
+msgid "Syncing '{}'..."
+msgstr "A sincronizar \"{}\"..."
+
+#: src/launch.rs:1373
+msgid "Checking for changes..."
+msgstr "A procurar alterações..."
+
+#. Add an error for reporting in the UI.
+#: src/launch.rs:1380
+msgid "Please resolve the reported syncing issues."
+msgstr "Por favor, resolva os problemas assinalados."
+
+#: src/launch.rs:1407
+msgid "{} errors found. "
+msgstr "{} erros encontrados. "
+
+#: src/launch.rs:1421
+msgid "Would you like to dismiss this error?"
+msgstr "Deseja descartar o erro?"
+
+#: src/launch.rs:1448
+msgid "Failed to sync '{}' to '{}' on remote."
+msgstr "Falha ao sincronizar \"{}\" com \"{}\" na remota."
+
+#: src/launch.rs:1456
+msgid "Failed to sync '{}' on remote to '{}'."
+msgstr "Falha ao sincronizar \"{}\" na remota com \"{}\"."
+
+#: src/launch.rs:1481
+msgid "Unable to fetch data for '{}' from the remote."
+msgstr "Impossível obter dados de \"{}\" a partir da remota."
+
+#: src/launch.rs:1490 src/launch.rs:1495 src/launch.rs:1503
+msgid "File Update"
+msgstr "Actualização do ficheiro"
+
+#: src/launch.rs:1490
+msgid "Neither the local item or remote item exists anymore. This error will now be removed."
+msgstr "Nem o item local, nem o remoto existem. O erro será removido."
+
+#: src/launch.rs:1495
+msgid "Only the local item exists now, so it will be synced to the remote."
+msgstr "Só o item local existe, será sincronizado com o remoto."
+
+#: src/launch.rs:1503
+msgid "Only the remote item exists now, so it will be synced to the local machine."
+msgstr "Só o item remoto existe, será sincronizado com o local."
+
+#: src/launch.rs:1513
+msgid "Both the local item '{}' and remote item '{}' have been updated since the last sync."
+msgstr ""
+"Tanto o item \"{}\" local, como o \"{}\" remoto foram alterados desde a "
+"última sincronização."
+
+#: src/launch.rs:1515
+msgid "Which item would you like to keep?"
+msgstr "Qual deles deseja manter?"
+
+#: src/launch.rs:1517
+msgid "Local"
+msgstr "O local"
+
+#: src/launch.rs:1518
+msgid "Remote"
+msgstr "O remoto"
+
+#: src/launch.rs:1567
+msgid "1 error found."
+msgstr "1 erro encontrado."
+
+#: src/launch.rs:1569
+msgid "{} errors found."
+msgstr "{} erros encontrados."
+
+#: src/launch.rs:1701
+msgid "Checking '{}' for changes..."
+msgstr "A verificar alterações a \"{}\"..."
+
+#: src/launch.rs:2117
+msgid "Checking '{}' on remote for changes..."
+msgstr "A verificar alterações a \"{}\" remoto..."
+
+#: src/launch.rs:2530
+msgid "Finished sync checks with {} errors."
+msgstr "Verificações de sincronização concluídas com {} erros."
+
+#: src/launch.rs:2535
+msgid "Finished sync checks."
+msgstr "Verificações de sincronização concluídas."
+
+#: src/login/gdrive.rs:211
+msgid "Authenticating to {}..."
+msgstr "A autenticar em {}..."
+
+#: src/login/gdrive.rs:212
+msgid "Follow the link that opened in your browser, and come back once you've finished."
+msgstr "Siga a ligação aberta no seu navegador, e volte aqui uma vez terminado."
+
+#: src/login/gdrive.rs:239
+msgid "There was an issue while running the webserver for authentication"
+msgstr "Houve um problema de autenticação no servidor web"
+
+#: src/login/gdrive.rs:248
+msgid "There was an issue authenticating to {}"
+msgstr "Houve um problema ao autenticar em {}"
+
+#: src/login/login_util.rs:15
+msgid "Name"
+msgstr "Nome"
+
+#: src/login/login_util.rs:27
+msgid "Name already exists."
+msgstr "O nome já existe."
+
+#: src/login/login_util.rs:29
+msgid "Invalid name. Names must:\n"
+"- Only contain numbers, letters, '_', '-', '.', and spaces\n"
+"- Not start with '-' or a space\n"
+"- Not end with a space"
+msgstr ""
+"Nome inválido. Os nomes:\n"
+"- só podem conter algarismos, letras, '_', '-', '.', e espaços;\n"
+"- não podem começar por '-' ou espaço;\n"
+"- não podem terminar com espaços"
+
+#: src/login/login_util.rs:43
+msgid "Server URL"
+msgstr "Endereço do servidor"
+
+#: src/login/login_util.rs:49
+msgid "Invalid server URL ({})."
+msgstr "Endereço do servidor ({}) incorrecto."
+
+#: src/login/login_util.rs:58
+msgid "Invalid server URL (no domain specified)."
+msgstr "Endereço do servidor inválido (não especificou o domínio)."
+
+#: src/login/login_util.rs:62
+msgid "Invalid server URL (password was specified)."
+msgstr "Endereço do servidor inválido (especificou uma senha)."
+
+#: src/login/login_util.rs:66
+msgid "Invalid server URL(unknown server scheme {})."
+msgstr "Endereço do servidor inválido (esquema de servidor {} desconhecido)."
+
+#: src/login/login_util.rs:78
+msgid "Don't specify '{}' as part of the URL."
+msgstr "Não especifique \"{}\" como parte do endereço."
+
+#: src/login/login_util.rs:91
+msgid "Username"
+msgstr "Utilizador"
+
+#: src/login/login_util.rs:97
+msgid "Password"
+msgstr "Senha"
+
+#: src/login/login_util.rs:104
+msgid "2FA Code"
+msgstr "Código 2FA"
+
+#: src/login/login_util.rs:113
+msgid "The provided 2FA code is invalid (should only contain digits)."
+msgstr "O código 2FA é inválido (só deve conter algarismos)."
+
+#: src/login/login_util.rs:118
+msgid "The provided 2FA code is invalid (should be 6 digits long)."
+msgstr "O código 2FA é inválido (deve ter seis algarismos)."
+
+#: src/login/login_util.rs:142
+msgid "Log in"
+msgstr "Iniciar sessão"
+
+#: src/login/mod.rs:77
+msgid "Unable to connect to the server. Check your internet connection and try again."
+msgstr ""
+"Impossível ligar ao servidor. Verifique a ligação à Internet e tente de novo."
+
+#: src/login/mod.rs:80
+msgid "A 2FA code is required to log in to this account. Provide one and try again."
+msgstr "É necessário um código 2FA para esta conta. Forneça-o e tente de novo."
+
+#: src/login/mod.rs:83
+msgid "Unable to authenticate to the server. Check your login credentials and try again."
+msgstr ""
+"Impossível autenticar no servidor. Verifique as credenciais e tente de novo."
+
+#: src/login/mod.rs:87
+msgid "Unable to log in"
+msgstr "Impossível iniciar sessão"
+
+#. The dropdown for selecting the server type.
+#: src/login/mod.rs:124
+msgid "Server Type"
+msgstr "Tipo de servidor"
+
+#: src/tray.rs:13
+msgid "Awaiting sync checks..."
+msgstr "A aguardar verificações de sincronização..."
+
+#: src/tray.rs:60
+msgid "Open"
+msgstr "Abrir"
+
+#: src/tray.rs:67
+msgid "Close"
+msgstr "Fechar"
+
+#: src/main.rs:188
+msgid "Unknown Error"
+msgstr "Erro desconhecido"
+
+#: src/main.rs:195
+msgid "An unknown error has occurred while running. This is an internal issue with Celeste and should be reported.\n"
+"\n"
+"The following backtrace may help with debugging the issue - note that it may contain information such as login tokens/keys, so avoid posting the information publicly:"
+msgstr ""
+"Ocorreu um erro desconhecido durante a execução. Este é um problema interno "
+"da Celeste e deve ser reportado.\n"
+"\n"
+"O seguinte backtrace pode ajudar a resolver o problema - tenha em atenção "
+"que pode conter informações como tokens/chaves de início de sessão, por isso "
+"evite publicar as informações:"

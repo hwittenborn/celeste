@@ -5,360 +5,366 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Celeste 0.7.0\n"
+"Project-Id-Version: Celeste 0.8.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-08 00:55+0000\n"
-"PO-Revision-Date: 2024-11-30 17:00+0000\n"
-"Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
-"Language-Team: Finnish <https://hosted.weblate.org/projects/celeste/celeste/"
-"fi/>\n"
-"Language: fi\n"
+"POT-Creation-Date: 2023-11-19 01:22+0000\n"
+"PO-Revision-Date: 2025-04-06 13:29+0000\n"
+"Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
+"Language-Team: Estonian <https://hosted.weblate.org/projects/celeste/celeste/"
+"et/>\n"
+"Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9-dev\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #: src/about.rs:20
 msgid "App icons by"
-msgstr "Sovelluskuvakkeiden toteutus"
+msgstr "Rakenduste ikoonide autor"
 
 #: src/gtk_util.rs:20 src/gtk_util.rs:43 src/launch.rs:614 src/launch.rs:776
 msgid "Ok"
-msgstr "OK"
+msgstr "Sobib"
 
 #: src/launch.rs:99
 msgid "Both '{}' and '{}' are more recent than at last sync."
-msgstr "'{}' ja '{}' ovat uudempia kuin viimeisimmän synkronoinnin aikaan."
+msgstr "Nii „{}“, kui „{}“ on viimasest sünkroniseerimisest hilisemad."
 
 #: src/launch.rs:158
 msgid "Unable to create Celeste's config directory [{}]."
-msgstr "Celesten asetushakemiston [{}] luominen ei onnistunut."
+msgstr "Ei õnnestu luua Celeste'i seadistuste kausta „{}“."
 
 #: src/launch.rs:170
 msgid "Unable to create Celeste's database file [{}]."
-msgstr "Celesten tietokantatiedoston [{}] luominen ei onnistunut."
+msgstr "Ei õnnestu luua Celeste'i andmebaasifaili „{}“."
 
 #: src/launch.rs:180
 msgid "Unable to connect to database [{}]."
-msgstr "Yhteys tietokantaan [{}] ei onnistunut."
+msgstr "Ei õnnestu andmebaasiühendust „{}“."
 
 #: src/launch.rs:188
 msgid "Unable to run database migrations [{}]"
-msgstr "Tietokantamigraatioita [{}] ei voitu suorittaa"
+msgstr "Ei õnnestu teha „{}“ andmebaasiuuendusi"
 
 #: src/launch.rs:288
 msgid "Awaiting sync check..."
-msgstr "Odotetaan synkronoinnin tarkistusta..."
+msgstr "Ootan sünkroniseerimise kontrolli..."
 
 #: src/launch.rs:324
 msgid "Sync Errors"
-msgstr "Synkronointivirheitä"
+msgstr "Sünkroniseerimisvead"
 
 #: src/launch.rs:339
 msgid "File/Folder Exclusions"
-msgstr "Tiedoston/kansion poissulkemiset"
+msgstr "Failide ja kaustade välistused"
 
 #: src/launch.rs:458
 msgid "Stop syncing this directory"
-msgstr "Lopeta tämän kansion synkronointi"
+msgstr "Lõpeta selle kausta sünkroniseerimine"
 
 #: src/launch.rs:475
 msgid "Are you sure you want to stop syncing '{}' to '{}'?"
-msgstr "Haluatko varmasti lopettaa kohteen '{}' synkronoinnin palveluun '{}'?"
+msgstr "Kas sa oled kindel et soovid lõpetada sünkroniseerimise: „{}“ → „{}“?"
 
 #: src/launch.rs:484
 msgid "This directory is currently being processed to no longer be synced."
-msgstr ""
-"Tätä kansiota käsitellään parhaillaan, jotta sitä ei enää jatkossa "
-"synkronoida."
+msgstr "See kaust on töötlemisel, et ta jääks tulevikus sünkroniseerimata."
 
 #: src/launch.rs:574
 msgid "Directories"
-msgstr "Kansiot"
+msgstr "Kaustad"
 
 #. Get the local folder to sync with.
 #: src/launch.rs:597
 msgid "Local folder:"
-msgstr "Paikallinen kansio:"
+msgstr "Kohalik kaust:"
 
-#: src/launch.rs:613 src/launch.rs:775 src/login/gdrive.rs:208
+#: src/launch.rs:613 src/launch.rs:775 src/login/gdrive.rs:214
 msgid "Cancel"
-msgstr "Peru"
+msgstr "Katkesta"
 
 #. Get the remote folder to sync with, and add it.
 #. The entry completion code is largely inspired by https://github.com/gtk-rs/gtk4-rs/blob/master/examples/entry_completion/main.rs. I honestly have no clue what half the code for that is doing, I just know the current code is working well enough, and it can be fixed later if it breaks.
 #: src/launch.rs:633
 msgid "Remote folder:"
-msgstr "Etäkansio:"
+msgstr "Kaugkaust:"
 
 #: src/launch.rs:820
 msgid "The specified remote directory doesn't exist"
-msgstr "Määritettyä etäkansiota ei ole olemassa"
+msgstr "Valitud kaugkausta pole olemas"
 
 #: src/launch.rs:828
 msgid "Failed to check if the specified remote directory exists"
-msgstr "Määritetyn etäkansion olemassaolon tarkistaminen epäonnistui"
+msgstr "Ei õnnestunud kontrollida, kas valitud kaugkausta on olemas"
 
 #: src/launch.rs:839
 msgid "The specified directory pair is already being synced"
-msgstr "Määritetty kansiopari on jo synkronoituna"
+msgstr "Valitud kaustapaar on juba sünkroniseeritud"
 
 #: src/launch.rs:842
 msgid "The specified local directory doesn't exist"
-msgstr "Määritettyä paikallista kansiota ei ole olemassa"
+msgstr "Määratletud kohalikku kausta pole olemas"
 
 #: src/launch.rs:845
 msgid "The specified local path isn't a directory"
-msgstr "Määritetty paikallinen polku ei ole kansio"
+msgstr "Määratletud kohalik asukoht pole kaust"
 
 #: src/launch.rs:848
 msgid "The specified local directory needs to be an absolute path"
-msgstr "Määritetyn paikallisen kansion tulee olla absoluuttinen polku"
+msgstr "Määratletud kohalik kaust peab olema absoluutse asukohaga"
 
 #: src/launch.rs:876
 msgid "Are you sure you want to delete this remote?"
-msgstr "Haluatko varmasti poistaa tämän etäkohteen?"
+msgstr "Kas sa oled kindel, et tahad selle kaugkausta kustutada?"
 
 #: src/launch.rs:877
 msgid "All the directories associated with this remote will also stop syncing."
 msgstr ""
-"Kaikkien tähän etäkohteeseen liittyvien kansioiden synkronointi pysäytetään."
+"Kõik selle kaugkaustaga seotud kaustad jäävad edaspidi sünkroniseerimata."
 
-#. Notify the tray app that we're syncing this remote now.
-#: src/launch.rs:1160
+#: src/launch.rs:1342 src/launch.rs:2509
+msgid "Files are synced."
+msgstr "Failid on sünkroniseeritud."
+
+#: src/launch.rs:1352
 msgid "Syncing '{}'..."
-msgstr "Synkronoidaan '{}'..."
+msgstr "Sünkroniseerin '„{}“..."
 
-#: src/launch.rs:1194
+#: src/launch.rs:1373
 msgid "Checking for changes..."
-msgstr "Tarkistetaan muutoksia..."
+msgstr "Kontrollin muudatuste olemasolu..."
 
 #. Add an error for reporting in the UI.
-#: src/launch.rs:1201
+#: src/launch.rs:1380
 msgid "Please resolve the reported syncing issues."
-msgstr "Selvitä ilmoitetut synkronointiongelmat."
+msgstr "Palun lahenda näidatud sünkroniseerimisvead."
 
-#: src/launch.rs:1228
+#: src/launch.rs:1407
 msgid "{} errors found. "
-msgstr "{} virhettä löytyi. "
+msgstr "leidus {} viga. "
 
-#: src/launch.rs:1242
+#: src/launch.rs:1421
 msgid "Would you like to dismiss this error?"
-msgstr "Haluatko jättää tämän virheen huomiotta?"
+msgstr "Kas sa soovid jätta selle vea tähelepanuta jätta?"
 
-#: src/launch.rs:1269
+#: src/launch.rs:1448
 msgid "Failed to sync '{}' to '{}' on remote."
-msgstr "'{}':n synkronointi '{}':een etäällä epäonnistui."
+msgstr "„{}“ → „{}“ sünkroniseerimine kaugseadmes ei õnnestunud."
 
-#: src/launch.rs:1277
+#: src/launch.rs:1456
 msgid "Failed to sync '{}' on remote to '{}'."
-msgstr "'{}':n synkronointi etäällä '{}':een epäonnistui."
+msgstr "„{}“ → „{}“ sünkroniseerimine kaugseadmest ei õnnestunud."
 
-#: src/launch.rs:1302
+#: src/launch.rs:1481
 msgid "Unable to fetch data for '{}' from the remote."
-msgstr "'{}':n tietoja ei voi noutaa etäältä."
+msgstr "„{}“ andmete laadimine kaugseadmest ei õnnestunud."
 
-#: src/launch.rs:1311 src/launch.rs:1316 src/launch.rs:1324
+#: src/launch.rs:1490 src/launch.rs:1495 src/launch.rs:1503
 msgid "File Update"
-msgstr "Tiedostopäivitys"
+msgstr "Failide uuendus"
 
-#: src/launch.rs:1311
+#: src/launch.rs:1490
 msgid "Neither the local item or remote item exists anymore. This error will now be removed."
 msgstr ""
-"Paikallista kohdetta tai etäkohdetta ei ole enää olemassa. Tämä virhe "
-"poistetaan nyt."
+"Objekti pole enam olemas ei kaugseadmes ega kohalikus seadmes. Järgnevaga "
+"eemaldan selle vea."
 
-#: src/launch.rs:1316
+#: src/launch.rs:1495
 msgid "Only the local item exists now, so it will be synced to the remote."
 msgstr ""
-"Vain paikallinen kohde on nyt olemassa, joten se synkronoidaan etäkohteeseen."
+"Objekt on olemas vaid kohalikus seadmes ja järgnevaga sünkroniseerin ta "
+"kaugseadmesse."
 
-#: src/launch.rs:1324
+#: src/launch.rs:1503
 msgid "Only the remote item exists now, so it will be synced to the local machine."
 msgstr ""
-"Vain etäkohde on olemassa nyt, joten se synkronoidaan paikalliselle koneelle."
+"Objekt on olemas vaid kaugseadmes ja järgnevaga sünkroniseerin ta kohalikku "
+"seadmesse."
 
-#: src/launch.rs:1334
+#: src/launch.rs:1513
 msgid "Both the local item '{}' and remote item '{}' have been updated since the last sync."
 msgstr ""
-"Sekä paikallinen kohde '{}' että etäkohde '{}' on päivitetty viimeisimmän "
-"synkronoinnin jälkeen."
+"Nii kohalik „{}“, kui kaugseadmes asuv „{}“ on uuendunud peale viimast "
+"sünkroniseerimist."
 
-#: src/launch.rs:1336
+#: src/launch.rs:1515
 msgid "Which item would you like to keep?"
-msgstr "Kumman niistä haluat säilyttää?"
+msgstr "Mis objekti sooviksid alles jätta?"
 
-#: src/launch.rs:1338
+#: src/launch.rs:1517
 msgid "Local"
-msgstr "Paikallinen"
+msgstr "Kohaliku"
 
-#: src/launch.rs:1339
+#: src/launch.rs:1518
 msgid "Remote"
-msgstr "Etä"
+msgstr "Kaugseadmes asuva"
 
-#: src/launch.rs:1388
+#: src/launch.rs:1567
 msgid "1 error found."
-msgstr "1 virhe löytyi."
+msgstr "Leidus 1 viga."
 
-#: src/launch.rs:1390
+#: src/launch.rs:1569
 msgid "{} errors found."
-msgstr "{} virhettä löytyi."
+msgstr "Leidus {} viga."
 
-#: src/launch.rs:1522
+#: src/launch.rs:1701
 msgid "Checking '{}' for changes..."
-msgstr "Tarkistetaan '{}' muutosten varalta..."
+msgstr "Kontrollin „{}“ muudatusi..."
 
-#: src/launch.rs:1938
+#: src/launch.rs:2117
 msgid "Checking '{}' on remote for changes..."
-msgstr "Tarkistetaan '{}' etäpäässä muutosten varalta..."
+msgstr "Kontrollin „{}“ muudatusi kaugseadmes..."
 
-#: src/launch.rs:2329
-msgid "Directory has finished sync checks."
-msgstr "Kansion synkronointitarkistukset ovat valmistuneet."
-
-#: src/launch.rs:2350
+#: src/launch.rs:2530
 msgid "Finished sync checks with {} errors."
-msgstr "Synkronointitarkistukset valmistuivat {} virheen kera."
+msgstr "Sünkroniseerimiskontrolli tulemusel selgus {} viga."
 
-#: src/launch.rs:2355
+#: src/launch.rs:2535
 msgid "Finished sync checks."
-msgstr "Synkronointitarkistukset valmistuivat."
+msgstr "Sünkroniseerimiskontroll on tehtud."
 
-#: src/login/gdrive.rs:205
+#: src/login/gdrive.rs:211
 msgid "Authenticating to {}..."
-msgstr "Tunnistaudutaan palveluun {}..."
+msgstr "Tuvastan end teenuses {}..."
 
-#: src/login/gdrive.rs:206
+#: src/login/gdrive.rs:212
 msgid "Follow the link that opened in your browser, and come back once you've finished."
-msgstr "Seuraa selaimeen avattua linkkiä, ja palaa takaisin kun olet valmis."
+msgstr ""
+"Palun ava lingist loodud vaade sinu veebibrauseris, tee seal palutu ning "
+"peale lõpetamist tule siia tagasi."
 
-#: src/login/gdrive.rs:233
+#: src/login/gdrive.rs:239
 msgid "There was an issue while running the webserver for authentication"
-msgstr "Verkkopalvelinta käytettäessä todennusta varten ilmeni vika"
+msgstr "Veebiserveris tuvastamisel tekkis viga"
 
-#: src/login/gdrive.rs:242
+#: src/login/gdrive.rs:248
 msgid "There was an issue authenticating to {}"
-msgstr "Ongelma tunnistautuessa palveluun {}"
+msgstr "Tuvastamisel teenuses {} tekkis viga"
 
 #: src/login/login_util.rs:15
-msgid "Server Name"
-msgstr "Palvelimen nimi"
+msgid "Name"
+msgstr "Nimi"
 
 #: src/login/login_util.rs:27
-msgid "Server name already exists."
-msgstr "Palvelimen nimi on jo olemassa."
+msgid "Name already exists."
+msgstr "Nimi on juba kasutusel."
 
 #: src/login/login_util.rs:29
-msgid "Invalid server name. Server names must:\n"
+msgid "Invalid name. Names must:\n"
 "- Only contain numbers, letters, '_', '-', '.', and spaces\n"
 "- Not start with '-' or a space\n"
 "- Not end with a space"
 msgstr ""
-"Virheellinen palvelimen nimi. Palvelimen nimi:\n"
-"- Voi sisältää numeroita, kirjaimia, '_', '-', '.', ja välilyöntejä\n"
-"- Ei saa alkaa merkillä '-' tai välilyönnillä\n"
-"- Ei saa päättyä välilyöntiin"
+"Nimi on vigane. Korrektses nimes:\n"
+"- võib olla vaid numbreid, tähti, „ alakriipse _“, „sidekriipse -“, „punkte "
+".“ ja tühikuid\n"
+"- ei tohi alguses olla sidekriipsu „-“\n"
+"- ei tohi alguses olla tühikut"
 
 #: src/login/login_util.rs:43
 msgid "Server URL"
-msgstr "Palvelimen osoite"
+msgstr "Serveri võrguaadress"
 
 #: src/login/login_util.rs:49
 msgid "Invalid server URL ({})."
-msgstr "Virheellinen palvelimen osoite ({})."
+msgstr "Vigane serveri võrguaadress ({})."
 
 #: src/login/login_util.rs:58
 msgid "Invalid server URL (no domain specified)."
-msgstr "Virheellinen palvelimen osoite (verkkotunnusta ei määritetty)."
+msgstr "Vigane serveri võrguaadress (domeen on puudu)."
 
 #: src/login/login_util.rs:62
 msgid "Invalid server URL (password was specified)."
-msgstr "Virheellinen palvelimen osoite (salasana määritettiin)."
+msgstr "Vigane serveri võrguaadress (sisaldas salasõna)."
 
 #: src/login/login_util.rs:66
 msgid "Invalid server URL(unknown server scheme {})."
-msgstr "Virheellinen palvelimen osoite (tuntematon palvelinskeema {})."
+msgstr "Vigane serveri võrguaadress (kasutusel on tundmatu uriskeem „{}“)."
 
 #: src/login/login_util.rs:78
 msgid "Don't specify '{}' as part of the URL."
-msgstr "Älä määritä '{}' osaksi osoitetta."
+msgstr "Ära lisa „{}“ võrguaadressi osana."
 
 #: src/login/login_util.rs:91
 msgid "Username"
-msgstr "Käyttäjätunnus"
+msgstr "Kasutajanimi"
 
 #: src/login/login_util.rs:97
 msgid "Password"
-msgstr "Salasana"
+msgstr "Salasõna"
 
 #: src/login/login_util.rs:104
 msgid "2FA Code"
-msgstr "2FA-koodi"
+msgstr "2FA kood"
 
 #: src/login/login_util.rs:113
 msgid "The provided 2FA code is invalid (should only contain digits)."
-msgstr "Annettu 2FA-koodi on virheellinen (se voi sisältää vain numeroja)."
+msgstr ""
+"Sisestatud kaheastmelise autentimise kood on vigane (ta peaks sisaldama vaid "
+"numbreid)."
 
 #: src/login/login_util.rs:118
 msgid "The provided 2FA code is invalid (should be 6 digits long)."
-msgstr "Annettu 2FA-koodi on virheellinen (pitää olla kuusinumeroinen)."
+msgstr ""
+"Sisestatud kaheastmelise autentimise kood on vigane (ta pikkus peaks olema 6 "
+"numbrit)."
 
 #: src/login/login_util.rs:142
 msgid "Log in"
-msgstr "Kirjaudu"
+msgstr "Logi sisse"
 
 #: src/login/mod.rs:77
 msgid "Unable to connect to the server. Check your internet connection and try again."
 msgstr ""
-"Palvelimeen ei voitu muodostaa yhteyttä. Tarkista Internet-yhteytesi tila ja "
-"yritä uudelleen."
+"Ei õnnestu luua ühendust serveriga. Palun kontrolli, kas sinu arvuti või "
+"nutiseadme internetiühendus toimib ja proovi siis uuesti."
 
 #: src/login/mod.rs:80
 msgid "A 2FA code is required to log in to this account. Provide one and try again."
 msgstr ""
-"2FA-koodi vaaditaan tähän tiliin kirjautumiseksi. Anna 2FA-koodi ja yritä "
-"uudelleen."
+"Selle kasutajakontoga sisselogimisel on nõutav kaheastmeline autentimine. "
+"Palun lisa 2FA-kood ja proovi uuesti."
 
 #: src/login/mod.rs:83
 msgid "Unable to authenticate to the server. Check your login credentials and try again."
 msgstr ""
-"Tunnistautuminen palvelimelle ei onnistunut. Tarkista kirjautumistiedot ja "
-"yritä uudelleen."
+"Tuvastamine serveris ei õnnestu. Palun kontrolli, et kasutajanimi, salasõna "
+"ja/või kaheastmelise autentimise kood on õiged."
 
 #: src/login/mod.rs:87
 msgid "Unable to log in"
-msgstr "Kirjautuminen ei onnistunut"
+msgstr "Ei õnnestu sisse logida"
 
 #. The dropdown for selecting the server type.
 #: src/login/mod.rs:124
 msgid "Server Type"
-msgstr "Palvelimen tyyppi"
+msgstr "Serveri tüüp"
 
 #: src/tray.rs:13
 msgid "Awaiting sync checks..."
-msgstr "Odotetaan synkronointitarkistuksia..."
+msgstr "Ootan sünkroniseerimiskontrolle..."
 
-#: src/tray.rs:57
+#: src/tray.rs:60
 msgid "Open"
-msgstr "Avaa"
+msgstr "Ava"
 
-#: src/tray.rs:64
+#: src/tray.rs:67
 msgid "Close"
-msgstr "Sulje"
+msgstr "Sulge"
 
 #: src/main.rs:188
 msgid "Unknown Error"
-msgstr "Tuntematon virhe"
+msgstr "Tundmatu viga"
 
 #: src/main.rs:195
 msgid "An unknown error has occurred while running. This is an internal issue with Celeste and should be reported.\n"
 "\n"
 "The following backtrace may help with debugging the issue - note that it may contain information such as login tokens/keys, so avoid posting the information publicly:"
 msgstr ""
-"Suorituksen aikana tapahjtui tuntematon virhe. Tämä on Celesten sisäinen "
-"virhe ja se pitäisi ilmoittaa kehittäjille.\n"
+"Rakenduse töös tekkis viga. Kuna tegemist on Celeste'i rakendusesisese "
+"veaga, siis palun anna sellest arendajatele teada.\n"
 "\n"
-"Seuraavat virheenjäljitystiedot voivat auttaa vian selvittämisessä - huomaa, "
-"että virheenjäljitystiedot saattavat sisältää arkaluonteista tietoa, kuten "
-"kirjautumispoletin tai avaimen, joten älä lähetä tätä tietoa julkisesti:"
+"Järgnevast aktiivsusjäljest võib veaotsingus kasu olla. Palun arvesta, et "
+"neis andmetes võib leiduda isiklikku teavet, salasõnu, krüptovõtmeid ja muud "
+"sarnast ning seega palun ära lisa neid avalikesse kanaleisse:"

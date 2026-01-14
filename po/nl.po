@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: Celeste 0.4.6\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-02-25 02:14+0000\n"
-"PO-Revision-Date: 2023-02-27 13:02+0000\n"
-"Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
-"Language-Team: Dutch <https://weblate.makedeb.org/projects/hwittenborn/"
-"celeste/nl/>\n"
+"PO-Revision-Date: 2025-05-24 11:43+0000\n"
+"Last-Translator: Marijn Scholtus <linkable@gmail.com>\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/celeste/celeste/nl/"
+">\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.15.2\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #: celeste/src/gtk_util.rs:20 celeste/src/gtk_util.rs:43
 #: celeste/src/launch.rs:681 celeste/src/launch.rs:819
@@ -122,7 +122,7 @@ msgstr "Alle toegewezen mappen worden niet meer gesynchroniseerd."
 
 #: celeste/src/launch.rs:1146 celeste-tray/src/main.rs:51
 msgid "Awaiting sync checks..."
-msgstr "Bezig met wachten op synchronisatiecontrole…"
+msgstr "Bezig met wachten op synchronisatiecontroles…"
 
 #. Notify the tray app that we're syncing this remote now.
 #: celeste/src/launch.rs:1242
@@ -263,7 +263,7 @@ msgstr ""
 "De servernaam is ongeldig. Servernamen dienen:\n"
 "- Enkel te bestaan uit letters, getallen, ‘_’, ‘-’, ‘.’ en spaties;\n"
 "- Niet te beginnen met ‘-’ of een spatie;\n"
-"- Niet te eindigen op een spatie."
+"- Niet te eindigen op een spatie"
 
 #: celeste/src/login/login_util.rs:42
 msgid "Server URL"
